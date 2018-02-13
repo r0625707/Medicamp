@@ -7,5 +7,5 @@ jdk:
 script:
   mvn clean package
 sudo: required
-before_script:
+before_install:
   chmod +x ./mvnw
