@@ -11,13 +11,6 @@
   <name>springboot-appengine-standard</name>
   <description>Demo project for Spring Boot</description>
 
-  <parent>                              <!-- Get parameters and allow bulk testing -->
-    <artifactId>getting-started-java</artifactId>
-    <groupId>com.example</groupId>
-    <version>1.0.0</version>
-    <relativePath>../..</relativePath>
-  </parent>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
