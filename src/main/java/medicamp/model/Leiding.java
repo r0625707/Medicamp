@@ -6,45 +6,44 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties (ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Leiding extends Persoon {
 	@Id
 	@GeneratedValue
 	private long id;
-public long getId() {
+
+	public long getId() {
 		return id;
 	}
 
-private String email,telefoonNummer;
+	private String email, telefoonNummer;
 
-public Leiding() {
-	
-}
+	public Leiding() {
 
-public Leiding(String naam, String voornaam, String email, String telefoonNummer) {
-	super(naam,voornaam);
-	
-	this.email = email;
-	this.telefoonNummer = telefoonNummer;
-}
+	}
 
-public String getEmail() {
-	return email;
-}
+	public Leiding(String naam, String voornaam, String email, String telefoonNummer) {
+		super(naam, voornaam);
 
-public void setEmail(String email) {
-	this.email = email;
-}
+		this.email = email;
+		this.telefoonNummer = telefoonNummer;
+	}
 
-public String getTelefoonNummer() {
-	return telefoonNummer;
-}
+	public String getEmail() {
+		return email;
+	}
 
-public void setTelefoonNummer(String telefoonNummer) {
-	this.telefoonNummer = telefoonNummer;
-}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getTelefoonNummer() {
+		return telefoonNummer;
+	}
 
+	public void setTelefoonNummer(String telefoonNummer) {
+		this.telefoonNummer = telefoonNummer;
+	}
 
 }

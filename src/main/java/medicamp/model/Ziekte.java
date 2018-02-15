@@ -6,52 +6,56 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties (ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Ziekte {
 	@Id
 	@GeneratedValue
 	private long id;
-public long getId() {
+
+	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
 
-private String naam,symptomen,behandeling;
-public Ziekte() {
-	
-}
-public Ziekte(String naam, String symptomen, String behandeling) {
+	private String naam, symptomen, behandeling;
 
-	this.naam = naam;
-	this.symptomen = symptomen;
-	this.behandeling = behandeling;
-}
+	public Ziekte() {
 
-public String getNaam() {
-	return naam;
-}
+	}
 
-public void setNaam(String naam) {
-	this.naam = naam;
-}
+	public Ziekte(String naam, String symptomen, String behandeling) {
 
-public String getSymptomen() {
-	return symptomen;
-}
+		this.naam = naam;
+		this.symptomen = symptomen;
+		this.behandeling = behandeling;
+	}
 
-public void setSymptomen(String symptomen) {
-	this.symptomen = symptomen;
-}
+	public String getNaam() {
+		return naam;
+	}
 
-public String getBehandeling() {
-	return behandeling;
-}
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
 
-public void setBehandeling(String behandeling) {
-	this.behandeling = behandeling;
-}
+	public String getSymptomen() {
+		return symptomen;
+	}
+
+	public void setSymptomen(String symptomen) {
+		this.symptomen = symptomen;
+	}
+
+	public String getBehandeling() {
+		return behandeling;
+	}
+
+	public void setBehandeling(String behandeling) {
+		this.behandeling = behandeling;
+	}
 
 }

@@ -4,39 +4,42 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties (ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Behandeling {
 	@Id
 	@GeneratedValue
 	private long id;
-public long getId() {
+
+	public long getId() {
 		return id;
 	}
 
-private String naam,opmerking;
-public Behandeling(){
-	
-}
-public Behandeling(String naam, String opmerking) {
-	
-	this.naam = naam;
-	this.opmerking = opmerking;
-}
+	private String naam, opmerking;
 
-public String getNaam() {
-	return naam;
-}
+	public Behandeling() {
 
-public void setNaam(String naam) {
-	this.naam = naam;
-}
+	}
 
-public String getOpmerking() {
-	return opmerking;
-}
+	public Behandeling(String naam, String opmerking) {
 
-public void setOpmerking(String opmerking) {
-	this.opmerking = opmerking;
-}
+		this.naam = naam;
+		this.opmerking = opmerking;
+	}
+
+	public String getNaam() {
+		return naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public String getOpmerking() {
+		return opmerking;
+	}
+
+	public void setOpmerking(String opmerking) {
+		this.opmerking = opmerking;
+	}
 }

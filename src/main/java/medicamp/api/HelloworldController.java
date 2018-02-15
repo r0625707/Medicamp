@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 import medicamp.model.Groep;
 import medicamp.model.Kind;
 import medicamp.model.Voogd;
@@ -35,36 +33,40 @@ import medicamp.model.Voogd;
 public class HelloworldController {
 	@Autowired
 	private Service service;
-	//of groepsnaam
-	@RequestMapping("/{groepID}/{takNaam}")
-    public List<Kind> getKinderen(@PathVariable String groepID,String takNaam) {
-        return service.getKinderen(groepID,takNaam);
- }
-	@RequestMapping(value="/groep", method=RequestMethod.POST)
-    public void addGroep(@RequestBody Groep groep) {
-        service.addGroep(groep);
- }
-	@RequestMapping(value="/voogd", method=RequestMethod.POST)
-    public void addVoogd(@RequestBody Voogd voogd) {
-        service.addVoogd(voogd);
- }
-	@RequestMapping(value="/kind", method=RequestMethod.POST)
-    public void addKind(@RequestBody Kind kind) {
-		
-		//in service kind.getVoogdID
-        service.addKind(kind);
- }
-	
-	//DEES IS OM RELATIE TE LEGGEN TUSSEN MANYTOMANY, MOETK NOG TEGOEI BEZIEN
-	@RequestMapping(value="/tak/{takID}/kind", method=RequestMethod.PUT)
-    public void setKindtoTak(@RequestBody Kind kind,@PathVariable String takID) {
-		//Variabele groepID checken of dat zo kan
 
-        service.addKindtoTak(takID,kind);
- }
-	
-  @GetMapping("/")
-  public String hello() {
-    return "Welcome to Medicamp API!";
-  }
+	// of groepsnaam
+	@RequestMapping("/{groepID}/{takNaam}")
+	public List<Kind> getKinderen(@PathVariable String groepID, String takNaam) {
+		return service.getKinderen(groepID, takNaam);
+	}
+
+	@RequestMapping(value = "/groep", method = RequestMethod.POST)
+	public void addGroep(@RequestBody Groep groep) {
+		service.addGroep(groep);
+	}
+
+	@RequestMapping(value = "/voogd", method = RequestMethod.POST)
+	public void addVoogd(@RequestBody Voogd voogd) {
+		service.addVoogd(voogd);
+	}
+
+	@RequestMapping(value = "/kind", method = RequestMethod.POST)
+	public void addKind(@RequestBody Kind kind) {
+
+		// in service kind.getVoogdID
+		service.addKind(kind);
+	}
+
+	// DEES IS OM RELATIE TE LEGGEN TUSSEN MANYTOMANY, MOETK NOG TEGOEI BEZIEN
+	@RequestMapping(value = "/tak/{takID}/kind", method = RequestMethod.PUT)
+	public void setKindtoTak(@RequestBody Kind kind, @PathVariable String takID) {
+		// Variabele groepID checken of dat zo kan
+
+		service.addKindtoTak(takID, kind);
+	}
+
+	@GetMapping("/")
+	public String hello() {
+		return "Welcome to Medicamp API!";
+	}
 }
