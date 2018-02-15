@@ -2,13 +2,23 @@ package medicamp.model;
 
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties (ignoreUnknown=true)
-
+@Entity
 public class Kind extends Persoon{
-	
-private String naam, voornaam,opmerking;
+	@Id
+	@GeneratedValue
+	private long id;
+private String opmerking;
 private Date geboorteDatum;
+
+public long getId() {
+	return id;
+}
 
 public Kind() {
 	

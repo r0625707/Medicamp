@@ -1,10 +1,24 @@
 package medicamp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
-
+@Entity
 public class Ziekte {
+	@Id
+	@GeneratedValue
+	private long id;
+public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+
 private String naam,symptomen,behandeling;
 public Ziekte() {
 	

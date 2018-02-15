@@ -1,9 +1,22 @@
 package medicamp.model;
 
+import javax.persistence.*;
+
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
+@Entity
 public class Activiteit {
+	
+	@Id
+	@GeneratedValue
+	private long id;
+	public long getId() {
+		return id;
+	}
+	private String naam,beschrijving;
+	private boolean beginDatum,eindDatum;	
 	public Activiteit() {
 		
 	}
@@ -13,8 +26,7 @@ public Activiteit(String naam, String beschrijving, boolean beginDatum, boolean 
 		this.beginDatum = beginDatum;
 		this.eindDatum = eindDatum;
 	}
-private String naam,beschrijving;
-private boolean beginDatum,eindDatum;
+
 public String getNaam() {
 	return naam;
 }

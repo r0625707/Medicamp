@@ -2,11 +2,21 @@ package medicamp.model;
 
 import java.sql.Time;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
-
+@Entity
 public class Tijdstip {
+	@Id
+	@GeneratedValue
+	private long id;
+public long getId() {
+		return id;
+	}
 private String dosis;
 private Time tijdstip;
 public Tijdstip(){

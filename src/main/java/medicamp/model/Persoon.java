@@ -1,10 +1,13 @@
 package medicamp.model;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
 
 public abstract class Persoon {
+	
 private String naam,voornaam;
 public Persoon() {
 	

@@ -1,14 +1,22 @@
 package medicamp.model;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
-
+@Entity
 public class Voogd extends Persoon {
-private String naam,voornaam, telefoonNummer,email,plaats,straat,passwoord,salt;
+	@Id
+	@GeneratedValue
+	private long id;
+public long getId() {
+		return id;
+	}
+private String  telefoonNummer,email,plaats,straat,passwoord,salt;
 private int postcode,huisNummer,bus;
 private List<Voogd> altVoogdList;
 public Voogd(String naam, String voornaam, String telefoonNummer, String email, String plaats, String straat,

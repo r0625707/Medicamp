@@ -1,10 +1,20 @@
 package medicamp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
-
+@Entity
 public class Groep {
+	@Id
+	@GeneratedValue
+	private long id;
+public long getId() {
+		return id;
+	}
 private String naam,plaats,straat,link,password,email;
 private int postcode,huisnr,bus;
 public Groep() {

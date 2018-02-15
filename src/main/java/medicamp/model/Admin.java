@@ -1,10 +1,21 @@
 package medicamp.model;
 
+
+import javax.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties (ignoreUnknown=true)
+@Entity
 public class Admin extends Persoon{
-private String naam,voornaam,email,password,salt;
+	@Id
+	@GeneratedValue
+	private long id;
+
+private String email,password,salt;
+public long getId() {
+	return id;
+}
 public Admin() {
 	
 }
