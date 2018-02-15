@@ -1,4 +1,4 @@
-package model;
+package medicamp.model;
 
 import java.sql.Time;
 
