@@ -17,21 +17,30 @@ public class Activiteit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idActiviteit;
+	private int idactiviteit;
 
 	@Temporal(TemporalType.DATE)
-	private Date beginDatum;
+	private Date begindatum;
 
 	@Lob
 	private String beschrijving;
 
 	@Temporal(TemporalType.DATE)
-	private Date eindDatum;
+	private Date einddatum;
 
 	private String naam;
 
 	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="activiteits")
+	@ManyToMany
+	@JoinTable(
+		name="activiteit_kind"
+		, joinColumns={
+			@JoinColumn(name="idactiviteit")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idkind")
+			}
+		)
 	private List<Kind> kinds;
 
 	//bi-directional many-to-many association to Tak
@@ -41,20 +50,20 @@ public class Activiteit implements Serializable {
 	public Activiteit() {
 	}
 
-	public int getIdActiviteit() {
-		return this.idActiviteit;
+	public int getIdactiviteit() {
+		return this.idactiviteit;
 	}
 
-	public void setIdActiviteit(int idActiviteit) {
-		this.idActiviteit = idActiviteit;
+	public void setIdactiviteit(int idactiviteit) {
+		this.idactiviteit = idactiviteit;
 	}
 
-	public Date getBeginDatum() {
-		return this.beginDatum;
+	public Date getBegindatum() {
+		return this.begindatum;
 	}
 
-	public void setBeginDatum(Date beginDatum) {
-		this.beginDatum = beginDatum;
+	public void setBegindatum(Date begindatum) {
+		this.begindatum = begindatum;
 	}
 
 	public String getBeschrijving() {
@@ -65,12 +74,12 @@ public class Activiteit implements Serializable {
 		this.beschrijving = beschrijving;
 	}
 
-	public Date getEindDatum() {
-		return this.eindDatum;
+	public Date getEinddatum() {
+		return this.einddatum;
 	}
 
-	public void setEindDatum(Date eindDatum) {
-		this.eindDatum = eindDatum;
+	public void setEinddatum(Date einddatum) {
+		this.einddatum = einddatum;
 	}
 
 	public String getNaam() {

@@ -17,12 +17,12 @@ public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idKind;
+	private int idkind;
 
 	private byte dafi;
 
 	@Temporal(TemporalType.DATE)
-	private Date gebDatum;
+	private Date gebdatum;
 
 	private String naam;
 
@@ -36,71 +36,75 @@ public class Kind implements Serializable {
 	private byte zwemmen;
 
 	//bi-directional many-to-many association to Activiteit
-	@ManyToMany
-	@JoinTable(
-		name="kind_activiteit"
-		, joinColumns={
-			@JoinColumn(name="idKind")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idActiviteit")
-			}
-		)
+	@ManyToMany(mappedBy="kinds")
 	private List<Activiteit> activiteits;
 
-	//bi-directional many-to-many association to Behandeling
-	@ManyToMany
-	@JoinTable(
-		name="kind_behandeling"
-		, joinColumns={
-			@JoinColumn(name="idKind")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idBehandeling")
-			}
-		)
-	private List<Behandeling> behandelings;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="login")
+	private User user;
 
 	//bi-directional many-to-many association to Dieet
 	@ManyToMany
 	@JoinTable(
-		name="kind_has_dieet"
+		name="kind_dieet"
 		, joinColumns={
-			@JoinColumn(name="idKind")
+			@JoinColumn(name="idkind")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idDieet")
+			@JoinColumn(name="iddieet")
 			}
 		)
 	private List<Dieet> dieets;
+
+	//bi-directional many-to-many association to Medicatie
+	@ManyToMany
+	@JoinTable(
+		name="kind_medicatie"
+		, joinColumns={
+			@JoinColumn(name="idkind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idmedicatie")
+			}
+		)
+	private List<Medicatie> medicaties;
 
 	//bi-directional many-to-many association to Tak
 	@ManyToMany
 	@JoinTable(
 		name="kind_tak"
 		, joinColumns={
-			@JoinColumn(name="idKind")
+			@JoinColumn(name="idkind")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idTak")
+			@JoinColumn(name="idtak")
 			}
 		)
 	private List<Tak> taks;
 
-	//bi-directional many-to-one association to Voogd
-	@ManyToOne
-	@JoinColumn(name="idVoogd")
-	private Voogd voogd;
+	//bi-directional many-to-many association to Voogd
+	@ManyToMany
+	@JoinTable(
+		name="kind_voogd"
+		, joinColumns={
+			@JoinColumn(name="idkind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idvoogd")
+			}
+		)
+	private List<Voogd> voogds;
 
 	//bi-directional many-to-many association to Ziekte
 	@ManyToMany
 	@JoinTable(
 		name="kind_ziekte"
 		, joinColumns={
-			@JoinColumn(name="idKind")
+			@JoinColumn(name="idkind")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idZiekte")
+			@JoinColumn(name="idziekte")
 			}
 		)
 	private List<Ziekte> ziektes;
@@ -108,12 +112,12 @@ public class Kind implements Serializable {
 	public Kind() {
 	}
 
-	public int getIdKind() {
-		return this.idKind;
+	public int getIdkind() {
+		return this.idkind;
 	}
 
-	public void setIdKind(int idKind) {
-		this.idKind = idKind;
+	public void setIdkind(int idkind) {
+		this.idkind = idkind;
 	}
 
 	public byte getDafi() {
@@ -124,12 +128,12 @@ public class Kind implements Serializable {
 		this.dafi = dafi;
 	}
 
-	public Date getGebDatum() {
-		return this.gebDatum;
+	public Date getGebdatum() {
+		return this.gebdatum;
 	}
 
-	public void setGebDatum(Date gebDatum) {
-		this.gebDatum = gebDatum;
+	public void setGebdatum(Date gebdatum) {
+		this.gebdatum = gebdatum;
 	}
 
 	public String getNaam() {
@@ -180,12 +184,12 @@ public class Kind implements Serializable {
 		this.activiteits = activiteits;
 	}
 
-	public List<Behandeling> getBehandelings() {
-		return this.behandelings;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setBehandelings(List<Behandeling> behandelings) {
-		this.behandelings = behandelings;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Dieet> getDieets() {
@@ -196,6 +200,14 @@ public class Kind implements Serializable {
 		this.dieets = dieets;
 	}
 
+	public List<Medicatie> getMedicaties() {
+		return this.medicaties;
+	}
+
+	public void setMedicaties(List<Medicatie> medicaties) {
+		this.medicaties = medicaties;
+	}
+
 	public List<Tak> getTaks() {
 		return this.taks;
 	}
@@ -204,12 +216,12 @@ public class Kind implements Serializable {
 		this.taks = taks;
 	}
 
-	public Voogd getVoogd() {
-		return this.voogd;
+	public List<Voogd> getVoogds() {
+		return this.voogds;
 	}
 
-	public void setVoogd(Voogd voogd) {
-		this.voogd = voogd;
+	public void setVoogds(List<Voogd> voogds) {
+		this.voogds = voogds;
 	}
 
 	public List<Ziekte> getZiektes() {

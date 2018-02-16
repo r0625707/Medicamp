@@ -3,20 +3,19 @@
 	<persistence-unit name="api" transaction-type="RESOURCE_LOCAL">
 	 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 	 <class>medicamp.model.Activiteit</class>
-	 <class>medicamp.model.Admin</class>
-	 <class>medicamp.model.Behandeling</class>
 	 <class>medicamp.model.Dieet</class>
 	 <class>medicamp.model.Groep</class>
 	 <class>medicamp.model.Kind</class>
-	 <class>medicamp.model.Leiding</class>
+	 <class>medicamp.model.Medicatie</class>
 	 <class>medicamp.model.Tak</class>
 	 <class>medicamp.model.Tijdstip</class>
+	 <class>medicamp.model.User</class>
 	 <class>medicamp.model.Voogd</class>
 	 <class>medicamp.model.Ziekte</class>
   <exclude-unlisted-classes>false</exclude-unlisted-classes>
 	
 	<properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://35.195.195.51:3306/medicamp"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://35.195.195.51:3306/medicamp_test"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="ApSO1718m"/>

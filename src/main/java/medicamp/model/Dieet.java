@@ -16,7 +16,7 @@ public class Dieet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idDieet;
+	private int iddieet;
 
 	private String naam;
 
@@ -30,12 +30,12 @@ public class Dieet implements Serializable {
 	public Dieet() {
 	}
 
-	public int getIdDieet() {
-		return this.idDieet;
+	public int getIddieet() {
+		return this.iddieet;
 	}
 
-	public void setIdDieet(int idDieet) {
-		this.idDieet = idDieet;
+	public void setIddieet(int iddieet) {
+		this.iddieet = iddieet;
 	}
 
 	public String getNaam() {

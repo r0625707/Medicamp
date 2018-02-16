@@ -16,7 +16,7 @@ public class Ziekte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idZiekte;
+	private int idziekte;
 
 	@Lob
 	private String behandeling;
@@ -33,12 +33,12 @@ public class Ziekte implements Serializable {
 	public Ziekte() {
 	}
 
-	public int getIdZiekte() {
-		return this.idZiekte;
+	public int getIdziekte() {
+		return this.idziekte;
 	}
 
-	public void setIdZiekte(int idZiekte) {
-		this.idZiekte = idZiekte;
+	public void setIdziekte(int idziekte) {
+		this.idziekte = idziekte;
 	}
 
 	public String getBehandeling() {

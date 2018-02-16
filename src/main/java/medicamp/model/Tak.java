@@ -16,7 +16,7 @@ public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idTak;
+	private int idtak;
 
 	private String naam;
 
@@ -27,33 +27,36 @@ public class Tak implements Serializable {
 	@ManyToMany(mappedBy="taks")
 	private List<Kind> kinds;
 
+	//bi-directional many-to-one association to Groep
+	@ManyToOne
+	private Groep groep;
+
 	//bi-directional many-to-many association to Activiteit
 	@ManyToMany
 	@JoinTable(
 		name="tak_activiteit"
 		, joinColumns={
-			@JoinColumn(name="idTak")
+			@JoinColumn(name="idtak")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idActiviteit")
+			@JoinColumn(name="idactiviteit")
 			}
 		)
 	private List<Activiteit> activiteits;
 
-	//bi-directional many-to-one association to Groep
-	@ManyToOne
-	@JoinColumn(name="idGroep")
-	private Groep groep;
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="taks")
+	private List<User> users;
 
 	public Tak() {
 	}
 
-	public int getIdTak() {
-		return this.idTak;
+	public int getIdtak() {
+		return this.idtak;
 	}
 
-	public void setIdTak(int idTak) {
-		this.idTak = idTak;
+	public void setIdtak(int idtak) {
+		this.idtak = idtak;
 	}
 
 	public String getNaam() {
@@ -80,6 +83,14 @@ public class Tak implements Serializable {
 		this.kinds = kinds;
 	}
 
+	public Groep getGroep() {
+		return this.groep;
+	}
+
+	public void setGroep(Groep groep) {
+		this.groep = groep;
+	}
+
 	public List<Activiteit> getActiviteits() {
 		return this.activiteits;
 	}
@@ -88,12 +99,12 @@ public class Tak implements Serializable {
 		this.activiteits = activiteits;
 	}
 
-	public Groep getGroep() {
-		return this.groep;
+	public List<User> getUsers() {
+		return this.users;
 	}
 
-	public void setGroep(Groep groep) {
-		this.groep = groep;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 }

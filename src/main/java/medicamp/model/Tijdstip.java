@@ -2,8 +2,7 @@ package medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.List;
+import java.util.Date;
 
 
 /**
@@ -17,25 +16,27 @@ public class Tijdstip implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idTijdstip;
+	private int idtijdstip;
 
 	private String dosis;
 
-	private Time tijdstip;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date tijdstip;
 
-	//bi-directional many-to-many association to Behandeling
-	@ManyToMany(mappedBy="tijdstips")
-	private List<Behandeling> behandelings;
+	//bi-directional many-to-one association to Medicatie
+	@ManyToOne
+	@JoinColumn(name="idmedicatie")
+	private Medicatie medicatie;
 
 	public Tijdstip() {
 	}
 
-	public int getIdTijdstip() {
-		return this.idTijdstip;
+	public int getIdtijdstip() {
+		return this.idtijdstip;
 	}
 
-	public void setIdTijdstip(int idTijdstip) {
-		this.idTijdstip = idTijdstip;
+	public void setIdtijdstip(int idtijdstip) {
+		this.idtijdstip = idtijdstip;
 	}
 
 	public String getDosis() {
@@ -46,20 +47,20 @@ public class Tijdstip implements Serializable {
 		this.dosis = dosis;
 	}
 
-	public Time getTijdstip() {
+	public Date getTijdstip() {
 		return this.tijdstip;
 	}
 
-	public void setTijdstip(Time tijdstip) {
+	public void setTijdstip(Date tijdstip) {
 		this.tijdstip = tijdstip;
 	}
 
-	public List<Behandeling> getBehandelings() {
-		return this.behandelings;
+	public Medicatie getMedicatie() {
+		return this.medicatie;
 	}
 
-	public void setBehandelings(List<Behandeling> behandelings) {
-		this.behandelings = behandelings;
+	public void setMedicatie(Medicatie medicatie) {
+		this.medicatie = medicatie;
 	}
 
 }

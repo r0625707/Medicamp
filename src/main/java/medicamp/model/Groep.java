@@ -16,7 +16,7 @@ public class Groep implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int idGroep;
+	private int idgroep;
 
 	private String bus;
 
@@ -24,24 +24,20 @@ public class Groep implements Serializable {
 
 	private int huisnr;
 
-	@Lob
 	private String link;
 
 	private String naam;
-
-	private String password;
 
 	private String plaats;
 
 	private String postcode;
 
-	private String salt;
-
 	private String straat;
 
-	//bi-directional many-to-one association to Leiding
-	@OneToMany(mappedBy="groep")
-	private List<Leiding> leidings;
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="login")
+	private User user;
 
 	//bi-directional many-to-one association to Tak
 	@OneToMany(mappedBy="groep")
@@ -50,12 +46,12 @@ public class Groep implements Serializable {
 	public Groep() {
 	}
 
-	public int getIdGroep() {
-		return this.idGroep;
+	public int getIdgroep() {
+		return this.idgroep;
 	}
 
-	public void setIdGroep(int idGroep) {
-		this.idGroep = idGroep;
+	public void setIdgroep(int idgroep) {
+		this.idgroep = idgroep;
 	}
 
 	public String getBus() {
@@ -98,14 +94,6 @@ public class Groep implements Serializable {
 		this.naam = naam;
 	}
 
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getPlaats() {
 		return this.plaats;
 	}
@@ -122,14 +110,6 @@ public class Groep implements Serializable {
 		this.postcode = postcode;
 	}
 
-	public String getSalt() {
-		return this.salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
 	public String getStraat() {
 		return this.straat;
 	}
@@ -138,26 +118,12 @@ public class Groep implements Serializable {
 		this.straat = straat;
 	}
 
-	public List<Leiding> getLeidings() {
-		return this.leidings;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setLeidings(List<Leiding> leidings) {
-		this.leidings = leidings;
-	}
-
-	public Leiding addLeiding(Leiding leiding) {
-		getLeidings().add(leiding);
-		leiding.setGroep(this);
-
-		return leiding;
-	}
-
-	public Leiding removeLeiding(Leiding leiding) {
-		getLeidings().remove(leiding);
-		leiding.setGroep(null);
-
-		return leiding;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public List<Tak> getTaks() {
