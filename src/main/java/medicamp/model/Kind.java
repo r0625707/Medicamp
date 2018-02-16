@@ -15,7 +15,7 @@ import java.util.List;
 @NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int idkind;
 
