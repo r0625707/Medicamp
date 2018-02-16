@@ -1,35 +1,63 @@
 package medicamp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the tak database table.
+ * 
+ */
 @Entity
-public class Tak {
+@Table(name="tak")
+@NamedQuery(name="Tak.findAll", query="SELECT t FROM Tak t")
+public class Tak implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idTak;
 
-	public long getId() {
-		return id;
-	}
+	private String naam;
 
-	private String naam, omschrijving;
+	@Lob
+	private String omschrijving;
+
+	//bi-directional many-to-many association to Kind
+	@ManyToMany(mappedBy="taks")
+	private List<Kind> kinds;
+
+	//bi-directional many-to-many association to Activiteit
+	@ManyToMany
+	@JoinTable(
+		name="tak_activiteit"
+		, joinColumns={
+			@JoinColumn(name="idTak")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idActiviteit")
+			}
+		)
+	private List<Activiteit> activiteits;
+
+	//bi-directional many-to-one association to Groep
+	@ManyToOne
+	@JoinColumn(name="idGroep")
+	private Groep groep;
 
 	public Tak() {
-
 	}
 
-	public Tak(String naam, String omschrijving) {
-		setNaam(naam);
-		setOmschrijving(omschrijving);
+	public int getIdTak() {
+		return this.idTak;
+	}
+
+	public void setIdTak(int idTak) {
+		this.idTak = idTak;
 	}
 
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
 	public void setNaam(String naam) {
@@ -37,10 +65,35 @@ public class Tak {
 	}
 
 	public String getOmschrijving() {
-		return omschrijving;
+		return this.omschrijving;
 	}
 
 	public void setOmschrijving(String omschrijving) {
 		this.omschrijving = omschrijving;
 	}
+
+	public List<Kind> getKinds() {
+		return this.kinds;
+	}
+
+	public void setKinds(List<Kind> kinds) {
+		this.kinds = kinds;
+	}
+
+	public List<Activiteit> getActiviteits() {
+		return this.activiteits;
+	}
+
+	public void setActiviteits(List<Activiteit> activiteits) {
+		this.activiteits = activiteits;
+	}
+
+	public Groep getGroep() {
+		return this.groep;
+	}
+
+	public void setGroep(Groep groep) {
+		this.groep = groep;
+	}
+
 }

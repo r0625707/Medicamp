@@ -1,155 +1,209 @@
 package medicamp.model;
 
-import java.util.ArrayList;
-
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import javax.persistence.*;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the voogd database table.
+ * 
+ */
 @Entity
-public class Voogd extends Persoon {
+@Table(name="voogd")
+@NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
+public class Voogd implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idVoogd;
 
-	public long getId() {
-		return id;
-	}
+	private String altNaam;
 
-	private String telefoonNummer, email, plaats, straat, passwoord, salt;
-	private int postcode, huisNummer, bus;
-	private List<Voogd> altVoogdList;
+	private String altTel;
 
-	public Voogd(String naam, String voornaam, String telefoonNummer, String email, String plaats, String straat,
-			int postcode, int huisNummer, int bus) {
-		super(naam, voornaam);
-		// this.naam = naam;
-		// this.voornaam = voornaam;
-		this.telefoonNummer = telefoonNummer;
-		this.email = email;
-		this.plaats = plaats;
-		this.straat = straat;
-		this.postcode = postcode;
-		this.huisNummer = huisNummer;
-		this.bus = bus;
-	}
+	private String altVoornaam;
 
-	public Voogd(String naam, String voornaam, String telefoonNummer, String email, String plaats, String straat,
-			String passwoord, String salt, int postcode, int huisNummer, int bus, List<Voogd> altVoogdList) {
-		super(naam, voornaam);
-		// this.naam = naam;
-		// this.voornaam = voornaam;
-		this.telefoonNummer = telefoonNummer;
-		this.email = email;
-		this.plaats = plaats;
-		this.straat = straat;
-		this.passwoord = passwoord;
-		this.salt = salt;
-		this.postcode = postcode;
-		this.huisNummer = huisNummer;
-		this.bus = bus;
-		// eerst voogd in list zetten en dan meegeven
-		// OF
-		// dit aanpassen
-		this.altVoogdList = altVoogdList;
-	}
+	private String bus;
+
+	private String email;
+
+	private int huisnr;
+
+	@Lob
+	private String link;
+
+	private String naam;
+
+	private String password;
+
+	private String plaats;
+
+	private String postcode;
+
+	private String salt;
+
+	private String straat;
+
+	private String tel;
+
+	private String voornaam;
+
+	//bi-directional many-to-one association to Kind
+	@OneToMany(mappedBy="voogd")
+	private List<Kind> kinds;
 
 	public Voogd() {
-		this.altVoogdList = new ArrayList<Voogd>();
 	}
 
-	public String getTelefoonNummer() {
-		return telefoonNummer;
+	public int getIdVoogd() {
+		return this.idVoogd;
 	}
 
-	public void setTelefoonNummer(String telefoonNummer) {
-		this.telefoonNummer = telefoonNummer;
+	public void setIdVoogd(int idVoogd) {
+		this.idVoogd = idVoogd;
+	}
+
+	public String getAltNaam() {
+		return this.altNaam;
+	}
+
+	public void setAltNaam(String altNaam) {
+		this.altNaam = altNaam;
+	}
+
+	public String getAltTel() {
+		return this.altTel;
+	}
+
+	public void setAltTel(String altTel) {
+		this.altTel = altTel;
+	}
+
+	public String getAltVoornaam() {
+		return this.altVoornaam;
+	}
+
+	public void setAltVoornaam(String altVoornaam) {
+		this.altVoornaam = altVoornaam;
+	}
+
+	public String getBus() {
+		return this.bus;
+	}
+
+	public void setBus(String bus) {
+		this.bus = bus;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	public int getHuisnr() {
+		return this.huisnr;
+	}
+
+	public void setHuisnr(int huisnr) {
+		this.huisnr = huisnr;
+	}
+
+	public String getLink() {
+		return this.link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getNaam() {
+		return this.naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getPlaats() {
-		return plaats;
+		return this.plaats;
 	}
 
 	public void setPlaats(String plaats) {
 		this.plaats = plaats;
 	}
 
-	public String getStraat() {
-		return straat;
+	public String getPostcode() {
+		return this.postcode;
 	}
 
-	public void setStraat(String straat) {
-		this.straat = straat;
-	}
-
-	public String getPasswoord() {
-		return passwoord;
-	}
-
-	public void setPasswoord(String passwoord) {
-		this.passwoord = passwoord;
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
 	}
 
 	public String getSalt() {
-		return salt;
+		return this.salt;
 	}
 
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
 
-	public int getPostcode() {
-		return postcode;
+	public String getStraat() {
+		return this.straat;
 	}
 
-	public void setPostcode(int postcode) {
-		this.postcode = postcode;
+	public void setStraat(String straat) {
+		this.straat = straat;
 	}
 
-	public int getHuisNummer() {
-		return huisNummer;
+	public String getTel() {
+		return this.tel;
 	}
 
-	public void setHuisNummer(int huisNummer) {
-		this.huisNummer = huisNummer;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
-	public int getBus() {
-		return bus;
+	public String getVoornaam() {
+		return this.voornaam;
 	}
 
-	public void setBus(int bus) {
-		this.bus = bus;
+	public void setVoornaam(String voornaam) {
+		this.voornaam = voornaam;
 	}
 
-	public List<Voogd> getAltVoogdList() {
-		return altVoogdList;
+	public List<Kind> getKinds() {
+		return this.kinds;
 	}
 
-	public void addAltVoogd(Voogd altVoogd) {
-		altVoogdList.add(altVoogd);
+	public void setKinds(List<Kind> kinds) {
+		this.kinds = kinds;
 	}
 
-	// public String getNaam() {
-	// return naam;
-	// }
-	// public void setNaam(String naam) {
-	// this.naam = naam;
-	// }
-	// public String getVoornaam() {
-	// return voornaam;
-	// }
-	// public void setVoornaam(String voornaam) {
-	// this.voornaam = voornaam;
-	// }
+	public Kind addKind(Kind kind) {
+		getKinds().add(kind);
+		kind.setVoogd(this);
+
+		return kind;
+	}
+
+	public Kind removeKind(Kind kind) {
+		getKinds().remove(kind);
+		kind.setVoogd(null);
+
+		return kind;
+	}
+
 }

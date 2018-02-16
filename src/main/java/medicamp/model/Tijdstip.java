@@ -1,39 +1,45 @@
 package medicamp.model;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Time;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the tijdstip database table.
+ * 
+ */
 @Entity
-public class Tijdstip {
-	@Id
-	@GeneratedValue
-	private long id;
+@Table(name="tijdstip")
+@NamedQuery(name="Tijdstip.findAll", query="SELECT t FROM Tijdstip t")
+public class Tijdstip implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public long getId() {
-		return id;
-	}
+	@Id
+	private int idTijdstip;
 
 	private String dosis;
+
 	private Time tijdstip;
 
-	public Tijdstip() {
+	//bi-directional many-to-many association to Behandeling
+	@ManyToMany(mappedBy="tijdstips")
+	private List<Behandeling> behandelings;
 
+	public Tijdstip() {
 	}
 
-	public Tijdstip(String dosis, Time tijdstip) {
+	public int getIdTijdstip() {
+		return this.idTijdstip;
+	}
 
-		this.dosis = dosis;
-		this.tijdstip = tijdstip;
+	public void setIdTijdstip(int idTijdstip) {
+		this.idTijdstip = idTijdstip;
 	}
 
 	public String getDosis() {
-		return dosis;
+		return this.dosis;
 	}
 
 	public void setDosis(String dosis) {
@@ -41,10 +47,19 @@ public class Tijdstip {
 	}
 
 	public Time getTijdstip() {
-		return tijdstip;
+		return this.tijdstip;
 	}
 
 	public void setTijdstip(Time tijdstip) {
 		this.tijdstip = tijdstip;
 	}
+
+	public List<Behandeling> getBehandelings() {
+		return this.behandelings;
+	}
+
+	public void setBehandelings(List<Behandeling> behandelings) {
+		this.behandelings = behandelings;
+	}
+
 }

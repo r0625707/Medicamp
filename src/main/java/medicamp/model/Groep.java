@@ -1,112 +1,185 @@
 package medicamp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the groep database table.
+ * 
+ */
 @Entity
-public class Groep {
+@Table(name="groep")
+@NamedQuery(name="Groep.findAll", query="SELECT g FROM Groep g")
+public class Groep implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idGroep;
 
-	public long getId() {
-		return id;
-	}
+	private String bus;
 
-	private String naam, plaats, straat, link, password, email;
-	private int postcode, huisnr, bus;
+	private String email;
+
+	private int huisnr;
+
+	@Lob
+	private String link;
+
+	private String naam;
+
+	private String password;
+
+	private String plaats;
+
+	private String postcode;
+
+	private String salt;
+
+	private String straat;
+
+	//bi-directional many-to-one association to Leiding
+	@OneToMany(mappedBy="groep")
+	private List<Leiding> leidings;
+
+	//bi-directional many-to-one association to Tak
+	@OneToMany(mappedBy="groep")
+	private List<Tak> taks;
 
 	public Groep() {
-
 	}
 
-	public String getNaam() {
-		return naam;
+	public int getIdGroep() {
+		return this.idGroep;
 	}
 
-	public void setNaam(String naam) {
-		this.naam = naam;
+	public void setIdGroep(int idGroep) {
+		this.idGroep = idGroep;
 	}
 
-	public String getPlaats() {
-		return plaats;
+	public String getBus() {
+		return this.bus;
 	}
 
-	public void setPlaats(String plaats) {
-		this.plaats = plaats;
-	}
-
-	public String getStraat() {
-		return straat;
-	}
-
-	public void setStraat(String straat) {
-		this.straat = straat;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setBus(String bus) {
+		this.bus = bus;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public int getPostcode() {
-		return postcode;
-	}
-
-	public void setPostcode(int postcode) {
-		this.postcode = postcode;
-	}
-
 	public int getHuisnr() {
-		return huisnr;
+		return this.huisnr;
 	}
 
 	public void setHuisnr(int huisnr) {
 		this.huisnr = huisnr;
 	}
 
-	public int getBus() {
-		return bus;
+	public String getLink() {
+		return this.link;
 	}
 
-	public void setBus(int bus) {
-		this.bus = bus;
-	}
-
-	public Groep(String naam, String plaats, String straat, String link, String password, String email, int postcode,
-			int huisnr, int bus) {
-		super();
-		this.naam = naam;
-		this.plaats = plaats;
-		this.straat = straat;
+	public void setLink(String link) {
 		this.link = link;
-		this.password = password;
-		this.email = email;
-		this.postcode = postcode;
-		this.huisnr = huisnr;
-		this.bus = bus;
 	}
+
+	public String getNaam() {
+		return this.naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPlaats() {
+		return this.plaats;
+	}
+
+	public void setPlaats(String plaats) {
+		this.plaats = plaats;
+	}
+
+	public String getPostcode() {
+		return this.postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getSalt() {
+		return this.salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getStraat() {
+		return this.straat;
+	}
+
+	public void setStraat(String straat) {
+		this.straat = straat;
+	}
+
+	public List<Leiding> getLeidings() {
+		return this.leidings;
+	}
+
+	public void setLeidings(List<Leiding> leidings) {
+		this.leidings = leidings;
+	}
+
+	public Leiding addLeiding(Leiding leiding) {
+		getLeidings().add(leiding);
+		leiding.setGroep(this);
+
+		return leiding;
+	}
+
+	public Leiding removeLeiding(Leiding leiding) {
+		getLeidings().remove(leiding);
+		leiding.setGroep(null);
+
+		return leiding;
+	}
+
+	public List<Tak> getTaks() {
+		return this.taks;
+	}
+
+	public void setTaks(List<Tak> taks) {
+		this.taks = taks;
+	}
+
+	public Tak addTak(Tak tak) {
+		getTaks().add(tak);
+		tak.setGroep(this);
+
+		return tak;
+	}
+
+	public Tak removeTak(Tak tak) {
+		getTaks().remove(tak);
+		tak.setGroep(null);
+
+		return tak;
+	}
+
 }

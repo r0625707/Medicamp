@@ -1,34 +1,58 @@
 package medicamp.model;
 
+import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the behandeling database table.
+ * 
+ */
 @Entity
-public class Behandeling {
+@Table(name="behandeling")
+@NamedQuery(name="Behandeling.findAll", query="SELECT b FROM Behandeling b")
+public class Behandeling implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idBehandeling;
 
-	public long getId() {
-		return id;
-	}
+	private String naam;
 
-	private String naam, opmerking;
+	@Lob
+	private String opmerking;
+
+	//bi-directional many-to-many association to Tijdstip
+	@ManyToMany
+	@JoinTable(
+		name="behandeling_tijdstip"
+		, joinColumns={
+			@JoinColumn(name="idBehandeling")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idTijdstip")
+			}
+		)
+	private List<Tijdstip> tijdstips;
+
+	//bi-directional many-to-many association to Kind
+	@ManyToMany(mappedBy="behandelings")
+	private List<Kind> kinds;
 
 	public Behandeling() {
-
 	}
 
-	public Behandeling(String naam, String opmerking) {
+	public int getIdBehandeling() {
+		return this.idBehandeling;
+	}
 
-		this.naam = naam;
-		this.opmerking = opmerking;
+	public void setIdBehandeling(int idBehandeling) {
+		this.idBehandeling = idBehandeling;
 	}
 
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
 	public void setNaam(String naam) {
@@ -36,10 +60,27 @@ public class Behandeling {
 	}
 
 	public String getOpmerking() {
-		return opmerking;
+		return this.opmerking;
 	}
 
 	public void setOpmerking(String opmerking) {
 		this.opmerking = opmerking;
 	}
+
+	public List<Tijdstip> getTijdstips() {
+		return this.tijdstips;
+	}
+
+	public void setTijdstips(List<Tijdstip> tijdstips) {
+		this.tijdstips = tijdstips;
+	}
+
+	public List<Kind> getKinds() {
+		return this.kinds;
+	}
+
+	public void setKinds(List<Kind> kinds) {
+		this.kinds = kinds;
+	}
+
 }

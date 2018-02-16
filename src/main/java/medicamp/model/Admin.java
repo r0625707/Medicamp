@@ -1,44 +1,51 @@
 package medicamp.model;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the admin database table.
+ * 
+ */
 @Entity
-public class Admin extends Persoon {
+@Table(name="admin")
+@NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
+public class Admin implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private String idAdmin;
 
-	private String email, password, salt;
+	private String naam;
 
-	public long getId() {
-		return id;
-	}
+	private String password;
+
+	private String salt;
+
+	private String voornaam;
 
 	public Admin() {
-
 	}
 
-	public Admin(String naam, String voornaam, String email, String password, String salt) {
-
-		super(naam, voornaam);
-		this.email = email;
-		this.password = password;
-		this.salt = salt;
+	public String getIdAdmin() {
+		return this.idAdmin;
 	}
 
-	public String getEmail() {
-		return email;
+	public void setIdAdmin(String idAdmin) {
+		this.idAdmin = idAdmin;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public String getNaam() {
+		return this.naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 
 	public void setPassword(String password) {
@@ -46,10 +53,19 @@ public class Admin extends Persoon {
 	}
 
 	public String getSalt() {
-		return salt;
+		return this.salt;
 	}
 
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+
+	public String getVoornaam() {
+		return this.voornaam;
+	}
+
+	public void setVoornaam(String voornaam) {
+		this.voornaam = voornaam;
+	}
+
 }

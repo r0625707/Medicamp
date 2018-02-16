@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import medicamp.database.UserRepositroy;
 import medicamp.model.Groep;
 import medicamp.model.Kind;
 import medicamp.model.Voogd;
@@ -33,28 +34,34 @@ import medicamp.model.Voogd;
 public class HelloworldController {
 	@Autowired
 	private Service service;
-
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public Voogd get(@PathVariable String id) {
+		Long l = Long.valueOf(id);
+	return service.getVoogd(l);
+	}
 	// of groepsnaam
 	@RequestMapping("/{groepID}/{takNaam}")
 	public List<Kind> getKinderen(@PathVariable String groepID, String takNaam) {
-		return service.getKinderen(groepID, takNaam);
+		//return service.getKinderen(groepID, takNaam);
+		return null;
 	}
 
 	@RequestMapping(value = "/groep", method = RequestMethod.POST)
 	public void addGroep(@RequestBody Groep groep) {
-		service.addGroep(groep);
+		//userRepository.save(groep);
+	//	service.addGroep(groep);
 	}
 
 	@RequestMapping(value = "/voogd", method = RequestMethod.POST)
 	public void addVoogd(@RequestBody Voogd voogd) {
-		service.addVoogd(voogd);
+		//service.addVoogd(voogd);
 	}
 
 	@RequestMapping(value = "/kind", method = RequestMethod.POST)
 	public void addKind(@RequestBody Kind kind) {
 
 		// in service kind.getVoogdID
-		service.addKind(kind);
+		//service.addKind(kind);
 	}
 
 	// DEES IS OM RELATIE TE LEGGEN TUSSEN MANYTOMANY, MOETK NOG TEGOEI BEZIEN
@@ -62,7 +69,7 @@ public class HelloworldController {
 	public void setKindtoTak(@RequestBody Kind kind, @PathVariable String takID) {
 		// Variabele groepID checken of dat zo kan
 
-		service.addKindtoTak(takID, kind);
+	//	service.addKindtoTak(takID, kind);
 	}
 
 	@GetMapping("/")

@@ -1,79 +1,223 @@
 package medicamp.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the kind database table.
+ * 
+ */
 @Entity
-public class Kind extends Persoon {
-	@Id
-	@GeneratedValue
-	private long id;
-	private String opmerking;
-	private Date geboorteDatum;
+@Table(name="kind")
+@NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
+public class Kind implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public long getId() {
-		return id;
-	}
+	@Id
+	private int idKind;
+
+	private byte dafi;
+
+	@Temporal(TemporalType.DATE)
+	private Date gebDatum;
+
+	private String naam;
+
+	@Lob
+	private String opmerking;
+
+	private byte sport;
+
+	private String voornaam;
+
+	private byte zwemmen;
+
+	//bi-directional many-to-many association to Activiteit
+	@ManyToMany
+	@JoinTable(
+		name="kind_activiteit"
+		, joinColumns={
+			@JoinColumn(name="idKind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idActiviteit")
+			}
+		)
+	private List<Activiteit> activiteits;
+
+	//bi-directional many-to-many association to Behandeling
+	@ManyToMany
+	@JoinTable(
+		name="kind_behandeling"
+		, joinColumns={
+			@JoinColumn(name="idKind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idBehandeling")
+			}
+		)
+	private List<Behandeling> behandelings;
+
+	//bi-directional many-to-many association to Dieet
+	@ManyToMany
+	@JoinTable(
+		name="kind_has_dieet"
+		, joinColumns={
+			@JoinColumn(name="idKind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idDieet")
+			}
+		)
+	private List<Dieet> dieets;
+
+	//bi-directional many-to-many association to Tak
+	@ManyToMany
+	@JoinTable(
+		name="kind_tak"
+		, joinColumns={
+			@JoinColumn(name="idKind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idTak")
+			}
+		)
+	private List<Tak> taks;
+
+	//bi-directional many-to-one association to Voogd
+	@ManyToOne
+	@JoinColumn(name="idVoogd")
+	private Voogd voogd;
+
+	//bi-directional many-to-many association to Ziekte
+	@ManyToMany
+	@JoinTable(
+		name="kind_ziekte"
+		, joinColumns={
+			@JoinColumn(name="idKind")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idZiekte")
+			}
+		)
+	private List<Ziekte> ziektes;
 
 	public Kind() {
-
 	}
 
-	public Kind(String naam, String voornaam, String opmerking, Date geboorteDatum, Boolean zwemmen, Boolean sport,
-			Boolean dafalgan) {
-		super(naam, voornaam);
-		this.opmerking = opmerking;
-		this.geboorteDatum = geboorteDatum;
-		this.zwemmen = zwemmen;
-		this.sport = sport;
-		this.dafalgan = dafalgan;
+	public int getIdKind() {
+		return this.idKind;
+	}
+
+	public void setIdKind(int idKind) {
+		this.idKind = idKind;
+	}
+
+	public byte getDafi() {
+		return this.dafi;
+	}
+
+	public void setDafi(byte dafi) {
+		this.dafi = dafi;
+	}
+
+	public Date getGebDatum() {
+		return this.gebDatum;
+	}
+
+	public void setGebDatum(Date gebDatum) {
+		this.gebDatum = gebDatum;
+	}
+
+	public String getNaam() {
+		return this.naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
 	}
 
 	public String getOpmerking() {
-		return opmerking;
+		return this.opmerking;
 	}
 
 	public void setOpmerking(String opmerking) {
 		this.opmerking = opmerking;
 	}
 
-	public Date getGeboorteDatum() {
-		return geboorteDatum;
+	public byte getSport() {
+		return this.sport;
 	}
 
-	public void setGeboorteDatum(Date geboorteDatum) {
-		this.geboorteDatum = geboorteDatum;
-	}
-
-	public Boolean getZwemmen() {
-		return zwemmen;
-	}
-
-	public void setZwemmen(Boolean zwemmen) {
-		this.zwemmen = zwemmen;
-	}
-
-	public Boolean getSport() {
-		return sport;
-	}
-
-	public void setSport(Boolean sport) {
+	public void setSport(byte sport) {
 		this.sport = sport;
 	}
 
-	public Boolean getDafalgan() {
-		return dafalgan;
+	public String getVoornaam() {
+		return this.voornaam;
 	}
 
-	public void setDafalgan(Boolean dafalgan) {
-		this.dafalgan = dafalgan;
+	public void setVoornaam(String voornaam) {
+		this.voornaam = voornaam;
 	}
 
-	private Boolean zwemmen, sport, dafalgan;
+	public byte getZwemmen() {
+		return this.zwemmen;
+	}
+
+	public void setZwemmen(byte zwemmen) {
+		this.zwemmen = zwemmen;
+	}
+
+	public List<Activiteit> getActiviteits() {
+		return this.activiteits;
+	}
+
+	public void setActiviteits(List<Activiteit> activiteits) {
+		this.activiteits = activiteits;
+	}
+
+	public List<Behandeling> getBehandelings() {
+		return this.behandelings;
+	}
+
+	public void setBehandelings(List<Behandeling> behandelings) {
+		this.behandelings = behandelings;
+	}
+
+	public List<Dieet> getDieets() {
+		return this.dieets;
+	}
+
+	public void setDieets(List<Dieet> dieets) {
+		this.dieets = dieets;
+	}
+
+	public List<Tak> getTaks() {
+		return this.taks;
+	}
+
+	public void setTaks(List<Tak> taks) {
+		this.taks = taks;
+	}
+
+	public Voogd getVoogd() {
+		return this.voogd;
+	}
+
+	public void setVoogd(Voogd voogd) {
+		this.voogd = voogd;
+	}
+
+	public List<Ziekte> getZiektes() {
+		return this.ziektes;
+	}
+
+	public void setZiektes(List<Ziekte> ziektes) {
+		this.ziektes = ziektes;
+	}
+
 }

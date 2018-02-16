@@ -1,48 +1,65 @@
 package medicamp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the dieet database table.
+ * 
+ */
 @Entity
-public class Dieet {
-	@Id
-	@GeneratedValue
-	private long id;
+@Table(name="dieet")
+@NamedQuery(name="Dieet.findAll", query="SELECT d FROM Dieet d")
+public class Dieet implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	public long getId() {
-		return id;
+	@Id
+	private int idDieet;
+
+	private String naam;
+
+	@Lob
+	private String opmerking;
+
+	//bi-directional many-to-many association to Kind
+	@ManyToMany(mappedBy="dieets")
+	private List<Kind> kinds;
+
+	public Dieet() {
 	}
 
-	private String naam, omschrijving;
+	public int getIdDieet() {
+		return this.idDieet;
+	}
+
+	public void setIdDieet(int idDieet) {
+		this.idDieet = idDieet;
+	}
 
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
 
-	public String getOmschrijving() {
-		return omschrijving;
+	public String getOpmerking() {
+		return this.opmerking;
 	}
 
-	public void setOmschrijving(String omschrijving) {
-		this.omschrijving = omschrijving;
+	public void setOpmerking(String opmerking) {
+		this.opmerking = opmerking;
 	}
 
-	public Dieet() {
-
+	public List<Kind> getKinds() {
+		return this.kinds;
 	}
 
-	public Dieet(String naam, String omschrijving) {
-
-		this.naam = naam;
-		this.omschrijving = omschrijving;
+	public void setKinds(List<Kind> kinds) {
+		this.kinds = kinds;
 	}
 
 }

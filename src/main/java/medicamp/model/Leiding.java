@@ -1,49 +1,84 @@
 package medicamp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the leiding database table.
+ * 
+ */
 @Entity
-public class Leiding extends Persoon {
+@Table(name="leiding")
+@NamedQuery(name="Leiding.findAll", query="SELECT l FROM Leiding l")
+public class Leiding implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idLeiding;
 
-	public long getId() {
-		return id;
-	}
+	private String email;
 
-	private String email, telefoonNummer;
+	private String naam;
+
+	private String tel;
+
+	private String voornaam;
+
+	//bi-directional many-to-one association to Groep
+	@ManyToOne
+	@JoinColumn(name="idGroep")
+	private Groep groep;
 
 	public Leiding() {
-
 	}
 
-	public Leiding(String naam, String voornaam, String email, String telefoonNummer) {
-		super(naam, voornaam);
+	public int getIdLeiding() {
+		return this.idLeiding;
+	}
 
-		this.email = email;
-		this.telefoonNummer = telefoonNummer;
+	public void setIdLeiding(int idLeiding) {
+		this.idLeiding = idLeiding;
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getTelefoonNummer() {
-		return telefoonNummer;
+	public String getNaam() {
+		return this.naam;
 	}
 
-	public void setTelefoonNummer(String telefoonNummer) {
-		this.telefoonNummer = telefoonNummer;
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public String getTel() {
+		return this.tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getVoornaam() {
+		return this.voornaam;
+	}
+
+	public void setVoornaam(String voornaam) {
+		this.voornaam = voornaam;
+	}
+
+	public Groep getGroep() {
+		return this.groep;
+	}
+
+	public void setGroep(Groep groep) {
+		this.groep = groep;
 	}
 
 }

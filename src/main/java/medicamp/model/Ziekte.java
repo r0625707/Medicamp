@@ -1,41 +1,56 @@
 package medicamp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+/**
+ * The persistent class for the ziekte database table.
+ * 
+ */
 @Entity
-public class Ziekte {
+@Table(name="ziekte")
+@NamedQuery(name="Ziekte.findAll", query="SELECT z FROM Ziekte z")
+public class Ziekte implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private long id;
+	private int idZiekte;
 
-	public long getId() {
-		return id;
-	}
+	@Lob
+	private String behandeling;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+	private String naam;
 
-	private String naam, symptomen, behandeling;
+	@Lob
+	private String symptomen;
+
+	//bi-directional many-to-many association to Kind
+	@ManyToMany(mappedBy="ziektes")
+	private List<Kind> kinds;
 
 	public Ziekte() {
-
 	}
 
-	public Ziekte(String naam, String symptomen, String behandeling) {
+	public int getIdZiekte() {
+		return this.idZiekte;
+	}
 
-		this.naam = naam;
-		this.symptomen = symptomen;
+	public void setIdZiekte(int idZiekte) {
+		this.idZiekte = idZiekte;
+	}
+
+	public String getBehandeling() {
+		return this.behandeling;
+	}
+
+	public void setBehandeling(String behandeling) {
 		this.behandeling = behandeling;
 	}
 
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
 	public void setNaam(String naam) {
@@ -43,19 +58,19 @@ public class Ziekte {
 	}
 
 	public String getSymptomen() {
-		return symptomen;
+		return this.symptomen;
 	}
 
 	public void setSymptomen(String symptomen) {
 		this.symptomen = symptomen;
 	}
 
-	public String getBehandeling() {
-		return behandeling;
+	public List<Kind> getKinds() {
+		return this.kinds;
 	}
 
-	public void setBehandeling(String behandeling) {
-		this.behandeling = behandeling;
+	public void setKinds(List<Kind> kinds) {
+		this.kinds = kinds;
 	}
 
 }
