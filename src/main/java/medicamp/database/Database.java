@@ -13,8 +13,8 @@ public class Database {
 	private EntityManager manager;
 	private String dbName;
 
-	public void openConnection(String name) {
-		factory = Persistence.createEntityManagerFactory("MEDICAMP");
+	public void openConnection(/*String name*/) {
+		factory = Persistence.createEntityManagerFactory("api");
 		manager = factory.createEntityManager();
 	}
 
@@ -38,7 +38,12 @@ public class Database {
 	}
 
 	public Voogd getVoogd(Long id) {
-		Voogd voogd = manager.find(Voogd.class, id);
+		//OPENCONNECTION?????
+		int i=Integer.valueOf(id.intValue());
+		openConnection();
+		Voogd voogd = manager.find(Voogd.class, i);
+	//	closeConnection();
+
 		return voogd;
 	}
 

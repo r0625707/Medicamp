@@ -18,6 +18,7 @@ public class Service {
 		return new ArrayList<Kind>();
 	}
 	public Voogd getVoogd(Long id){
+		db=new Database();
 		return db.getVoogd(id);
 	}
 	public void addGroep(Groep groep) {
