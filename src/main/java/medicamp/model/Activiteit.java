@@ -3,7 +3,6 @@ package medicamp.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -15,37 +14,20 @@ import java.util.List;
 @NamedQuery(name="Activiteit.findAll", query="SELECT a FROM Activiteit a")
 public class Activiteit implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+
 	@Id
 	private int idactiviteit;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date begindatum;
 
-	@Lob
-	private String beschrijving;
-
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date einddatum;
 
-	private String naam;
-
-	//bi-directional many-to-many association to Kind
-	@ManyToMany
-	@JoinTable(
-		name="activiteit_kind"
-		, joinColumns={
-			@JoinColumn(name="idactiviteit")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idkind")
-			}
-		)
-	private List<Kind> kinds;
-
-	//bi-directional many-to-many association to Tak
-	@ManyToMany(mappedBy="activiteits")
-	private List<Tak> taks;
+	//bi-directional many-to-one association to Tak
+	@ManyToOne
+	@JoinColumn(name="idtak")
+	private Tak tak;
 
 	public Activiteit() {
 	}
@@ -66,14 +48,6 @@ public class Activiteit implements Serializable {
 		this.begindatum = begindatum;
 	}
 
-	public String getBeschrijving() {
-		return this.beschrijving;
-	}
-
-	public void setBeschrijving(String beschrijving) {
-		this.beschrijving = beschrijving;
-	}
-
 	public Date getEinddatum() {
 		return this.einddatum;
 	}
@@ -82,28 +56,12 @@ public class Activiteit implements Serializable {
 		this.einddatum = einddatum;
 	}
 
-	public String getNaam() {
-		return this.naam;
+	public Tak getTak() {
+		return this.tak;
 	}
 
-	public void setNaam(String naam) {
-		this.naam = naam;
-	}
-
-	public List<Kind> getKinds() {
-		return this.kinds;
-	}
-
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
-	}
-
-	public List<Tak> getTaks() {
-		return this.taks;
-	}
-
-	public void setTaks(List<Tak> taks) {
-		this.taks = taks;
+	public void setTak(Tak tak) {
+		this.tak = tak;
 	}
 
 }

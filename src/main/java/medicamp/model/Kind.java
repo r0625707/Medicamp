@@ -15,7 +15,7 @@ import java.util.List;
 @NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+
 	@Id
 	private int idkind;
 
@@ -23,6 +23,8 @@ public class Kind implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
+
+	private byte meldingen;
 
 	private String naam;
 
@@ -34,10 +36,6 @@ public class Kind implements Serializable {
 	private String voornaam;
 
 	private byte zwemmen;
-
-	//bi-directional many-to-many association to Activiteit
-	@ManyToMany(mappedBy="kinds")
-	private List<Activiteit> activiteits;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -136,6 +134,14 @@ public class Kind implements Serializable {
 		this.gebdatum = gebdatum;
 	}
 
+	public byte getMeldingen() {
+		return this.meldingen;
+	}
+
+	public void setMeldingen(byte meldingen) {
+		this.meldingen = meldingen;
+	}
+
 	public String getNaam() {
 		return this.naam;
 	}
@@ -174,14 +180,6 @@ public class Kind implements Serializable {
 
 	public void setZwemmen(byte zwemmen) {
 		this.zwemmen = zwemmen;
-	}
-
-	public List<Activiteit> getActiviteits() {
-		return this.activiteits;
-	}
-
-	public void setActiviteits(List<Activiteit> activiteits) {
-		this.activiteits = activiteits;
 	}
 
 	public User getUser() {

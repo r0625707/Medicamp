@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
 public class Voogd implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+
 	@Id
 	private int idvoogd;
 
@@ -37,6 +37,11 @@ public class Voogd implements Serializable {
 	//bi-directional many-to-many association to Kind
 	@ManyToMany(mappedBy="voogds")
 	private List<Kind> kinds;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="login")
+	private User user;
 
 	public Voogd() {
 	}
@@ -119,6 +124,14 @@ public class Voogd implements Serializable {
 
 	public void setKinds(List<Kind> kinds) {
 		this.kinds = kinds;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

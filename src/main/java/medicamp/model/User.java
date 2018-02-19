@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+
 	@Id
 	private String login;
 
@@ -50,6 +50,10 @@ public class User implements Serializable {
 			}
 		)
 	private List<Tak> taks;
+
+	//bi-directional many-to-one association to Voogd
+	@OneToMany(mappedBy="user")
+	private List<Voogd> voogds;
 
 	public User() {
 	}
@@ -160,6 +164,28 @@ public class User implements Serializable {
 
 	public void setTaks(List<Tak> taks) {
 		this.taks = taks;
+	}
+
+	public List<Voogd> getVoogds() {
+		return this.voogds;
+	}
+
+	public void setVoogds(List<Voogd> voogds) {
+		this.voogds = voogds;
+	}
+
+	public Voogd addVoogd(Voogd voogd) {
+		getVoogds().add(voogd);
+		voogd.setUser(this);
+
+		return voogd;
+	}
+
+	public Voogd removeVoogd(Voogd voogd) {
+		getVoogds().remove(voogd);
+		voogd.setUser(null);
+
+		return voogd;
 	}
 
 }

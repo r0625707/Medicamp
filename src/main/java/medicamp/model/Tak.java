@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Tak.findAll", query="SELECT t FROM Tak t")
 public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+
 	@Id
 	private int idtak;
 
@@ -23,6 +23,10 @@ public class Tak implements Serializable {
 	@Lob
 	private String omschrijving;
 
+	//bi-directional many-to-one association to Activiteit
+	@OneToMany(mappedBy="tak")
+	private List<Activiteit> activiteits;
+
 	//bi-directional many-to-many association to Kind
 	@ManyToMany(mappedBy="taks")
 	private List<Kind> kinds;
@@ -30,19 +34,6 @@ public class Tak implements Serializable {
 	//bi-directional many-to-one association to Groep
 	@ManyToOne
 	private Groep groep;
-
-	//bi-directional many-to-many association to Activiteit
-	@ManyToMany
-	@JoinTable(
-		name="tak_activiteit"
-		, joinColumns={
-			@JoinColumn(name="idtak")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idactiviteit")
-			}
-		)
-	private List<Activiteit> activiteits;
 
 	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="taks")
@@ -75,6 +66,28 @@ public class Tak implements Serializable {
 		this.omschrijving = omschrijving;
 	}
 
+	public List<Activiteit> getActiviteits() {
+		return this.activiteits;
+	}
+
+	public void setActiviteits(List<Activiteit> activiteits) {
+		this.activiteits = activiteits;
+	}
+
+	public Activiteit addActiviteit(Activiteit activiteit) {
+		getActiviteits().add(activiteit);
+		activiteit.setTak(this);
+
+		return activiteit;
+	}
+
+	public Activiteit removeActiviteit(Activiteit activiteit) {
+		getActiviteits().remove(activiteit);
+		activiteit.setTak(null);
+
+		return activiteit;
+	}
+
 	public List<Kind> getKinds() {
 		return this.kinds;
 	}
@@ -89,14 +102,6 @@ public class Tak implements Serializable {
 
 	public void setGroep(Groep groep) {
 		this.groep = groep;
-	}
-
-	public List<Activiteit> getActiviteits() {
-		return this.activiteits;
-	}
-
-	public void setActiviteits(List<Activiteit> activiteits) {
-		this.activiteits = activiteits;
 	}
 
 	public List<User> getUsers() {
