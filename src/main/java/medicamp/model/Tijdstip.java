@@ -14,7 +14,7 @@ import java.util.Date;
 @NamedQuery(name="Tijdstip.findAll", query="SELECT t FROM Tijdstip t")
 public class Tijdstip implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int idtijdstip;
 

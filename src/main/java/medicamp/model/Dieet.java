@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Dieet.findAll", query="SELECT d FROM Dieet d")
 public class Dieet implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int iddieet;
 

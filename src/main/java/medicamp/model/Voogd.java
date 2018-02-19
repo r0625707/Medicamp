@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
 public class Voogd implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int idvoogd;
 
