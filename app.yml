@@ -1,8 +1,16 @@
-runtime: java
-env: flex
 
+runtime: java8
+api_version: 1
+env: standard
+threadsafe: true
+instance_class: F1
+inbound_services:
+  - warmup
 handlers:
-  url: /.*
-  script: this field is required, but ignored
-  
- 
+  - url: '/.*'
+    script: unused
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
