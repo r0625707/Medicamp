@@ -76,6 +76,11 @@ public class HelloworldController {
 	public String getMobileDb(@PathVariable String login) {
 		return "connectie werkt";
 	}
+	
+	@GetMapping("/mobile")
+	public String getTest(@PathVariable String login) {
+		return "connectie werkt tst";
+	}
 
 	@GetMapping("/")
 	public String hello() {
