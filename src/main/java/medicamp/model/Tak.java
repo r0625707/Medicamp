@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Tak.findAll", query="SELECT t FROM Tak t")
 public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int idtak;
 

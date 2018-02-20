@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Groep.findAll", query="SELECT g FROM Groep g")
 public class Groep implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@GeneratedValue
 	@Id
 	private int idgroep;
 
