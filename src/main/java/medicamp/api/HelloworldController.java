@@ -72,9 +72,80 @@ public class HelloworldController {
 	//	service.addKindtoTak(takID, kind);
 	}
 	
+	@GetMapping("/test")
+	public String testString() {
+		return "test";
+	}
+	
 	@GetMapping("/mobile/{login}")
-	public String getMobileDb(@PathVariable String login) {
-		return "connectie werkt";
+	public String getMobileDb(@PathVariable ("login") String login) {
+		return "{\r\n" + 
+				"  \"user\": \""+login+"\",\r\n" + 
+				"  \"takken\": [\r\n" + 
+				"    {\r\n" + 
+				"      \"takid\": 0,\r\n" + 
+				"      \"groep\": \"string\",\r\n" + 
+				"      \"naam\": \"string\",\r\n" + 
+				"      \"omschrijving\": \"string\",\r\n" + 
+				"      \"leden\": [\r\n" + 
+				"        {\r\n" + 
+				"          \"idkind\": 0,\r\n" + 
+				"          \"naam\": \"string\",\r\n" + 
+				"          \"voornaam\": \"string\",\r\n" + 
+				"          \"gebdatum\": \"string\",\r\n" + 
+				"          \"zwemmen\": true,\r\n" + 
+				"          \"sport\": true,\r\n" + 
+				"          \"dafi\": true,\r\n" + 
+				"          \"opmerking\": \"string\",\r\n" + 
+				"          \"meldingen\": true,\r\n" + 
+				"          \"login\": \"string\",\r\n" + 
+				"          \"voogden\": [\r\n" + 
+				"            {\r\n" + 
+				"              \"idvoogd\": 0,\r\n" + 
+				"              \"naam\": \"string\",\r\n" + 
+				"              \"voornaam\": \"string\",\r\n" + 
+				"              \"plaats\": \"string\",\r\n" + 
+				"              \"postcode\": \"string\",\r\n" + 
+				"              \"straat\": \"string\",\r\n" + 
+				"              \"huisnr\": 0,\r\n" + 
+				"              \"bus\": \"string\",\r\n" + 
+				"              \"tel\": \"string\"\r\n" + 
+				"            }\r\n" + 
+				"          ],\r\n" + 
+				"          \"ziektes\": [\r\n" + 
+				"            {\r\n" + 
+				"              \"idziekte\": 0,\r\n" + 
+				"              \"naam\": \"string\",\r\n" + 
+				"              \"symptomen\": \"string\",\r\n" + 
+				"              \"behandeling\": \"string\"\r\n" + 
+				"            }\r\n" + 
+				"          ],\r\n" + 
+				"          \"dieet\": [\r\n" + 
+				"            {\r\n" + 
+				"              \"iddieet\": 0,\r\n" + 
+				"              \"naam\": \"string\",\r\n" + 
+				"              \"opmerking\": \"string\"\r\n" + 
+				"            }\r\n" + 
+				"          ],\r\n" + 
+				"          \"medicatie\": [\r\n" + 
+				"            {\r\n" + 
+				"              \"idmedicatie\": 0,\r\n" + 
+				"              \"naam\": \"string\",\r\n" + 
+				"              \"opmerking\": \"string\",\r\n" + 
+				"              \"tijdstippen\": [\r\n" + 
+				"                {\r\n" + 
+				"                  \"idtijdstip\": 0,\r\n" + 
+				"                  \"dosis\": \"string\",\r\n" + 
+				"                  \"tijdstip\": \"string\"\r\n" + 
+				"                }\r\n" + 
+				"              ]\r\n" + 
+				"            }\r\n" + 
+				"          ]\r\n" + 
+				"        }\r\n" + 
+				"      ]\r\n" + 
+				"    }\r\n" + 
+				"  ]\r\n" + 
+				"}";
 	}
 	
 	@GetMapping("/mobile")
