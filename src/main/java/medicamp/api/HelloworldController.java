@@ -34,48 +34,6 @@ import medicamp.model.Voogd;
 public class HelloworldController {
 	@Autowired
 	private Service service;
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Voogd get(@PathVariable String id) {
-		Long l = Long.valueOf(id);
-	return service.getVoogd(l);
-	}
-	// of groepsnaam
-	@RequestMapping("/{groepID}/{takNaam}")
-	public List<Kind> getKinderen(@PathVariable String groepID, String takNaam) {
-		//return service.getKinderen(groepID, takNaam);
-		return null;
-	}
-
-	@RequestMapping(value = "/groep", method = RequestMethod.POST)
-	public void addGroep(@RequestBody Groep groep) {
-		//userRepository.save(groep);
-	//	service.addGroep(groep);
-	}
-
-	@RequestMapping(value = "/voogd", method = RequestMethod.POST)
-	public void addVoogd(@RequestBody Voogd voogd) {
-		//service.addVoogd(voogd);
-	}
-
-	@RequestMapping(value = "/kind", method = RequestMethod.POST)
-	public void addKind(@RequestBody Kind kind) {
-
-		// in service kind.getVoogdID
-		//service.addKind(kind);
-	}
-
-	// DEES IS OM RELATIE TE LEGGEN TUSSEN MANYTOMANY, MOETK NOG TEGOEI BEZIEN
-	@RequestMapping(value = "/tak/{takID}/kind", method = RequestMethod.PUT)
-	public void setKindtoTak(@RequestBody Kind kind, @PathVariable String takID) {
-		// Variabele groepID checken of dat zo kan
-
-	//	service.addKindtoTak(takID, kind);
-	}
-	
-	@GetMapping("/test")
-	public String testString() {
-		return "test";
-	}
 	
 	@GetMapping("/mobile/{login}")
 	public String getMobileDb(@PathVariable ("login") String login) {
@@ -146,10 +104,5 @@ public class HelloworldController {
 				"    }\r\n" + 
 				"  ]\r\n" + 
 				"}";
-	}
-
-	@GetMapping("/")
-	public String hello() {
-		return "Welcome to Medicamp API!";
 	}
 }
