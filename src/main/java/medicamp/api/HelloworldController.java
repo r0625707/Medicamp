@@ -72,7 +72,7 @@ public class HelloworldController {
 	//	service.addKindtoTak(takID, kind);
 	}
 	
-	@RequestMapping(value = "/mobile/{login}", method = RequestMethod.GET)
+	@GetMapping("/mobile/{login}")
 	public String getMobileDb(@PathVariable String login) {
 		return "connectie werkt";
 	}
