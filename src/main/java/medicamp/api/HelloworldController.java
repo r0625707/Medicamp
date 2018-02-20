@@ -72,10 +72,10 @@ public class HelloworldController {
 	//	service.addKindtoTak(takID, kind);
 	}
 	
-	@GetMapping("/mobile")
-	public String getMobileDb(@PathVariable String login) {
+	@GetMapping("/mobile/{login}")
+	public String getMobileDb(@PathVariable ("login") String login) {
 		return "{\r\n" + 
-				"  \"user\": \"string\",\r\n" + 
+				"  \"user\": \""+login+"\",\r\n" + 
 				"  \"takken\": [\r\n" + 
 				"    {\r\n" + 
 				"      \"takid\": 0,\r\n" + 
