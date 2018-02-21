@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>api</name>
+	<name>Medicamp</name>
 	<description>rest api medicamp</description>
 
 	<parent>
