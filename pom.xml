@@ -22,6 +22,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<INSTANCE_CONNECTION_NAME>medicamp-so:europe-west1:medicamp</INSTANCE_CONNECTION_NAME>
+		<user>root</user>
+		<password>ApSO1718m</password>
+		<database>medicamp_test</database>
 	</properties>
 
 	<dependencies>
