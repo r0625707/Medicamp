@@ -24,7 +24,7 @@ public class Kind implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
 
-	private byte meldingen;
+
 
 	private String naam;
 
@@ -134,13 +134,7 @@ public class Kind implements Serializable {
 		this.gebdatum = gebdatum;
 	}
 
-	public byte getMeldingen() {
-		return this.meldingen;
-	}
 
-	public void setMeldingen(byte meldingen) {
-		this.meldingen = meldingen;
-	}
 
 	public String getNaam() {
 		return this.naam;
