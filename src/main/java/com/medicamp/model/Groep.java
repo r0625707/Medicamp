@@ -1,4 +1,4 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,21 +6,25 @@ import java.util.List;
 
 
 /**
- * The persistent class for the voogd database table.
+ * The persistent class for the groep database table.
  * 
  */
 @Entity
-@Table(name="voogd")
-@NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
-public class Voogd implements Serializable {
+@Table(name="groep")
+@NamedQuery(name="Groep.findAll", query="SELECT g FROM Groep g")
+public class Groep implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@GeneratedValue
 	@Id
-	private int idvoogd;
+	private int idgroep;
 
 	private String bus;
 
+	private String email;
+
 	private int huisnr;
+
+	private String link;
 
 	private String naam;
 
@@ -30,28 +34,24 @@ public class Voogd implements Serializable {
 
 	private String straat;
 
-	private String tel;
-
-	private String voornaam;
-
-	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="voogds")
-	private List<Kind> kinds;
-
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;
 
-	public Voogd() {
+	//bi-directional many-to-one association to Tak
+	@OneToMany(mappedBy="groep")
+	private List<Tak> taks;
+
+	public Groep() {
 	}
 
-	public int getIdvoogd() {
-		return this.idvoogd;
+	public int getIdgroep() {
+		return this.idgroep;
 	}
 
-	public void setIdvoogd(int idvoogd) {
-		this.idvoogd = idvoogd;
+	public void setIdgroep(int idgroep) {
+		this.idgroep = idgroep;
 	}
 
 	public String getBus() {
@@ -62,12 +62,28 @@ public class Voogd implements Serializable {
 		this.bus = bus;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public int getHuisnr() {
 		return this.huisnr;
 	}
 
 	public void setHuisnr(int huisnr) {
 		this.huisnr = huisnr;
+	}
+
+	public String getLink() {
+		return this.link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public String getNaam() {
@@ -102,36 +118,34 @@ public class Voogd implements Serializable {
 		this.straat = straat;
 	}
 
-	public String getTel() {
-		return this.tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
-	public String getVoornaam() {
-		return this.voornaam;
-	}
-
-	public void setVoornaam(String voornaam) {
-		this.voornaam = voornaam;
-	}
-
-	public List<Kind> getKinds() {
-		return this.kinds;
-	}
-
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
-	}
-
 	public User getUser() {
 		return this.user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<Tak> getTaks() {
+		return this.taks;
+	}
+
+	public void setTaks(List<Tak> taks) {
+		this.taks = taks;
+	}
+
+	public Tak addTak(Tak tak) {
+		getTaks().add(tak);
+		tak.setGroep(this);
+
+		return tak;
+	}
+
+	public Tak removeTak(Tak tak) {
+		getTaks().remove(tak);
+		tak.setGroep(null);
+
+		return tak;
 	}
 
 }

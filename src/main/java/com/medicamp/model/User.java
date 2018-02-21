@@ -1,7 +1,10 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -14,16 +17,18 @@ import java.util.List;
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@GeneratedValue
+	
 	@Id
 	private String login;
 
 	private String naam;
-
+    
+	@JsonIgnore
 	private String password;
 
 	private int role;
-
+    
+	@JsonIgnore
 	private String salt;
 
 	private String tel;
@@ -39,6 +44,7 @@ public class User implements Serializable {
 	private List<Kind> kinds;
 
 	//bi-directional many-to-many association to Tak
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="user_tak"
@@ -52,6 +58,8 @@ public class User implements Serializable {
 	private List<Tak> taks;
 
 	//bi-directional many-to-one association to Voogd
+	
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Voogd> voogds;
 
