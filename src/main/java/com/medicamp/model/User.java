@@ -38,10 +38,12 @@ public class User implements Serializable {
 	private String voornaam;
 
 	//bi-directional many-to-one association to Groep
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Groep> groepen;
 
 	//bi-directional many-to-one association to Kind
+	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Kind> kinderen;
 
