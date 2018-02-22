@@ -53,7 +53,7 @@ public class Kind implements Serializable {
 			@JoinColumn(name="iddieet")
 			}
 		)
-	private List<Dieet> dieets;
+	private List<Dieet> dieeten;
 
 	//bi-directional many-to-many association to Medicatie
 	@ManyToMany
@@ -79,7 +79,7 @@ public class Kind implements Serializable {
 			@JoinColumn(name="idtak")
 			}
 		)
-	private List<Tak> taks;
+	private List<Tak> takken;
 
 	//bi-directional many-to-many association to Voogd
 	@ManyToMany
@@ -92,7 +92,7 @@ public class Kind implements Serializable {
 			@JoinColumn(name="idvoogd")
 			}
 		)
-	private List<Voogd> voogds;
+	private List<Voogd> voogden;
 
 	//bi-directional many-to-many association to Ziekte
 	@ManyToMany
@@ -184,12 +184,12 @@ public class Kind implements Serializable {
 		this.user = user;
 	}
 
-	public List<Dieet> getDieets() {
-		return this.dieets;
+	public List<Dieet> getDieeten() {
+		return this.dieeten;
 	}
 
-	public void setDieets(List<Dieet> dieets) {
-		this.dieets = dieets;
+	public void setDieeten(List<Dieet> dieeten) {
+		this.dieeten = dieeten;
 	}
 
 	public List<Medicatie> getMedicaties() {
@@ -200,20 +200,20 @@ public class Kind implements Serializable {
 		this.medicaties = medicaties;
 	}
 
-	public List<Tak> getTaks() {
-		return this.taks;
+	public List<Tak> getTakken() {
+		return this.takken;
 	}
 
-	public void setTaks(List<Tak> taks) {
-		this.taks = taks;
+	public void setTakken(List<Tak> takken) {
+		this.takken = takken;
 	}
 
-	public List<Voogd> getVoogds() {
-		return this.voogds;
+	public List<Voogd> getVoogden() {
+		return this.voogden;
 	}
 
-	public void setVoogds(List<Voogd> voogds) {
-		this.voogds = voogds;
+	public void setVoogden(List<Voogd> voogden) {
+		this.voogden = voogden;
 	}
 
 	public List<Ziekte> getZiektes() {

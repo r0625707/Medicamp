@@ -41,7 +41,7 @@ public class Groep implements Serializable {
 
 	//bi-directional many-to-one association to Tak
 	@OneToMany(mappedBy="groep")
-	private List<Tak> taks;
+	private List<Tak> takken;
 
 	public Groep() {
 	}
@@ -126,23 +126,23 @@ public class Groep implements Serializable {
 		this.user = user;
 	}
 
-	public List<Tak> getTaks() {
-		return this.taks;
+	public List<Tak> getTakken() {
+		return this.takken;
 	}
 
-	public void setTaks(List<Tak> taks) {
-		this.taks = taks;
+	public void setTakken(List<Tak> takken) {
+		this.takken = takken;
 	}
 
 	public Tak addTak(Tak tak) {
-		getTaks().add(tak);
+		getTakken().add(tak);
 		tak.setGroep(this);
 
 		return tak;
 	}
 
 	public Tak removeTak(Tak tak) {
-		getTaks().remove(tak);
+		getTakken().remove(tak);
 		tak.setGroep(null);
 
 		return tak;

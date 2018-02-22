@@ -28,7 +28,7 @@ public class Ziekte implements Serializable {
 
 	//bi-directional many-to-many association to Kind
 	@ManyToMany(mappedBy="ziektes")
-	private List<Kind> kinds;
+	private List<Kind> kinderen;
 
 	public Ziekte() {
 	}
@@ -65,12 +65,12 @@ public class Ziekte implements Serializable {
 		this.symptomen = symptomen;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 }

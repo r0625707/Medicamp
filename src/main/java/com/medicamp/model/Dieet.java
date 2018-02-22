@@ -24,8 +24,8 @@ public class Dieet implements Serializable {
 	private String opmerking;
 
 	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="dieets")
-	private List<Kind> kinds;
+	@ManyToMany(mappedBy="dieeten")
+	private List<Kind> kinderen;
 
 	public Dieet() {
 	}
@@ -54,12 +54,12 @@ public class Dieet implements Serializable {
 		this.opmerking = opmerking;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 }

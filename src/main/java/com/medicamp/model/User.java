@@ -37,11 +37,11 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Groep
 	@OneToMany(mappedBy="user")
-	private List<Groep> groeps;
+	private List<Groep> groepen;
 
 	//bi-directional many-to-one association to Kind
 	@OneToMany(mappedBy="user")
-	private List<Kind> kinds;
+	private List<Kind> kinderen;
 
 	//bi-directional many-to-many association to Tak
 	@JsonIgnore
@@ -55,13 +55,13 @@ public class User implements Serializable {
 			@JoinColumn(name="idtak")
 			}
 		)
-	private List<Tak> taks;
+	private List<Tak> takken;
 
 	//bi-directional many-to-one association to Voogd
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
-	private List<Voogd> voogds;
+	private List<Voogd> voogden;
 
 	public User() {
 	}
@@ -122,75 +122,75 @@ public class User implements Serializable {
 		this.voornaam = voornaam;
 	}
 
-	public List<Groep> getGroeps() {
-		return this.groeps;
+	public List<Groep> getGroepen() {
+		return this.groepen;
 	}
 
-	public void setGroeps(List<Groep> groeps) {
-		this.groeps = groeps;
+	public void setGroepen(List<Groep> groepen) {
+		this.groepen = groepen;
 	}
 
 	public Groep addGroep(Groep groep) {
-		getGroeps().add(groep);
+		getGroepen().add(groep);
 		groep.setUser(this);
 
 		return groep;
 	}
 
 	public Groep removeGroep(Groep groep) {
-		getGroeps().remove(groep);
+		getGroepen().remove(groep);
 		groep.setUser(null);
 
 		return groep;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 	public Kind addKind(Kind kind) {
-		getKinds().add(kind);
+		getKinderen().add(kind);
 		kind.setUser(this);
 
 		return kind;
 	}
 
 	public Kind removeKind(Kind kind) {
-		getKinds().remove(kind);
+		getKinderen().remove(kind);
 		kind.setUser(null);
 
 		return kind;
 	}
 
-	public List<Tak> getTaks() {
-		return this.taks;
+	public List<Tak> getTakken() {
+		return this.takken;
 	}
 
-	public void setTaks(List<Tak> taks) {
-		this.taks = taks;
+	public void setTakken(List<Tak> takken) {
+		this.takken = takken;
 	}
 
-	public List<Voogd> getVoogds() {
-		return this.voogds;
+	public List<Voogd> getVoogden() {
+		return this.voogden;
 	}
 
-	public void setVoogds(List<Voogd> voogds) {
-		this.voogds = voogds;
+	public void setVoogden(List<Voogd> voogden) {
+		this.voogden = voogden;
 	}
 
 	public Voogd addVoogd(Voogd voogd) {
-		getVoogds().add(voogd);
+		getVoogden().add(voogd);
 		voogd.setUser(this);
 
 		return voogd;
 	}
 
 	public Voogd removeVoogd(Voogd voogd) {
-		getVoogds().remove(voogd);
+		getVoogden().remove(voogd);
 		voogd.setUser(null);
 
 		return voogd;

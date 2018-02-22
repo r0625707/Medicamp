@@ -35,8 +35,8 @@ public class Voogd implements Serializable {
 	private String voornaam;
 
 	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="voogds")
-	private List<Kind> kinds;
+	@ManyToMany(mappedBy="voogden")
+	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -118,12 +118,12 @@ public class Voogd implements Serializable {
 		this.voornaam = voornaam;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 	public User getUser() {

@@ -25,18 +25,18 @@ public class Tak implements Serializable {
 
 	//bi-directional many-to-one association to Activiteit
 	@OneToMany(mappedBy="tak")
-	private List<Activiteit> activiteits;
+	private List<Activiteit> activiteiten;
 
 	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="taks")
-	private List<Kind> kinds;
+	@ManyToMany(mappedBy="takken")
+	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to Groep
 	@ManyToOne
 	private Groep groep;
 
 	//bi-directional many-to-many association to User
-	@ManyToMany(mappedBy="taks")
+	@ManyToMany(mappedBy="takken")
 	private List<User> users;
 
 	public Tak() {
@@ -67,11 +67,11 @@ public class Tak implements Serializable {
 	}
 
 	public List<Activiteit> getActiviteits() {
-		return this.activiteits;
+		return this.activiteiten;
 	}
 
-	public void setActiviteits(List<Activiteit> activiteits) {
-		this.activiteits = activiteits;
+	public void setActiviteits(List<Activiteit> activiteiten) {
+		this.activiteiten = activiteiten;
 	}
 
 	public Activiteit addActiviteit(Activiteit activiteit) {
@@ -88,12 +88,12 @@ public class Tak implements Serializable {
 		return activiteit;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 	public Groep getGroep() {
