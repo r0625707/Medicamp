@@ -1,7 +1,7 @@
 
 runtime: java8
 api_version: 1
-env: flex
+env: standard
 threadsafe: true
 instance_class: F1
 inbound_services:

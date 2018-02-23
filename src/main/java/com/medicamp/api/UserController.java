@@ -18,7 +18,7 @@ import com.medicamp.model.Tak;
 import com.medicamp.model.User;
 import com.medicamp.model.Voogd;
 
-import db.UserRepository;
+import com.medicamp.db.UserRepository;
 
 @RestController
 @RequestMapping("/api/user")
