@@ -12,7 +12,7 @@ public class WelcomeController {
 	@GetMapping()
 	public String welcome() {
 		
-		return "Welcome to the medicamp API";
+		return "Welcome to the medicamp API!";
 	}
 
 }
