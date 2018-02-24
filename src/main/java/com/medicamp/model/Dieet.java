@@ -2,6 +2,11 @@ package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -14,10 +19,14 @@ import java.util.List;
 @NamedQuery(name="Dieet.findAll", query="SELECT d FROM Dieet d")
 public class Dieet implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int iddieet;
 
+	@NotNull(message = "Vul een naam in")
+	@Size(min=1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob

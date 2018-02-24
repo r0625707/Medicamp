@@ -2,6 +2,11 @@ package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -14,24 +19,31 @@ import java.util.List;
 @NamedQuery(name="Tak.findAll", query="SELECT t FROM Tak t")
 public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idtak;
 
+	@NotNull(message = "Vul een naam in")
+	@Size(min = 1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob
 	private String omschrijving;
 
 	//bi-directional many-to-one association to Activiteit
+	@JsonIgnore
 	@OneToMany(mappedBy="tak")
 	private List<Activiteit> activiteiten;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="takken")
 	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to Groep
+	@NotNull
 	@ManyToOne
 	private Groep groep;
 

@@ -2,6 +2,12 @@ package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,34 +21,45 @@ import java.util.List;
 @NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idkind;
 
+	@NotNull
 	private byte dafi;
 
+	@NotNull
+	@Past(message = "Geboortedatum kan niet in de toekomst zijn")
 	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
 
-
-
+	@NotNull(message = "Vul een naam in")
+	@Size(min = 1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob
 	private String opmerking;
 
+	@NotNull
 	private byte sport;
 
+	@NotNull(message = "Vul een voornaam in")
+	@Size(min = 1, message = "Vul een voornaam in")
 	private String voornaam;
 
+	@NotNull
 	private byte zwemmen;
 
 	//bi-directional many-to-one association to User
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;
 
 	//bi-directional many-to-many association to Dieet
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_dieet"
@@ -56,6 +73,7 @@ public class Kind implements Serializable {
 	private List<Dieet> dieeten;
 
 	//bi-directional many-to-many association to Medicatie
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_medicatie"
@@ -69,6 +87,7 @@ public class Kind implements Serializable {
 	private List<Medicatie> medicaties;
 
 	//bi-directional many-to-many association to Tak
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_tak"
@@ -82,6 +101,7 @@ public class Kind implements Serializable {
 	private List<Tak> takken;
 
 	//bi-directional many-to-many association to Voogd
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_voogd"
@@ -95,6 +115,7 @@ public class Kind implements Serializable {
 	private List<Voogd> voogden;
 
 	//bi-directional many-to-many association to Ziekte
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_ziekte"

@@ -2,6 +2,8 @@ package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,24 +19,40 @@ import java.util.List;
 @NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
 public class Voogd implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idvoogd;
 
 	private String bus;
 
+	@NotNull(message = "Vul een huisnr in")
+	@Size(min = 1, message = "Vul een huisnr in")
 	private int huisnr;
 
+	@NotNull(message = "Vul een naam in")
+	@Size(min = 1, message = "Vul een naam in")
 	private String naam;
 
+	@NotNull(message = "Vul een plaatsnaam in")
+	@Size(min = 1, message = "Vul een plaatsnaam in")
 	private String plaats;
 
+	@NotNull(message = "Vul een postcode in")
+	@Size(min = 1, message = "Vul een postcode in")
 	private String postcode;
 
+	@NotNull(message = "Vul een straatnaam in")
+	@Size(min = 1, message = "Vul een straatnaam in")
 	private String straat;
 
+	@NotNull(message = "Vul een telefoonnummer in")
+	@Size(min = 1, message = "Vul een telefoonnummer in")
 	private String tel;
 
+	@NotNull(message = "Vul een voornaam in")
+	@Size(min = 1, message = "Vul een voornaam in")
 	private String voornaam;
 
 	//bi-directional many-to-many association to Kind
