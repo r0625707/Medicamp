@@ -2,7 +2,10 @@ package com.medicamp.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,18 +68,18 @@ public class UserController {
 
 
 	@PostMapping()
-	public User createUser(@RequestBody User user) {
-
-		String pass = "SECURITY NOT IMPLEMENTED!";
-		String salt = "SECURITY NOT IMPLEMENTED!";
-
-		user.setPassword(pass);
-		user.setSalt(salt);
-		return users.save(user);
-
+	public ResponseEntity<User> createUser(@RequestBody User user) {
+		User find = users.findOne(user.getLogin());
+		if(find != null) {
+			return ResponseEntity.status(500).build();
+		}
+		String password = user.getPassword();
+		user.setPasswordHashed(password);
+		users.save(user);
+		return ResponseEntity.ok().body(user);
 	}
 
-	@GetMapping("/{login}")
+	@GetMapping("/{login}/")
 	public ResponseEntity<User> getUser(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
 
@@ -86,7 +89,7 @@ public class UserController {
 		return ResponseEntity.ok().body(user);
 	}
 
-	@PutMapping("/{login}")
+	@PutMapping("/{login}/")
 	public ResponseEntity<User> updateNote(@PathVariable(value = "login") String string, @RequestBody User user) {
 	
 		User oldUser = users.findOne(string);
@@ -105,13 +108,16 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
-	@DeleteMapping("/{login}")
+	@DeleteMapping("/{login}/")
 	public ResponseEntity<User> deleteUser(@PathVariable(value = "login") String string) {
 		User note = users.findOne(string);
 		if (note == null) {
 			return ResponseEntity.notFound().build();
 		}
 
+		note.getVoogden().removeAll(note.getVoogden());
+		note.getKinderen().removeAll(note.getKinderen());
+		note.getGroepen().removeAll(note.getGroepen());
 		users.delete(note);
 		return ResponseEntity.ok().build();
 	}

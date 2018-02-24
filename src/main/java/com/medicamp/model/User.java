@@ -1,10 +1,20 @@
 package com.medicamp.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.hash.Hashing;
 
 import java.util.List;
 
@@ -21,11 +31,16 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@NotNull(message = "Gelieve een email-adres in te vullen")
+	@Email(message = "Gelieve een geldig email-adres in te vullen")
 	private String login;
 
+	@NotNull(message = "Gelieve een naam in te vullen")
+	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
     
-	@JsonIgnore
+	@NotNull(message = "Gelieve een wachtwoord in te vullen")
+	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;
 
 	private int role;
@@ -33,8 +48,11 @@ public class User implements Serializable {
 	@JsonIgnore
 	private String salt;
 
+	@Pattern(regexp = "^[0-9+/ ]*", message = "Gelieve een telefoonnummer van geldige lengte in te vullen")
 	private String tel;
 
+	@NotNull(message = "Gelieve een voornaam in te vullen")
+	@Size(min = 1, max = 255, message = "Gelieve een voornaam van geldige lengte in te vullen")
 	private String voornaam;
 
 	//bi-directional many-to-one association to Groep
@@ -93,6 +111,10 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public void setPasswordHashed(String password) {
+		setPassword(hashPassword(password));
+	}
 
 	public int getRole() {
 		return this.role;
@@ -103,6 +125,9 @@ public class User implements Serializable {
 	}
 
 	public String getSalt() {
+		if(this.salt==null) {
+			setSalt(generateSalt());
+		}
 		return this.salt;
 	}
 
@@ -198,6 +223,22 @@ public class User implements Serializable {
 		voogd.setUser(null);
 
 		return voogd;
+	}
+	
+	private String hashPassword(String password) {
+		String sha256hex = Hashing.sha256().hashString(password.concat(getSalt()), StandardCharsets.UTF_8).toString();
+		return sha256hex;
+	}
+	
+	private String generateSalt() {
+		SecureRandom random = new SecureRandom();
+		byte seed[] = random.generateSeed(20);
+		return new BigInteger(1, seed).toString(16);
+	}
+	
+	public boolean isCorrectPassword(String password) {
+		String hashed = hashPassword(password);
+		return getPassword().equals(hashed);
 	}
 
 }
