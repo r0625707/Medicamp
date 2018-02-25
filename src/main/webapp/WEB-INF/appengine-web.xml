@@ -6,7 +6,7 @@
 	<runtime>java8</runtime>
 	<use-google-connector-j>true</use-google-connector-j>
 
-	<service>Medicamp</service>
+	<service>medicamp</service>
 
 	<system-properties>
 		<property name="cloudsql"
