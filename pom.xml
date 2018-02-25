@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<project.version>1</project.version>
+		<project.id>medicamp-so</project.id>
 		<maven.compiler.source>${java.version}</maven.compiler.source> <!-- REQUIRED -->
 		<maven.compiler.target>${java.version}</maven.compiler.target> <!-- REQUIRED -->
 		<!-- <INSTANCE_CONNECTION_NAME>medicamp-so:europe-west1:medicamp</INSTANCE_CONNECTION_NAME> 
