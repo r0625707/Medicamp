@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.db.KindRepository;
 import com.medicamp.db.TakRepository;
 import com.medicamp.db.UserRepository;
 import com.medicamp.model.Activiteit;
+import com.medicamp.model.Kind;
 import com.medicamp.model.Tak;
 import com.medicamp.model.User;
 
@@ -30,6 +32,9 @@ public class TakController {
 	
 	@Autowired
 	UserRepository users;
+
+	@Autowired
+	KindRepository kinderen;
 	
 	@GetMapping("/{idtak}")
 	public Tak getTakById(@PathVariable (value="idtak") String idtak) {
@@ -94,6 +99,33 @@ public class TakController {
 	@PostMapping("/{idtak}/activiteit")
 	public ResponseEntity<Activiteit> addActiviteitToTak(@PathVariable (value="idtak") String idtak, @RequestBody Activiteit activiteit) {
 		takken.findOne(idtak).addActiviteit(activiteit);
+		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{idtak}/kind")
+	public List<Kind> getAllKinderenFromTak(@PathVariable (value="idtak") String idtak) {
+		return takken.findOne(idtak).getKinderen();
+	}
+	
+	@PostMapping("/{idtak}/kind")
+	public ResponseEntity<Tak> addKindToTak(@PathVariable (value="idtak") String idtak, @RequestBody String idkind) {
+		Tak tak = takken.findOne(idtak);
+		Kind kind = kinderen.findOne(idkind);
+		if(tak == null || kind == null) {
+			return ResponseEntity.notFound().build();
+		}
+		tak.getKinderen().add(kind);
+		return ResponseEntity.ok().build();
+	}
+	
+	@DeleteMapping("/{idtak}/kind/{idkind}")
+	public ResponseEntity<Tak> deleteKindFromTak(@PathVariable (value="idtak") String idtak, @PathVariable (value="idkind") String idkind) {
+		Tak tak = takken.findOne(idtak);
+		Kind kind = kinderen.findOne(idkind);
+		if(tak == null || kind == null) {
+			return ResponseEntity.notFound().build();
+		}
+		tak.getKinderen().remove(kind);
 		return ResponseEntity.ok().build();
 	}
 	
