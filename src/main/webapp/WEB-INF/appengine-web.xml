@@ -6,8 +6,6 @@
 	<runtime>java8</runtime>
 	<use-google-connector-j>true</use-google-connector-j>
 
-	<service>medicamp</service>
-
 	<system-properties>
 		<property name="cloudsql"
 			value="jdbc:google:mysql://${INSTANCE_CONNECTION_NAME}/${database}?user=${user}&amp;password=${password}" />
