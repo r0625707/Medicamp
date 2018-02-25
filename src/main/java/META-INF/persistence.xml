@@ -17,7 +17,7 @@
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://35.195.195.51:3306/medicamp_test" />
+				value="jdbc:mysql://google/medicamp_test?cloudSqlInstance=medicamp-so:europe-west1:medicamp" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.password" value="ApSO1718m" />
