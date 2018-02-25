@@ -115,9 +115,9 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 
-		note.getVoogden().removeAll(note.getVoogden());
+		/*note.getVoogden().removeAll(note.getVoogden());
 		note.getKinderen().removeAll(note.getKinderen());
-		note.getGroepen().removeAll(note.getGroepen());
+		note.getGroepen().removeAll(note.getGroepen());*/
 		users.delete(note);
 		return ResponseEntity.ok().build();
 	}
