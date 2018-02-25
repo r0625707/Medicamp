@@ -78,23 +78,23 @@ public class Tak implements Serializable {
 		this.omschrijving = omschrijving;
 	}
 
-	public List<Activiteit> getActiviteits() {
+	public List<Activiteit> getActiviteiten() {
 		return this.activiteiten;
 	}
 
-	public void setActiviteits(List<Activiteit> activiteiten) {
+	public void setActiviteiten(List<Activiteit> activiteiten) {
 		this.activiteiten = activiteiten;
 	}
 
 	public Activiteit addActiviteit(Activiteit activiteit) {
-		getActiviteits().add(activiteit);
+		getActiviteiten().add(activiteit);
 		activiteit.setTak(this);
 
 		return activiteit;
 	}
 
 	public Activiteit removeActiviteit(Activiteit activiteit) {
-		getActiviteits().remove(activiteit);
+		getActiviteiten().remove(activiteit);
 		activiteit.setTak(null);
 
 		return activiteit;
