@@ -10,5 +10,5 @@ before_install:
 - chmod +x ./mvnw
 deploy:
   provider: gae
-  keyfile: Medicamp-5ddc55b85392.json
+  keyfile: Medicamp-5ddc55b85392.json.enc
   project: medicamp-so
