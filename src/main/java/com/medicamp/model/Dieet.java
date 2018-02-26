@@ -32,6 +32,7 @@ public class Dieet implements Serializable {
 	private String opmerking;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="dieeten")
 	private List<Kind> kinderen;
 

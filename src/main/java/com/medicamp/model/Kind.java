@@ -52,12 +52,14 @@ public class Kind implements Serializable {
 	private byte zwemmen;
 
 	//bi-directional many-to-one association to User
+	@JsonIgnore
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;
 
 	//bi-directional many-to-many association to Dieet
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_dieet"
@@ -71,6 +73,7 @@ public class Kind implements Serializable {
 	private List<Dieet> dieeten;
 
 	//bi-directional many-to-many association to Medicatie
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_medicatie"
@@ -84,6 +87,7 @@ public class Kind implements Serializable {
 	private List<Medicatie> medicaties;
 
 	//bi-directional many-to-many association to Tak
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_tak"
@@ -97,6 +101,7 @@ public class Kind implements Serializable {
 	private List<Tak> takken;
 
 	//bi-directional many-to-many association to Voogd
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_voogd"
@@ -110,6 +115,7 @@ public class Kind implements Serializable {
 	private List<Voogd> voogden;
 
 	//bi-directional many-to-many association to Ziekte
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_ziekte"

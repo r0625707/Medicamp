@@ -35,6 +35,7 @@ public class Ziekte implements Serializable {
 	private String symptomen;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="ziektes")
 	private List<Kind> kinderen;
 

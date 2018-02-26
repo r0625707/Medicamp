@@ -36,10 +36,12 @@ public class Tak implements Serializable {
 	private List<Activiteit> activiteiten;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="takken")
 	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to Groep
+	@JsonIgnore
 	@NotNull
 	@ManyToOne
 	private Groep groep;

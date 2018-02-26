@@ -54,6 +54,7 @@ public class Groep implements Serializable {
 	private String straat;
 
 	//bi-directional many-to-one association to User
+	@JsonIgnore
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="login")

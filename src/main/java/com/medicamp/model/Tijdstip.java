@@ -32,6 +32,7 @@ public class Tijdstip implements Serializable {
 	private Date tijdstip;
 
 	//bi-directional many-to-one association to Medicatie
+	@JsonIgnore
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="idmedicatie")

@@ -34,6 +34,7 @@ public class Activiteit implements Serializable {
 	private Date einddatum;
 
 	//bi-directional many-to-one association to Tak
+	@JsonIgnore
 	@NotNull(message = "Vermeld een tak")
 	@ManyToOne
 	@JoinColumn(name="idtak")

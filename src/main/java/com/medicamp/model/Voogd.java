@@ -55,10 +55,12 @@ public class Voogd implements Serializable {
 	private String voornaam;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="voogden")
 	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to User
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;

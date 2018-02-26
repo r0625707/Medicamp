@@ -64,6 +64,7 @@ public class User implements Serializable {
 	private List<Kind> kinderen;
 
 	//bi-directional many-to-many association to Tak
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="user_tak"
