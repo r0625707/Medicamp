@@ -88,9 +88,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.google.appengine</groupId>	
- 				<artifactId>appengine-maven-plugin</artifactId>		 				
- 				<version>1.9.49</version>
+				<groupId>com.google.appengine</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>1.9.62</version>
 			</plugin>
 		</plugins>
 	</build>
