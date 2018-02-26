@@ -5,11 +5,4 @@ jdk: oraclejdk8
 script: mvn clean package
 sudo: required
 before_install:
-- openssl aes-256-cbc -K $encrypted_26ff4bb0f391_key -iv $encrypted_26ff4bb0f391_iv
-  -in Medicamp-29bec4896749.json.enc -out Medicamp-29bec4896749.json -d
 - chmod +x ./mvnw
-deploy:
-  provider: gae
-  keyfile: Medicamp-29bec4896749.json
-  project: medicamp-so
-  default: true
