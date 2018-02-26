@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "medicamp-so",
+  "private_key_id": "5ddc55b85392e1734a814f61de3c01c43ec153c5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDmeROBBM5SQn6t\nFywj1fjfUKFSS+a7l4BiYkal6INNgLgUzGX1sSJoytknZWykpRcfXVFpkpygOK37\n8FcaoUg3V0KcapfW6jNvrbJQ9neHJa9Ki1C7MvcHLdSy46pvSFi7oWZho9AHTJen\n/0vsB8CEc8d1NTt5YSYZ58N7TLDyjul0xGtm6pXrlClvOWFJGumPh871VVzEroaj\nEZzScvDZj/NTGYa1UQtNZiPBFvtcqQT23wqcvAP263+M7ECq4g4xlp3/iPTNQGvF\nm2j5hDVv6XPAr8DTm3D84R31cwVF05xgeqCf7MPyVBi9bWwe0ZB4A1aGtQUTT7Jd\ndNxIpL13AgMBAAECggEAFYIPE+dC6eJSuAyFjgKV6yE3LNrweWk2Dfhl522/cygk\nBazdhwQ01dq4UTjh3quZcM/gnR2ViE5BzlUri8ypVKDMEpTP/rp0emOXVH7rwKz/\notFFg3LKIt1gECG28hOqVDhHuazz6Pp43LCygSBoEvRLFOEW38j1KU27rHIHwVrv\nj90hkIVk6M3ICmVPABykTyPpD6rKoEDxFLc8obcuXHGwpeQuH5qrPrpkcfM+98kt\nhKCDhrzEB/6wVdFQmIilNhmcIv+cvUMK/7AdhlRZYeKVRAcuxsr2TVB2QAHGVB+0\nw5p3RfI3J+G4RpDwt/WFXn6FzmrGSZ70m1i5yx7roQKBgQD1IARdMvRE5lGbvxCs\nNy3Z1FJEYwyy/AJG5DalVgVmTchXkPRmKzrjYdRaoymY7v1eTunUXclWYLaYR2CY\nQd6tIwnoCjls83qalNUzm7c8hJooKrzH9n/jflBDANHwUcg21qIJMhr/gpImBEKN\ndYQqLiAkV5j9PXvxTnfff2U2hQKBgQDwsqY2JkbKUKh7mSon3gmsnz08EIgwxa1d\neofdfpzAzxWVv5lSnCLC5tAapA0oXu47wqlcHcjfSBIQcCvJe+F8O6M4XEpZ8Deo\njuglW7aMf6dmGQcdHP406ZrrWBTYboSUHOGuA8YrJo3e9GL9GIyh5JjYPCUK1Rr8\nZlSsQkUaywKBgDVztN/p45A+tR8ETAtxwOLWRNY6zyMchxaUX0Iwft7vKTfHGTRK\nSv4YcCkPmVuLCd8N0DmJ9gSK9GZCclLhUkBo+pkJ2bnjYiHhQJiPZSaiN8d4glAM\ndZjTC4eA30bLXqBur0jYD0EWZO47UZPtQ1O7WTDzlR3r0WIuXT90VUrNAoGAFXS3\nYEhVMx+xhSMIIPmn/x1KxhnrKf3VEGolxlbM/lr3X5vuvPByINGWZ2mMSrb7oZQe\nqLl2+IBiK9jz7kf+t6ZRTGrdrdq9+2aRxxK/2RJgB7ffbHbzKiBQ0P3PDeP8KX/R\nlkN73MjZCLDcShdwIdZQ0aW635ZTi4BLt/dIVbUCgYEA3ryev9JT25aF7TfdJJRB\n4XJKsreOcqWvugAiFm54+qb8wEz9GQICALOQH9/EIAp+sk6ZvtGG82+QZIjpqJY1\noy5MtNvNHCCwWarMhyO8L3futrX854tbBKpousYhoI6E439EKxtt8dwVXVSsWunr\nJJOP3vJp+uIV0V61SNvJ5/w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "medicamp-so@appspot.gserviceaccount.com",
+  "client_id": "115326544690940875724",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/medicamp-so%40appspot.gserviceaccount.com"
+}

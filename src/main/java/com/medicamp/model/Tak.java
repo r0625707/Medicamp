@@ -47,6 +47,7 @@ public class Tak implements Serializable {
 	private Groep groep;
 
 	//bi-directional many-to-many association to User
+	@JsonIgnore
 	@ManyToMany(mappedBy="takken")
 	private List<User> users;
 
