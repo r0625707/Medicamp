@@ -37,12 +37,12 @@ public class TakController {
 	KindRepository kinderen;
 	
 	@GetMapping("/{idtak}")
-	public Tak getTakById(@PathVariable (value="idtak") String idtak) {
+	public Tak getTakById(@PathVariable (value="idtak") int idtak) {
 		return takken.findOne(idtak);
 	}
 	
 	@PutMapping("/{idtak}")
-	public ResponseEntity<Tak> updateTak(@PathVariable (value="idtak") String idtak, @RequestBody Tak tak) {
+	public ResponseEntity<Tak> updateTak(@PathVariable (value="idtak") int idtak, @RequestBody Tak tak) {
 		Tak oldTak = takken.findOne(idtak);
 		if(oldTak == null) {
 			return ResponseEntity.notFound().build();
@@ -52,7 +52,7 @@ public class TakController {
 	}
 	
 	@DeleteMapping("/{idtak}")
-	public ResponseEntity<Tak> deleteTak(@PathVariable (value="idtak") String idtak) {
+	public ResponseEntity<Tak> deleteTak(@PathVariable (value="idtak") int idtak) {
 		Tak found = takken.findOne(idtak);
 		if(found == null) {
 			return ResponseEntity.notFound().build();
@@ -62,12 +62,12 @@ public class TakController {
 	}
 	
 	@GetMapping("/{idtak}/leiding")
-	public List<User> getLeidingFromTak(@PathVariable (value="idtak") String idtak) {
+	public List<User> getLeidingFromTak(@PathVariable (value="idtak") int idtak) {
 		return takken.findOne(idtak).getUsers();
 	}
 	
 	@PostMapping("/{idtak}/leiding")
-	public ResponseEntity<Tak> addLeiderToTak(@PathVariable (value="idtak") String idtak, @RequestBody String login) {
+	public ResponseEntity<Tak> addLeiderToTak(@PathVariable (value="idtak") int idtak, @RequestBody String login) {
 		Tak tak = takken.findOne(idtak);
 		User leiding = users.findOne(login);
 		if(tak == null) {
@@ -81,7 +81,7 @@ public class TakController {
 	}
 	
 	@DeleteMapping("/{idtak}/leiding/{idleiding}")
-	public ResponseEntity<Tak> deleteLeiderFromTak(@PathVariable (value="idtak") String idtak, @PathVariable (value="idleiding") String login) {
+	public ResponseEntity<Tak> deleteLeiderFromTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="idleiding") String login) {
 		Tak tak = takken.findOne(idtak);
 		User leiding = users.findOne(login);
 		if(tak == null || leiding == null) {
@@ -92,23 +92,23 @@ public class TakController {
 	}
 	
 	@GetMapping("/{idtak}/activiteit")
-	public List<Activiteit> getAllActiviteitenFromTak(@PathVariable (value="idtak") String idtak) {
+	public List<Activiteit> getAllActiviteitenFromTak(@PathVariable (value="idtak") int idtak) {
 		return takken.findOne(idtak).getActiviteiten();
 	}
 	
 	@PostMapping("/{idtak}/activiteit")
-	public ResponseEntity<Activiteit> addActiviteitToTak(@PathVariable (value="idtak") String idtak, @RequestBody Activiteit activiteit) {
+	public ResponseEntity<Activiteit> addActiviteitToTak(@PathVariable (value="idtak") int idtak, @RequestBody Activiteit activiteit) {
 		takken.findOne(idtak).addActiviteit(activiteit);
 		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/{idtak}/kind")
-	public List<Kind> getAllKinderenFromTak(@PathVariable (value="idtak") String idtak) {
+	public List<Kind> getAllKinderenFromTak(@PathVariable (value="idtak") int idtak) {
 		return takken.findOne(idtak).getKinderen();
 	}
 	
 	@PostMapping("/{idtak}/kind")
-	public ResponseEntity<Tak> addKindToTak(@PathVariable (value="idtak") String idtak, @RequestBody String idkind) {
+	public ResponseEntity<Tak> addKindToTak(@PathVariable (value="idtak") int idtak, @RequestBody int idkind) {
 		Tak tak = takken.findOne(idtak);
 		Kind kind = kinderen.findOne(idkind);
 		if(tak == null || kind == null) {
@@ -119,7 +119,7 @@ public class TakController {
 	}
 	
 	@DeleteMapping("/{idtak}/kind/{idkind}")
-	public ResponseEntity<Tak> deleteKindFromTak(@PathVariable (value="idtak") String idtak, @PathVariable (value="idkind") String idkind) {
+	public ResponseEntity<Tak> deleteKindFromTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="idkind") int idkind) {
 		Tak tak = takken.findOne(idtak);
 		Kind kind = kinderen.findOne(idkind);
 		if(tak == null || kind == null) {

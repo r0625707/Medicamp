@@ -42,23 +42,23 @@ public class GroepController {
 	}
 	
 	@GetMapping("/{idgroep}")
-	public Groep getGroepById(@PathVariable (value = "idgroep") String idgroep) {
+	public Groep getGroepById(@PathVariable (value = "idgroep") int idgroep) {
 		return groepen.findOne(idgroep);
 	}
 	
 	@PutMapping("/{idgroep}")
-	public ResponseEntity<Groep> updateGroep(@PathVariable (value = "idgroep") String idgroep, @RequestBody Groep groep) {
+	public ResponseEntity<Groep> updateGroep(@PathVariable (value = "idgroep") int idgroep, @RequestBody Groep groep) {
 		Groep oldGroep = groepen.findOne(idgroep);
 		if(oldGroep == null) {
 			return ResponseEntity.notFound().build();
 		}
-		groep.setIdgroep(Integer.parseInt(idgroep));
+		groep.setIdgroep(idgroep);
 		groepen.save(groep);
 		return ResponseEntity.ok().body(groep);
 	}
 	
 	@DeleteMapping("/{idgroep}")
-	public ResponseEntity<Groep> deleteGroep(@PathVariable (value = "idgroep") String idgroep) {
+	public ResponseEntity<Groep> deleteGroep(@PathVariable (value = "idgroep") int idgroep) {
 		Groep found = groepen.findOne(idgroep);
 		if(found == null) {
 			return ResponseEntity.notFound().build();
@@ -68,13 +68,13 @@ public class GroepController {
 	}
 	
 	@GetMapping("/{idgroep}/tak")
-	public List<Tak> getAllTakkenFromGroep(@PathVariable (value = "idgroep") String idgroep) {
+	public List<Tak> getAllTakkenFromGroep(@PathVariable (value = "idgroep") int idgroep) {
 		Groep groep = groepen.findOne(idgroep);
 		return groep.getTakken();
 	}
 	
 	@PostMapping("/{idgroep}/tak")
-	public ResponseEntity<Tak> addTak(@PathVariable (value = "idgroep") String idgroep, @RequestBody Tak tak) {
+	public ResponseEntity<Tak> addTak(@PathVariable (value = "idgroep") int idgroep, @RequestBody Tak tak) {
 		tak.setGroep(groepen.findOne(idgroep));
 		takken.save(tak);
 		return ResponseEntity.ok().body(tak);

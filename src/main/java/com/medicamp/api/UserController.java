@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.model.Groep;
 import com.medicamp.model.Kind;
 import com.medicamp.model.Tak;
 import com.medicamp.model.User;
@@ -62,6 +63,15 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(user.getTakken());
+	}
+	
+	@GetMapping("/{login}/groep")
+	public ResponseEntity<List<Groep>> getAllGroepen(@PathVariable (value="login") String login) {
+		User user = users.findOne(login);
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(user.getGroepen());
 	}
 
 
