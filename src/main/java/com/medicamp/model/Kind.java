@@ -1,7 +1,13 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,34 +21,45 @@ import java.util.List;
 @NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idkind;
 
+	@NotNull
 	private byte dafi;
 
+	@NotNull
+	@Past(message = "Geboortedatum kan niet in de toekomst zijn")
 	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
 
-	private byte meldingen;
-
+	@NotNull(message = "Vul een naam in")
+	@Size(min = 1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob
 	private String opmerking;
 
+	@NotNull
 	private byte sport;
 
+	@NotNull(message = "Vul een voornaam in")
+	@Size(min = 1, message = "Vul een voornaam in")
 	private String voornaam;
 
+	@NotNull
 	private byte zwemmen;
 
 	//bi-directional many-to-one association to User
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;
 
 	//bi-directional many-to-many association to Dieet
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_dieet"
@@ -53,9 +70,10 @@ public class Kind implements Serializable {
 			@JoinColumn(name="iddieet")
 			}
 		)
-	private List<Dieet> dieets;
+	private List<Dieet> dieeten;
 
 	//bi-directional many-to-many association to Medicatie
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_medicatie"
@@ -69,6 +87,7 @@ public class Kind implements Serializable {
 	private List<Medicatie> medicaties;
 
 	//bi-directional many-to-many association to Tak
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_tak"
@@ -79,9 +98,10 @@ public class Kind implements Serializable {
 			@JoinColumn(name="idtak")
 			}
 		)
-	private List<Tak> taks;
+	private List<Tak> takken;
 
 	//bi-directional many-to-many association to Voogd
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_voogd"
@@ -92,9 +112,10 @@ public class Kind implements Serializable {
 			@JoinColumn(name="idvoogd")
 			}
 		)
-	private List<Voogd> voogds;
+	private List<Voogd> voogden;
 
 	//bi-directional many-to-many association to Ziekte
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="kind_ziekte"
@@ -134,13 +155,7 @@ public class Kind implements Serializable {
 		this.gebdatum = gebdatum;
 	}
 
-	public byte getMeldingen() {
-		return this.meldingen;
-	}
 
-	public void setMeldingen(byte meldingen) {
-		this.meldingen = meldingen;
-	}
 
 	public String getNaam() {
 		return this.naam;
@@ -190,12 +205,12 @@ public class Kind implements Serializable {
 		this.user = user;
 	}
 
-	public List<Dieet> getDieets() {
-		return this.dieets;
+	public List<Dieet> getDieeten() {
+		return this.dieeten;
 	}
 
-	public void setDieets(List<Dieet> dieets) {
-		this.dieets = dieets;
+	public void setDieeten(List<Dieet> dieeten) {
+		this.dieeten = dieeten;
 	}
 
 	public List<Medicatie> getMedicaties() {
@@ -206,20 +221,20 @@ public class Kind implements Serializable {
 		this.medicaties = medicaties;
 	}
 
-	public List<Tak> getTaks() {
-		return this.taks;
+	public List<Tak> getTakken() {
+		return this.takken;
 	}
 
-	public void setTaks(List<Tak> taks) {
-		this.taks = taks;
+	public void setTakken(List<Tak> takken) {
+		this.takken = takken;
 	}
 
-	public List<Voogd> getVoogds() {
-		return this.voogds;
+	public List<Voogd> getVoogden() {
+		return this.voogden;
 	}
 
-	public void setVoogds(List<Voogd> voogds) {
-		this.voogds = voogds;
+	public void setVoogden(List<Voogd> voogden) {
+		this.voogden = voogden;
 	}
 
 	public List<Ziekte> getZiektes() {

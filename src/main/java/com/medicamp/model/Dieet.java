@@ -1,7 +1,12 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -14,18 +19,22 @@ import java.util.List;
 @NamedQuery(name="Dieet.findAll", query="SELECT d FROM Dieet d")
 public class Dieet implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int iddieet;
 
+	@NotNull(message = "Vul een naam in")
+	@Size(min=1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob
 	private String opmerking;
 
 	//bi-directional many-to-many association to Kind
-	@ManyToMany(mappedBy="dieets")
-	private List<Kind> kinds;
+	@ManyToMany(mappedBy="dieeten")
+	private List<Kind> kinderen;
 
 	public Dieet() {
 	}
@@ -54,12 +63,12 @@ public class Dieet implements Serializable {
 		this.opmerking = opmerking;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
 }

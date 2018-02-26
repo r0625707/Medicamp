@@ -1,7 +1,12 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 
@@ -14,17 +19,23 @@ import java.util.Date;
 @NamedQuery(name="Activiteit.findAll", query="SELECT a FROM Activiteit a")
 public class Activiteit implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idactiviteit;
-
+	
+	@NotNull(message = "Vul een begindatum in")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date begindatum;
 
+	@NotNull(message = "Vul een einddatum in")
+	@Future(message = "Einddatum kan niet in het verleden liggen")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date einddatum;
 
 	//bi-directional many-to-one association to Tak
+	@NotNull(message = "Vermeld een tak")
 	@ManyToOne
 	@JoinColumn(name="idtak")
 	private Tak tak;

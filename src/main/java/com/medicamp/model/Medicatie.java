@@ -1,7 +1,12 @@
-package medicamp.model;
+package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -14,22 +19,28 @@ import java.util.List;
 @NamedQuery(name="Medicatie.findAll", query="SELECT m FROM Medicatie m")
 public class Medicatie implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idmedicatie;
 
+	@NotNull(message = "Vul een naam in")
+	@Size(min = 1, message = "Vul een naam in")
 	private String naam;
 
 	@Lob
 	private String opmerking;
 
 	//bi-directional many-to-many association to Kind
+	@JsonIgnore
 	@ManyToMany(mappedBy="medicaties")
-	private List<Kind> kinds;
+	private List<Kind> kinderen;
 
 	//bi-directional many-to-one association to Tijdstip
+	@JsonIgnore
 	@OneToMany(mappedBy="medicatie")
-	private List<Tijdstip> tijdstips;
+	private List<Tijdstip> tijdstippen;
 
 	public Medicatie() {
 	}
@@ -58,31 +69,31 @@ public class Medicatie implements Serializable {
 		this.opmerking = opmerking;
 	}
 
-	public List<Kind> getKinds() {
-		return this.kinds;
+	public List<Kind> getKinderen() {
+		return this.kinderen;
 	}
 
-	public void setKinds(List<Kind> kinds) {
-		this.kinds = kinds;
+	public void setKinderen(List<Kind> kinderen) {
+		this.kinderen = kinderen;
 	}
 
-	public List<Tijdstip> getTijdstips() {
-		return this.tijdstips;
+	public List<Tijdstip> getTijdstippen() {
+		return this.tijdstippen;
 	}
 
-	public void setTijdstips(List<Tijdstip> tijdstips) {
-		this.tijdstips = tijdstips;
+	public void setTijdstippen(List<Tijdstip> tijdstippen) {
+		this.tijdstippen = tijdstippen;
 	}
 
 	public Tijdstip addTijdstip(Tijdstip tijdstip) {
-		getTijdstips().add(tijdstip);
+		getTijdstippen().add(tijdstip);
 		tijdstip.setMedicatie(this);
 
 		return tijdstip;
 	}
 
 	public Tijdstip removeTijdstip(Tijdstip tijdstip) {
-		getTijdstips().remove(tijdstip);
+		getTijdstippen().remove(tijdstip);
 		tijdstip.setMedicatie(null);
 
 		return tijdstip;
