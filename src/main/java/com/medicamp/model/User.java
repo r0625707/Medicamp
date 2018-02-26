@@ -56,7 +56,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Groep
 	@JsonIgnore
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade=CascadeType.REMOVE)
 	private List<Groep> groepen;
 
 	//bi-directional many-to-one association to Kind

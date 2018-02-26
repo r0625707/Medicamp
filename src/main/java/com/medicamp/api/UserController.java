@@ -113,11 +113,18 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 		}
 
-		/*note.getVoogden().removeAll(note.getVoogden());
-		note.getKinderen().removeAll(note.getKinderen());
-		note.getGroepen().removeAll(note.getGroepen());*/
+		
 		users.delete(note);
 		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("/login")
+	public boolean login(@RequestBody String login, @RequestBody String password) {
+		User user = users.findOne(login);
+		if(user == null) {
+			return false;
+		}
+		return user.isCorrectPassword(password);
 	}
 
 }
