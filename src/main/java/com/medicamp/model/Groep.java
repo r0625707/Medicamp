@@ -22,7 +22,6 @@ import java.util.List;
 public class Groep implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idgroep;
@@ -61,7 +60,6 @@ public class Groep implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to Tak
-	@JsonIgnore
 	@OneToMany(mappedBy="groep")
 	private List<Tak> takken;
 

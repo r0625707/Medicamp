@@ -20,7 +20,6 @@ import java.util.Date;
 public class Tijdstip implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idtijdstip;

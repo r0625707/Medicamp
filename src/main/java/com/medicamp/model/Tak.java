@@ -20,7 +20,6 @@ import java.util.List;
 public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonIgnore
 	@GeneratedValue
 	@Id
 	private int idtak;
@@ -33,12 +32,10 @@ public class Tak implements Serializable {
 	private String omschrijving;
 
 	//bi-directional many-to-one association to Activiteit
-	@JsonIgnore
 	@OneToMany(mappedBy="tak")
 	private List<Activiteit> activiteiten;
 
 	//bi-directional many-to-many association to Kind
-	@JsonIgnore
 	@ManyToMany(mappedBy="takken")
 	private List<Kind> kinderen;
 

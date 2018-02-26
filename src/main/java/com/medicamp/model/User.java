@@ -38,6 +38,7 @@ public class User implements Serializable {
 	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
     
+	@JsonIgnore
 	@NotNull(message = "Gelieve een wachtwoord in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;
@@ -55,17 +56,14 @@ public class User implements Serializable {
 	private String voornaam;
 
 	//bi-directional many-to-one association to Groep
-	@JsonIgnore
 	@OneToMany(mappedBy="user", cascade=CascadeType.REMOVE)
 	private List<Groep> groepen;
 
 	//bi-directional many-to-one association to Kind
-	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Kind> kinderen;
 
 	//bi-directional many-to-many association to Tak
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(
 		name="user_tak"
@@ -80,7 +78,6 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Voogd
 	
-	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private List<Voogd> voogden;
 
