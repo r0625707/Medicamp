@@ -2,6 +2,7 @@ package com.medicamp.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -27,7 +28,7 @@ public class Voogd implements Serializable {
 	private String bus;
 
 	@NotNull(message = "Vul een huisnr in")
-	@Size(min = 1, message = "Vul een huisnr in")
+	@Min(value = 1, message = "huisnr kleiner dan 1")
 	private int huisnr;
 
 	@NotNull(message = "Vul een naam in")
@@ -63,7 +64,7 @@ public class Voogd implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="login")
-	private User user;
+	private User login;
 
 	public Voogd() {
 	}
@@ -148,12 +149,12 @@ public class Voogd implements Serializable {
 		this.kinderen = kinderen;
 	}
 
-	public User getUser() {
-		return this.user;
+	public User getLogin() {
+		return this.login;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setLogin(User user) {
+		this.login = user;
 	}
 
 }

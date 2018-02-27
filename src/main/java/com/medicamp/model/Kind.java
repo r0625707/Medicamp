@@ -6,7 +6,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name="kind")
 @NamedQuery(name="Kind.findAll", query="SELECT k FROM Kind k")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="idkind")
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -52,9 +57,9 @@ public class Kind implements Serializable {
 	private byte zwemmen;
 
 	//bi-directional many-to-one association to User
-	@JsonIgnore
+	@JsonBackReference("user-kind")
 	@ManyToOne
-	@JoinColumn(name="login")
+	@JoinColumn(name="login", nullable=false)
 	private User user;
 
 	//bi-directional many-to-many association to Dieet
@@ -196,11 +201,12 @@ public class Kind implements Serializable {
 		this.zwemmen = zwemmen;
 	}
 
+	
 	public User getUser() {
 		return this.user;
 	}
 
-	public void setUser(User user) {
+	public void setLogin(User user) {
 		this.user = user;
 	}
 

@@ -12,7 +12,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.google.common.hash.Hashing;
 
 import java.util.List;
@@ -25,7 +29,7 @@ import java.util.List;
 @Entity
 @Table(name="user")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "login")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -38,7 +42,7 @@ public class User implements Serializable {
 	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
     
-	@JsonIgnore
+	
 	@NotNull(message = "Gelieve een wachtwoord in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;
@@ -60,6 +64,7 @@ public class User implements Serializable {
 	private List<Groep> groepen;
 
 	//bi-directional many-to-one association to Kind
+	@JsonManagedReference("user-kind")
 	@OneToMany(mappedBy="user")
 	private List<Kind> kinderen;
 
@@ -79,7 +84,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Voogd
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="login")
 	private List<Voogd> voogden;
 
 	public User() {
@@ -180,14 +185,14 @@ public class User implements Serializable {
 
 	public Kind addKind(Kind kind) {
 		getKinderen().add(kind);
-		kind.setUser(this);
+		kind.setLogin(this);
 
 		return kind;
 	}
 
 	public Kind removeKind(Kind kind) {
 		getKinderen().remove(kind);
-		kind.setUser(null);
+		kind.setLogin(null);
 
 		return kind;
 	}
@@ -210,14 +215,14 @@ public class User implements Serializable {
 
 	public Voogd addVoogd(Voogd voogd) {
 		getVoogden().add(voogd);
-		voogd.setUser(this);
+		voogd.setLogin(this);
 
 		return voogd;
 	}
 
 	public Voogd removeVoogd(Voogd voogd) {
 		getVoogden().remove(voogd);
-		voogd.setUser(null);
+		voogd.setLogin(null);
 
 		return voogd;
 	}
