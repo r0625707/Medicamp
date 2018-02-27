@@ -21,18 +21,17 @@ import com.google.common.hash.Hashing;
 
 import java.util.List;
 
-
 /**
  * The persistent class for the user database table.
  * 
  */
 @Entity
-@Table(name="user")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "user")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "login")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@NotNull(message = "Gelieve een email-adres in te vullen")
 	@Email(message = "Gelieve een geldig email-adres in te vullen")
@@ -41,14 +40,13 @@ public class User implements Serializable {
 	@NotNull(message = "Gelieve een naam in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
-    
-	
+
 	@NotNull(message = "Gelieve een wachtwoord in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;
 
 	private int role;
-    
+
 	@JsonIgnore
 	private String salt;
 
@@ -59,32 +57,25 @@ public class User implements Serializable {
 	@Size(min = 1, max = 255, message = "Gelieve een voornaam van geldige lengte in te vullen")
 	private String voornaam;
 
-	//bi-directional many-to-one association to Groep
-	@OneToMany(mappedBy="user", cascade=CascadeType.REMOVE)
+	// bi-directional many-to-one association to Groep
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private List<Groep> groepen;
 
-	//bi-directional many-to-one association to Kind
+	// bi-directional many-to-one association to Kind
 	@JsonManagedReference("user-kind")
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy = "user")
 	private List<Kind> kinderen;
 
-	//bi-directional many-to-many association to Tak
+	// bi-directional many-to-many association to Tak
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(
-		name="user_tak"
-		, joinColumns={
-			@JoinColumn(name="login")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idtak")
-			}
-		)
+	@JoinTable(name = "user_tak", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {
+			@JoinColumn(name = "idtak") })
 	private List<Tak> takken;
 
-	//bi-directional many-to-one association to Voogd
-	
-	@OneToMany(mappedBy="login")
+	// bi-directional many-to-one association to Voogd
+
+	@OneToMany(mappedBy = "login")
 	private List<Voogd> voogden;
 
 	public User() {
@@ -113,7 +104,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public void setPasswordHashed(String password) {
 		setPassword(hashPassword(password));
 	}
@@ -127,7 +118,7 @@ public class User implements Serializable {
 	}
 
 	public String getSalt() {
-		if(this.salt==null) {
+		if (this.salt == null) {
 			setSalt(generateSalt());
 		}
 		return this.salt;
@@ -226,18 +217,18 @@ public class User implements Serializable {
 
 		return voogd;
 	}
-	
+
 	private String hashPassword(String password) {
 		String sha256hex = Hashing.sha256().hashString(password.concat(getSalt()), StandardCharsets.UTF_8).toString();
 		return sha256hex;
 	}
-	
+
 	private String generateSalt() {
 		SecureRandom random = new SecureRandom();
 		byte seed[] = random.generateSeed(20);
 		return new BigInteger(1, seed).toString(16);
 	}
-	
+
 	public boolean isCorrectPassword(String password) {
 		String hashed = hashPassword(password);
 		return getPassword().equals(hashed);
