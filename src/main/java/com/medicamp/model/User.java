@@ -62,7 +62,7 @@ public class User implements Serializable {
 	private List<Groep> groepen;
 
 	// bi-directional many-to-one association to Kind
-	@JsonManagedReference("user-kind")
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Kind> kinderen;
 
@@ -74,7 +74,7 @@ public class User implements Serializable {
 	private List<Tak> takken;
 
 	// bi-directional many-to-one association to Voogd
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Voogd> voogden;
 
