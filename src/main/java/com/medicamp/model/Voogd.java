@@ -64,7 +64,7 @@ public class Voogd implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="login")
-	private User login;
+	private User user;
 
 	public Voogd() {
 	}
@@ -149,12 +149,12 @@ public class Voogd implements Serializable {
 		this.kinderen = kinderen;
 	}
 
-	public User getLogin() {
-		return this.login;
+	public User getUser() {
+		return this.user;
 	}
 
-	public void setLogin(User user) {
-		this.login = user;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

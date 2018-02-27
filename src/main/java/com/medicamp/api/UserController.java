@@ -144,28 +144,8 @@ public class UserController {
 		return user.isCorrectPassword(password);
 	}
 	
-	@PostMapping("/{login}/kind")
-	public ResponseEntity<User> addKind(@PathVariable (value="login") String login, @RequestBody Kind kind) {
-		User user = users.findOne(login);
-		if(user == null) {
-			return ResponseEntity.notFound().build();
-		}
-		kind.setUser(user);
-		user.addKind(kind);
-		kinderen.save(kind);
-		return ResponseEntity.ok().build();
-	}
 	
-	@PostMapping("/{login}/voogd")
-	public ResponseEntity<User> addVoogd(@PathVariable (value="login") String login, @RequestBody Voogd voogd) {
-		User user = users.findOne(login);
-		if(user == null) {
-			return ResponseEntity.notFound().build();
-		}
-		voogd.setUser(user);
-		user.addVoogd(voogd);
-		voogden.save(voogd);
-		return ResponseEntity.ok().build();
-	}
+	
+	
 
 }

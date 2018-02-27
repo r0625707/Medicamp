@@ -75,7 +75,7 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Voogd
 
-	@OneToMany(mappedBy = "login")
+	@OneToMany(mappedBy = "user")
 	private List<Voogd> voogden;
 
 	public User() {
@@ -176,14 +176,14 @@ public class User implements Serializable {
 
 	public Kind addKind(Kind kind) {
 		getKinderen().add(kind);
-		kind.setLogin(this);
+		kind.setUser(this);
 
 		return kind;
 	}
 
 	public Kind removeKind(Kind kind) {
 		getKinderen().remove(kind);
-		kind.setLogin(null);
+		kind.setUser(null);
 
 		return kind;
 	}
@@ -206,14 +206,14 @@ public class User implements Serializable {
 
 	public Voogd addVoogd(Voogd voogd) {
 		getVoogden().add(voogd);
-		voogd.setLogin(this);
+		voogd.setUser(this);
 
 		return voogd;
 	}
 
 	public Voogd removeVoogd(Voogd voogd) {
 		getVoogden().remove(voogd);
-		voogd.setLogin(null);
+		voogd.setUser(null);
 
 		return voogd;
 	}

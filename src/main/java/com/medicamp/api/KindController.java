@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.medicamp.db.DieetRepository;
 import com.medicamp.db.KindRepository;
 import com.medicamp.db.MedicatieRepository;
+import com.medicamp.db.UserRepository;
 import com.medicamp.db.VoogdRepository;
 import com.medicamp.db.ZiekteRepository;
 import com.medicamp.model.Dieet;
 import com.medicamp.model.Kind;
 import com.medicamp.model.Medicatie;
+import com.medicamp.model.User;
 import com.medicamp.model.Voogd;
 import com.medicamp.model.Ziekte;
 
@@ -45,11 +47,33 @@ public class KindController {
 	@Autowired
 	MedicatieRepository medicaties;
 	
+	@Autowired
+	UserRepository users;
+	
 	@PostMapping
 	public ResponseEntity<Kind> addKind(@RequestBody Kind kind) {
 		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
+	
+	
+	@GetMapping()
+	public List<Kind> getAllKinderen() {
+		return kinderen.findAll();
+	}
+	
+	@PostMapping("/{login}")
+	public ResponseEntity<User> addKind(@PathVariable (value="login") String login, @RequestBody Kind kind) {
+		User user = users.findOne(login);
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		kind.setUser(user);
+		user.addKind(kind);
+		kinderen.save(kind);
+		return ResponseEntity.ok().build();
+	}
+	
 	
 	@GetMapping("/{idkind}")
 	public Kind getKindByIk(@PathVariable (value="idkind") int idkind) {

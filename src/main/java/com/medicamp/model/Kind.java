@@ -27,7 +27,7 @@ import java.util.List;
 public class Kind implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Id
 	private int idkind;
 
@@ -206,7 +206,7 @@ public class Kind implements Serializable {
 		return this.user;
 	}
 
-	public void setLogin(User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
