@@ -53,7 +53,6 @@ public class Kind implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@JsonIgnore
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name="login")
 	private User user;
