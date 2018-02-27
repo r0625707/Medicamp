@@ -32,6 +32,7 @@ public class Tak implements Serializable {
 	private String omschrijving;
 
 	//bi-directional many-to-one association to Activiteit
+	@JsonIgnore
 	@OneToMany(mappedBy="tak")
 	private List<Activiteit> activiteiten;
 

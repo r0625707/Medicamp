@@ -58,6 +58,7 @@ public class User implements Serializable {
 	private String voornaam;
 
 	// bi-directional many-to-one association to Groep
+	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private List<Groep> groepen;
 
@@ -70,7 +71,7 @@ public class User implements Serializable {
 	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_tak", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {
-			@JoinColumn(name = "idtak") })
+	@JoinColumn(name = "idtak") })
 	private List<Tak> takken;
 
 	// bi-directional many-to-one association to Voogd
