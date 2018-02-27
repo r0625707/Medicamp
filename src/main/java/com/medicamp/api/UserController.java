@@ -20,8 +20,9 @@ import com.medicamp.model.Kind;
 import com.medicamp.model.Tak;
 import com.medicamp.model.User;
 import com.medicamp.model.Voogd;
-
+import com.medicamp.db.KindRepository;
 import com.medicamp.db.UserRepository;
+import com.medicamp.db.VoogdRepository;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -30,6 +31,12 @@ public class UserController {
 
 	@Autowired
 	UserRepository users;
+	
+	@Autowired
+	KindRepository kinderen;
+	
+	@Autowired
+	VoogdRepository voogden;
 
 	@GetMapping()
 	public List<User> getAllUsers() {
@@ -143,7 +150,9 @@ public class UserController {
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
+		kind.setUser(user);
 		user.addKind(kind);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -153,7 +162,9 @@ public class UserController {
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
+		voogd.setUser(user);
 		user.addVoogd(voogd);
+		voogden.save(voogd);
 		return ResponseEntity.ok().build();
 	}
 
