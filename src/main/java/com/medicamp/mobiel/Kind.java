@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -59,8 +60,10 @@ public class Kind implements Serializable {
 	private List<Medicatie> medicaties;
 
 	
-	private List<Tak> takken;
-
+	private List<String> takkenids=new ArrayList<String>();
+public void addTakId(String idtak) {
+	takkenids.add(idtak);
+}
 	//bi-directional many-to-many association to Voogd
 
 	private List<Voogd> voogden;
@@ -162,12 +165,12 @@ public class Kind implements Serializable {
 		this.medicaties = medicaties;
 	}
 
-	public List<Tak> getTakken() {
-		return this.takken;
+	public List<String> getTakken() {
+		return this.takkenids;
 	}
 
-	public void setTakken(List<Tak> takken) {
-		this.takken = takken;
+	public void setTakken(List<String> takkenids) {
+		this.takkenids = takkenids;
 	}
 
 	public List<Voogd> getVoogden() {

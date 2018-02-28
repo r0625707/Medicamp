@@ -49,17 +49,17 @@ private String password;
 	private String voornaam;
 
 
-	private List<Groep> groepen;
-
-	
-	private List<Kind> kinderen;
-
-	// bi-directional many-to-many association to Tak
-	
-	private List<Tak> takken;
-
-
-	private List<Voogd> voogden;
+//	private List<Groep> groepen;
+//
+//	
+//	private List<Kind> kinderen;
+//
+//	// bi-directional many-to-many association to Tak
+//	
+//	private List<Tak> takken;
+//
+//
+//	private List<Voogd> voogden;
 
 	public User() {
 	}
@@ -127,79 +127,7 @@ private String password;
 		this.voornaam = voornaam;
 	}
 
-	public List<Groep> getGroepen() {
-		return this.groepen;
-	}
-
-	public void setGroepen(List<Groep> groepen) {
-		this.groepen = groepen;
-	}
-
-	public Groep addGroep(Groep groep) {
-		getGroepen().add(groep);
-		groep.setUser(this);
-
-		return groep;
-	}
-
-	public Groep removeGroep(Groep groep) {
-		getGroepen().remove(groep);
-		groep.setUser(null);
-
-		return groep;
-	}
-
-	public List<Kind> getKinderen() {
-		return this.kinderen;
-	}
-
-	public void setKinderen(List<Kind> kinderen) {
-		this.kinderen = kinderen;
-	}
-
-	public Kind addKind(Kind kind) {
-		getKinderen().add(kind);
-		kind.setUser(this);
-
-		return kind;
-	}
-
-	public Kind removeKind(Kind kind) {
-		getKinderen().remove(kind);
-		kind.setUser(null);
-
-		return kind;
-	}
-
-	public List<Tak> getTakken() {
-		return this.takken;
-	}
-
-	public void setTakken(List<Tak> takken) {
-		this.takken = takken;
-	}
-
-	public List<Voogd> getVoogden() {
-		return this.voogden;
-	}
-
-	public void setVoogden(List<Voogd> voogden) {
-		this.voogden = voogden;
-	}
-
-	public Voogd addVoogd(Voogd voogd) {
-		getVoogden().add(voogd);
-		voogd.setUser(this);
-
-		return voogd;
-	}
-
-	public Voogd removeVoogd(Voogd voogd) {
-		getVoogden().remove(voogd);
-		voogd.setUser(null);
-
-		return voogd;
-	}
+	
 
 	private String hashPassword(String password) {
 		String sha256hex = Hashing.sha256().hashString(password.concat(getSalt()), StandardCharsets.UTF_8).toString();
@@ -216,5 +144,80 @@ private String password;
 		String hashed = hashPassword(password);
 		return getPassword().equals(hashed);
 	}
+	
+//	
+//	public List<Groep> getGroepen() {
+//		return this.groepen;
+//	}
+//
+//	public void setGroepen(List<Groep> groepen) {
+//		this.groepen = groepen;
+//	}
+//
+//	public Groep addGroep(Groep groep) {
+//		getGroepen().add(groep);
+//		groep.setUser(this);
+//
+//		return groep;
+//	}
+//
+//	public Groep removeGroep(Groep groep) {
+//		getGroepen().remove(groep);
+//		groep.setUser(null);
+//
+//		return groep;
+//	}
+//
+//	public List<Kind> getKinderen() {
+//		return this.kinderen;
+//	}
+//
+//	public void setKinderen(List<Kind> kinderen) {
+//		this.kinderen = kinderen;
+//	}
+//
+//	public Kind addKind(Kind kind) {
+//		getKinderen().add(kind);
+//		kind.setUser(this);
+//
+//		return kind;
+//	}
+//
+//	public Kind removeKind(Kind kind) {
+//		getKinderen().remove(kind);
+//		kind.setUser(null);
+//
+//		return kind;
+//	}
+//
+//	public List<Tak> getTakken() {
+//		return this.takken;
+//	}
+//
+//	public void setTakken(List<Tak> takken) {
+//		this.takken = takken;
+//	}
+//
+//	public List<Voogd> getVoogden() {
+//		return this.voogden;
+//	}
+//
+//	public void setVoogden(List<Voogd> voogden) {
+//		this.voogden = voogden;
+//	}
+//
+//	public Voogd addVoogd(Voogd voogd) {
+//		getVoogden().add(voogd);
+//		voogd.setUser(this);
+//
+//		return voogd;
+//	}
+//
+//	public Voogd removeVoogd(Voogd voogd) {
+//		getVoogden().remove(voogd);
+//		voogd.setUser(null);
+//
+//		return voogd;
+//	}
 
 }

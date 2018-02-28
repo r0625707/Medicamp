@@ -54,16 +54,20 @@ public class ApiFixer {
 		
 		
 		
-		
+		//cg.setTakken(takkenjaa);
 		//pas hier takken doorlopen en Tak aanpassen want CompleteClass willen we puur houden
 		List<Tak> takkenKopie=new ArrayList<Tak>();
 		List<Kind> kinderenVulLijst=new ArrayList<Kind>();
+		List<Tak> takkenGenest=new ArrayList<Tak>();
 		for(Tak t:takkenjaa) {
 			takkenKopie.add(fixKinderenPerTak(Integer.toString(t.getIdtak()),kinderenVulLijst, t));
+			takkenGenest.add(t);
+			
 		}
+		cg.setTakken(takkenGenest);////////////
 		c.setKinderen(kinderenVulLijst);
 		c.setTakken(takkenKopie);
-		cg.setTakken(takkenjaa);
+		
 		List<Object> eee=new ArrayList<Object>();
 		eee.add(c);
 		eee.add(cg);
@@ -86,7 +90,9 @@ public class ApiFixer {
 		List<String>kinderenids=new ArrayList<String>();
 		for(Kind k : kinderenjaa) {
 			kinderenids.add(Integer.toString(k.getIdkind()));
+			k.addTakId(Integer.toString(t.getIdtak()));
 		}
+		t.setKinderen(kinderenjaa);/////////
 		kinderenVulLijst.addAll(kinderenjaa);
 		newTak.setKinderenids(kinderenids);
 		return newTak;
