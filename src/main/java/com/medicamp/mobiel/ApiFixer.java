@@ -18,10 +18,24 @@ public class ApiFixer {
 		
 		CompleteClass c=new CompleteClass();
 		CompleteClassGenest cg=new CompleteClassGenest();
-		return fixTakken( user, c,cg);
+		
+		
+		
+		return startAfhaal( user, c,cg);
 		
 		
 		}
+	
+	public List<Object> startAfhaal(String user,CompleteClass c,CompleteClassGenest cg){
+		String mijnUser ="https://medicamp-so.appspot.com/api/user/"+user+"/";	
+		
+		ResponseEntity<User> userEntity = restTemplate.exchange(mijnUser,HttpMethod.GET,null,User.class);
+		
+		User gevondenUser = userEntity.getBody();
+		c.setUser(gevondenUser);
+		cg.setUser(gevondenUser);
+		return fixTakken( user, c,cg);
+	}
 	
 	public List<Object> fixTakken(String user,CompleteClass c,CompleteClassGenest cg){
 		String takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	
@@ -43,9 +57,11 @@ public class ApiFixer {
 		
 		//pas hier takken doorlopen en Tak aanpassen want CompleteClass willen we puur houden
 		List<Tak> takkenKopie=new ArrayList<Tak>();
+		List<Kind> kinderenVulLijst=new ArrayList<Kind>();
 		for(Tak t:takkenjaa) {
-			takkenKopie.add(fixKinderenPerTak(Integer.toString(t.getIdtak()),c, t));
+			takkenKopie.add(fixKinderenPerTak(Integer.toString(t.getIdtak()),kinderenVulLijst, t));
 		}
+		c.setKinderen(kinderenVulLijst);
 		c.setTakken(takkenKopie);
 		cg.setTakken(takkenjaa);
 		List<Object> eee=new ArrayList<Object>();
@@ -54,14 +70,15 @@ public class ApiFixer {
 		return eee;
 	}
 	
-	public Tak fixKinderenPerTak(String idtak,CompleteClass c,Tak t){
+	public Tak fixKinderenPerTak(String idtak,List<Kind> kinderenVulLijst,Tak t){
 		String kinderen ="https://medicamp-so.appspot.com/api/tak/"+idtak+"/kind";	
 		
 		ResponseEntity<List<Kind>> ee = restTemplate.exchange(kinderen,HttpMethod.GET,null,new ParameterizedTypeReference<List<Kind>>() {
 	    });
 		
-		List<Kind>kinderenjaa = ee.getBody();
-		c.setKinderen(kinderenjaa);
+		List<Kind> kinderenjaa = ee.getBody();
+		//aan het loopen over takken, dus als laatste tak geen kinderen heeft iss kinderen in C leeg (altijd overschreven)
+		//c.setKinderen(kinderenjaa);
 		Tak newTak=new Tak();
 		newTak.setIdtak(t.getIdtak());
 		newTak.setNaam(t.getNaam());
@@ -70,6 +87,7 @@ public class ApiFixer {
 		for(Kind k : kinderenjaa) {
 			kinderenids.add(Integer.toString(k.getIdkind()));
 		}
+		kinderenVulLijst.addAll(kinderenjaa);
 		newTak.setKinderenids(kinderenids);
 		return newTak;
 	}
