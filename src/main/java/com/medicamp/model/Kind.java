@@ -61,7 +61,8 @@ public class Kind implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="login", nullable=false)
 	private User user;
-
+	
+	
 	//bi-directional many-to-many association to Dieet
 	@JsonIgnore
 	@ManyToMany

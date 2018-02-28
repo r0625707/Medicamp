@@ -1,6 +1,10 @@
 package com.medicamp.api;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.api.GroepController.GroepInfoBean;
 import com.medicamp.db.GroepRepository;
 import com.medicamp.db.TakRepository;
 import com.medicamp.model.Groep;
@@ -30,9 +35,18 @@ public class GroepController {
 	@Autowired
 	TakRepository takken;
 	
+	
 	@GetMapping
-	public List<Groep> getAllGroepen() {
-		return groepen.findAll();
+	public List<GroepInfoBean> getAllGroepen() {
+		 List<GroepInfoBean> result = new ArrayList<GroepInfoBean>(); 
+		
+		for(Groep g :groepen.findAll()) {
+			
+			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUser().getLogin(), g.getIdgroep(), g.getHuisnr() ));
+			
+		};
+			
+		return result;
 	}
 	
 	@PostMapping
@@ -79,5 +93,116 @@ public class GroepController {
 		takken.save(tak);
 		return ResponseEntity.ok().body(tak);
 	}
+	
+class GroepInfoBean {
+		
+		String naam,voornaam,postcode,straat,bus,email,link,login;
+		int idGroep,huisnr;
+		
+		GroepInfoBean(){}
+		
+		
+
+		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email,
+				String link, String login, int idGroep, int huisnr) {
+			super();
+			this.naam = naam;
+			this.postcode = postcode;
+			this.straat = straat;
+			this.bus = bus;
+			this.email = email;
+			this.link = link;
+			this.login = login;
+			this.idGroep = idGroep;
+			this.huisnr = huisnr;
+		}
+
+
+
+		public String getNaam() {
+			return naam;
+		}
+
+		public void setNaam(String naam) {
+			this.naam = naam;
+		}
+
+		public String getVoornaam() {
+			return voornaam;
+		}
+
+		public void setVoornaam(String voornaam) {
+			this.voornaam = voornaam;
+		}
+
+		public String getPostcode() {
+			return postcode;
+		}
+
+		public void setPostcode(String postcode) {
+			this.postcode = postcode;
+		}
+
+		public String getStraat() {
+			return straat;
+		}
+
+		public void setStraat(String straat) {
+			this.straat = straat;
+		}
+
+		public String getBus() {
+			return bus;
+		}
+
+		public void setBus(String bus) {
+			this.bus = bus;
+		}
+
+		public String getEmail() {
+			return email;
+		}
+
+		public void setEmail(String email) {
+			this.email = email;
+		}
+
+		public String getLink() {
+			return link;
+		}
+
+		public void setLink(String link) {
+			this.link = link;
+		}
+
+		public String getLogin() {
+			return login;
+		}
+
+		public void setLogin(String login) {
+			this.login = login;
+		}
+
+		public int getIdGroep() {
+			return idGroep;
+		}
+
+		public void setIdGroep(int idGroep) {
+			this.idGroep = idGroep;
+		}
+
+		public int getHuisnr() {
+			return huisnr;
+		}
+
+		public void setHuisnr(int huisnr) {
+			this.huisnr = huisnr;
+		}
+		
+		
+		
+		
+	}
+	
 
 }
