@@ -23,6 +23,7 @@ import com.medicamp.model.Voogd;
 import com.medicamp.db.KindRepository;
 import com.medicamp.db.UserRepository;
 import com.medicamp.db.VoogdRepository;
+import com.medicamp.mobiel.ApiFixer;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -38,10 +39,32 @@ public class UserController {
 	@Autowired
 	VoogdRepository voogden;
 
+	@Autowired
+	ApiFixer f;
+	
+	
+	@GetMapping("/{login}/mobiel")
+	public /*ResponseEntity<List<Tak>>*/List<Object> mobiele(@PathVariable(value = "login") String string) {
+		return f.fix(string);
+		
+	/*	User user = users.findOne(string);
+		
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(user.getTakken());*/
+	}
+	
+	
+	
 	@GetMapping()
 	public List<User> getAllUsers() {
 		return users.findAll();
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/{login}/kind")
 	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String string) {

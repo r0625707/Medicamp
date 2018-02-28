@@ -1,4 +1,4 @@
-package com.medicamp.model;
+package com.medicamp.mobiel;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.List;
@@ -16,45 +17,38 @@ import java.util.List;
  * The persistent class for the tak database table.
  * 
  */
-@Entity
-@Table(name="tak")
-@NamedQuery(name="Tak.findAll", query="SELECT t FROM Tak t")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idtak")
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class Tak implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
-	@Id
+	
 	private int idtak;
 
-	@NotNull(message = "Vul een naam in")
-	@Size(min = 1, message = "Vul een naam in")
+
 	private String naam;
 
-	@Lob
+	
 	private String omschrijving;
 
-	//bi-directional many-to-one association to Activiteit
-	@JsonIgnore
-	@OneToMany(mappedBy="tak")
+	private List<String> kinderenids;
+	public List<String> getKinderenids() {
+		return kinderenids;
+	}
+
+	public void setKinderenids(List<String> kinderenids) {
+		this.kinderenids = kinderenids;
+	}
+
 	private List<Activiteit> activiteiten;
 
-	//bi-directional many-to-many association to Kind
-	@JsonIgnore
-	@ManyToMany(mappedBy="takken")
+	
 	private List<Kind> kinderen;
 
-	//bi-directional many-to-one association to Groep
-	@JsonIgnore
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name="idgroep")
+	
 	private Groep groep;
 
-	//bi-directional many-to-many association to User
-	@JsonIgnore
-	@ManyToMany(mappedBy="takken")
+	
 	private List<User> users;
 
 	public Tak() {
