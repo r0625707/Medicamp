@@ -45,7 +45,7 @@ public class Tak implements Serializable {
 	@JsonIgnore
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name="groepid")
+	@JoinColumn(name="idgroep")
 	private Groep groep;
 
 	//bi-directional many-to-many association to User
