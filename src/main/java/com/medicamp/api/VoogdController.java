@@ -69,6 +69,7 @@ public class VoogdController {
 			return ResponseEntity.notFound().build();
 		}
 		voogd.setIdvoogd(idvoogd);
+		voogd.setUser(oldVoogd.getUser());
 		voogden.save(voogd);
 		return ResponseEntity.ok().body(voogd);
 	}
