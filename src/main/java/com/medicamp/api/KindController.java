@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.medicamp.db.DieetRepository;
 import com.medicamp.db.KindRepository;
 import com.medicamp.db.MedicatieRepository;
@@ -106,8 +104,8 @@ public class KindController {
 		return kinderen.findOne(idkind).getVoogden();
 	}
 	
-	@PostMapping("/{idkind}/voogd")
-	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @RequestBody @JsonProperty("idvoogd") int idvoogd) {
+	@PostMapping("/{idkind}/voogd/{idvoogd}")
+	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="idvoogd") int idvoogd) {
 		Kind kind = kinderen.findOne(idkind);
 		Voogd voogd = voogden.findOne(idvoogd);
 		if(kind == null || voogd == null) {
@@ -133,8 +131,8 @@ public class KindController {
 		return kinderen.findOne(idkind).getZiektes();
 	}
 	
-	@PostMapping("/{idkind}/ziekte")
-	public ResponseEntity<Kind> addZiekteToKind(@PathVariable (value="idkind") int idkind, @RequestBody int idziekte) {
+	@PostMapping("/{idkind}/ziekte/{idziekte}")
+	public ResponseEntity<Kind> addZiekteToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="idziekte") int idziekte) {
 		Kind kind = kinderen.findOne(idkind);
 		Ziekte ziekte = ziektes.findOne(idziekte);
 		if(kind == null || ziekte == null) {
@@ -160,8 +158,8 @@ public class KindController {
 		return kinderen.findOne(idkind).getDieeten();
 	}
 	
-	@PostMapping("/{idkind}/dieet")
-	public ResponseEntity<Kind> addDieetToKind(@PathVariable (value="idkind") int idkind, @RequestBody int iddieet) {
+	@PostMapping("/{idkind}/dieet/{iddieet}")
+	public ResponseEntity<Kind> addDieetToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="iddieet") int iddieet) {
 		Kind kind = kinderen.findOne(idkind);
 		Dieet dieet = dieeten.findOne(iddieet);
 		if(kind == null || dieet == null) {
