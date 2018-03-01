@@ -56,8 +56,7 @@ public class Groep implements Serializable {
 	//bi-directional many-to-one association to User
 	@JsonIgnore
 	@NotNull
-	@ManyToMany
-	@JoinColumn(name="login")
+	@ManyToMany(mappedBy="groepen")
 	private List<User> users;
 
 	//bi-directional many-to-one association to Tak
