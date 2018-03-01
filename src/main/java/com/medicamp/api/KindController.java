@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.medicamp.db.DieetRepository;
 import com.medicamp.db.KindRepository;
 import com.medicamp.db.MedicatieRepository;
@@ -106,7 +107,7 @@ public class KindController {
 	}
 	
 	@PostMapping("/{idkind}/voogd")
-	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @RequestBody int idvoogd) {
+	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @RequestBody @JsonProperty("idvoogd") int idvoogd) {
 		Kind kind = kinderen.findOne(idkind);
 		Voogd voogd = voogden.findOne(idvoogd);
 		if(kind == null || voogd == null) {
