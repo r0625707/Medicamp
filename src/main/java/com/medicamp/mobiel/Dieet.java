@@ -1,4 +1,4 @@
-package com.medicamp.model;
+package com.medicamp.mobiel;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,34 +6,25 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
 
-/**
- * The persistent class for the dieet database table.
- * 
- */
-@Entity
-@Table(name="dieet")
-@NamedQuery(name="Dieet.findAll", query="SELECT d FROM Dieet d")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Dieet implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
-	@Id
+	
 	private int iddieet;
 
-	@NotNull(message = "Vul een naam in")
-	@Size(min=1, message = "Vul een naam in")
+	
 	private String naam;
 
-	@Lob
+	
 	private String opmerking;
 
-	//bi-directional many-to-many association to Kind
-	@JsonIgnore
-	@ManyToMany(mappedBy="dieeten")
+	
 	private List<Kind> kinderen;
 
 	public Dieet() {

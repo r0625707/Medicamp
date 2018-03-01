@@ -1,4 +1,4 @@
-package com.medicamp.model;
+package com.medicamp.mobiel;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,6 +6,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 
@@ -14,28 +15,19 @@ import java.util.Date;
  * The persistent class for the tijdstip database table.
  * 
  */
-@Entity
-@Table(name="tijdstip")
-@NamedQuery(name="Tijdstip.findAll", query="SELECT t FROM Tijdstip t")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tijdstip implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
-	@Id
+	
 	private int idtijdstip;
 
 	private String dosis;
 
-	@NotNull(message = "Vul een tijdstip in")
-	@Future(message = "Tijdstip mag niet in de toekomst zijn")
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	private Date tijdstip;
 
-	//bi-directional many-to-one association to Medicatie
-	@JsonIgnore
-	@NotNull
-	@ManyToOne
-	@JoinColumn(name="idmedicatie")
+	
 	private Medicatie medicatie;
 
 	public Tijdstip() {

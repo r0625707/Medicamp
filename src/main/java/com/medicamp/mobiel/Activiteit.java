@@ -1,4 +1,4 @@
-package com.medicamp.model;
+package com.medicamp.mobiel;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,38 +6,26 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Date;
 
 
-/**
- * The persistent class for the activiteit database table.
- * 
- */
-@Entity
-@Table(name="activiteit")
-@NamedQuery(name="Activiteit.findAll", query="SELECT a FROM Activiteit a")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Activiteit implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
-	@Id
+	
 	private int idactiviteit;
 	
-	@NotNull(message = "Vul een begindatum in")
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	private Date begindatum;
 
-	@NotNull(message = "Vul een einddatum in")
-	@Future(message = "Einddatum kan niet in het verleden liggen")
-	@Temporal(TemporalType.TIMESTAMP)
+	
 	private Date einddatum;
 
 	//bi-directional many-to-one association to Tak
-	@JsonIgnore
-	@NotNull(message = "Vermeld een tak")
-	@ManyToOne
-	@JoinColumn(name="idtak")
+	
 	private Tak tak;
 
 	public Activiteit() {

@@ -15,13 +15,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.model.Activiteit;
+import com.medicamp.model.Dieet;
 import com.medicamp.model.Groep;
 import com.medicamp.model.Kind;
+import com.medicamp.model.Medicatie;
 import com.medicamp.model.Tak;
+import com.medicamp.model.Tijdstip;
 import com.medicamp.model.User;
 import com.medicamp.model.Voogd;
+import com.medicamp.model.Ziekte;
 
+import com.medicamp.db.ActiviteitRepository;
+import com.medicamp.db.DieetRepository;
+import com.medicamp.db.GroepRepository;
+import com.medicamp.db.KindRepository;
+import com.medicamp.db.MedicatieRepository;
+import com.medicamp.db.TakRepository;
 import com.medicamp.db.UserRepository;
+import com.medicamp.db.VoogdRepository;
+import com.medicamp.mobiel.ApiFixer;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -30,11 +43,56 @@ public class UserController {
 
 	@Autowired
 	UserRepository users;
-
+	
+	@Autowired
+	KindRepository kinderen;
+	
+	@Autowired
+	VoogdRepository voogden;
+	
+	@Autowired
+	ActiviteitRepository activiteiten;
+	
+	@Autowired
+	DieetRepository dieten;
+	
+	@Autowired
+	GroepRepository groepen;
+		
+	@Autowired
+	MedicatieRepository medicaties;
+	
+	@Autowired
+	TakRepository takken;
+	
+		
+			
+	@GetMapping("/{login}/overview")
+	public ResponseBean getUserInfo(@PathVariable(value = "login") String login) {
+		
+		User user = users.findOne(login);		
+		ResponseBean response =  new ResponseBean();
+		response.user = user;
+		response.kinderen = user.getKinderen();
+		response.takken = user.getTakken();
+		response.groepen = user.getGroepen();
+		response.voogden = user.getVoogden();		
+		return response;
+	}
+	
+	
+	
+	
+	
+	
 	@GetMapping()
 	public List<User> getAllUsers() {
 		return users.findAll();
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/{login}/kind")
 	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String string) {
@@ -136,5 +194,137 @@ public class UserController {
 		}
 		return user.isCorrectPassword(password);
 	}
+	
+	
+class ResponseBean {
+		
+		private User user;
+		private List<Activiteit> activiteiten;
+		private List<Dieet> dieeten;
+		private List<Groep> groepen;
+		private List<Kind> kinderen;
+		private List<Medicatie> medicaties;
+		private List<Tak> takken;
+		private List<Tijdstip> tijdstippen;
+		private List<User> users;
+		private List<Voogd> voogden;
+		private List<Ziekte> ziektes;
+		
+				
+		public ResponseBean() {
+			
+		}
+
+		public ResponseBean(User user, List<Activiteit> activiteiten, List<Dieet> dieeten, List<Groep> groepen,
+				List<Kind> kinderen, List<Medicatie> medicaties, List<Tak> takken, List<Tijdstip> tijdstippen,
+				List<User> users, List<Voogd> voogden, List<Ziekte> ziektes) {
+			super();
+			this.user = user;
+			this.activiteiten = activiteiten;
+			this.dieeten = dieeten;
+			this.groepen = groepen;
+			this.kinderen = kinderen;
+			this.medicaties = medicaties;
+			this.takken = takken;
+			this.tijdstippen = tijdstippen;
+			this.users = users;
+			this.voogden = voogden;
+			this.ziektes = ziektes;
+		}
+
+		public User getUser() {
+			return user;
+		}
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+		public List<Activiteit> getActiviteiten() {
+			return activiteiten;
+		}
+
+		public void setActiviteiten(List<Activiteit> activiteiten) {
+			this.activiteiten = activiteiten;
+		}
+
+		public List<Dieet> getDieeten() {
+			return dieeten;
+		}
+
+		public void setDieeten(List<Dieet> dieeten) {
+			this.dieeten = dieeten;
+		}
+
+		public List<Groep> getGroepen() {
+			return groepen;
+		}
+
+		public void setGroepen(List<Groep> groepen) {
+			this.groepen = groepen;
+		}
+
+		public List<Kind> getKinderen() {
+			return kinderen;
+		}
+
+		public void setKinderen(List<Kind> kinderen) {
+			this.kinderen = kinderen;
+		}
+
+		public List<Medicatie> getMedicaties() {
+			return medicaties;
+		}
+
+		public void setMedicaties(List<Medicatie> medicaties) {
+			this.medicaties = medicaties;
+		}
+
+		public List<Tak> getTakken() {
+			return takken;
+		}
+
+		public void setTakken(List<Tak> takken) {
+			this.takken = takken;
+		}
+
+		public List<Tijdstip> getTijdstippen() {
+			return tijdstippen;
+		}
+
+		public void setTijdstippen(List<Tijdstip> tijdstippen) {
+			this.tijdstippen = tijdstippen;
+		}
+
+		public List<User> getUsers() {
+			return users;
+		}
+
+		public void setUsers(List<User> users) {
+			this.users = users;
+		}
+
+		public List<Voogd> getVoogden() {
+			return voogden;
+		}
+
+		public void setVoogden(List<Voogd> voogden) {
+			this.voogden = voogden;
+		}
+
+		public List<Ziekte> getZiektes() {
+			return ziektes;
+		}
+
+		public void setZiektes(List<Ziekte> ziektes) {
+			this.ziektes = ziektes;
+		}
+		
+		
+		
+		
+		
+	}
+	
 
 }

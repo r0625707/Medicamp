@@ -1,4 +1,4 @@
-package com.medicamp.model;
+package com.medicamp.mobiel;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
@@ -15,55 +16,39 @@ import java.util.List;
  * The persistent class for the voogd database table.
  * 
  */
-@Entity
-@Table(name="voogd")
-@NamedQuery(name="Voogd.findAll", query="SELECT v FROM Voogd v")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Voogd implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue
-	@Id
+	
 	private int idvoogd;
 
 	private String bus;
 
-	@NotNull(message = "Vul een huisnr in")
-	@Min(value = 1, message = "huisnr kleiner dan 1")
+
 	private int huisnr;
 
-	@NotNull(message = "Vul een naam in")
-	@Size(min = 1, message = "Vul een naam in")
+	
 	private String naam;
 
-	@NotNull(message = "Vul een plaatsnaam in")
-	@Size(min = 1, message = "Vul een plaatsnaam in")
+
 	private String plaats;
 
-	@NotNull(message = "Vul een postcode in")
-	@Size(min = 1, message = "Vul een postcode in")
+
 	private String postcode;
 
-	@NotNull(message = "Vul een straatnaam in")
-	@Size(min = 1, message = "Vul een straatnaam in")
+
 	private String straat;
 
-	@NotNull(message = "Vul een telefoonnummer in")
-	@Size(min = 1, message = "Vul een telefoonnummer in")
+
 	private String tel;
 
-	@NotNull(message = "Vul een voornaam in")
-	@Size(min = 1, message = "Vul een voornaam in")
 	private String voornaam;
 
-	//bi-directional many-to-many association to Kind
-	@JsonIgnore
-	@ManyToMany(mappedBy="voogden")
+	
 	private List<Kind> kinderen;
 
-	//bi-directional many-to-one association to User
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name="login")
+	
 	private User user;
 
 	public Voogd() {
