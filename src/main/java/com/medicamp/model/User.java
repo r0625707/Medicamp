@@ -59,7 +59,7 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Groep
 	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
 	private List<Groep> groepen;
 
 	// bi-directional many-to-one association to Kind
@@ -155,14 +155,14 @@ public class User implements Serializable {
 
 	public Groep addGroep(Groep groep) {
 		getGroepen().add(groep);
-		groep.setUser(this);
+		groep.addUser(this);
 
 		return groep;
 	}
 
 	public Groep removeGroep(Groep groep) {
 		getGroepen().remove(groep);
-		groep.setUser(null);
+		groep.setUsers(null);
 
 		return groep;
 	}
