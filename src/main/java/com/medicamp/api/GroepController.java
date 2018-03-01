@@ -23,6 +23,7 @@ import com.medicamp.db.GroepRepository;
 import com.medicamp.db.TakRepository;
 import com.medicamp.model.Groep;
 import com.medicamp.model.Tak;
+import com.medicamp.model.User;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
@@ -42,7 +43,7 @@ public class GroepController {
 		
 		for(Groep g :groepen.findAll()) {
 			
-			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUser().getLogin(), g.getIdgroep(), g.getHuisnr() ));
+			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUsers(), g.getIdgroep(), g.getHuisnr() ));
 			
 		};
 			
@@ -96,15 +97,16 @@ public class GroepController {
 	
 class GroepInfoBean {
 		
-		String naam,voornaam,postcode,straat,bus,email,link,login;
+		String naam,voornaam,postcode,straat,bus,email,link;
 		int idGroep,huisnr;
+		List<User> leiding;
 		
 		GroepInfoBean(){}
 		
 		
 
 		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email,
-				String link, String login, int idGroep, int huisnr) {
+				String link, List<User> leiding, int idGroep, int huisnr) {
 			super();
 			this.naam = naam;
 			this.postcode = postcode;
@@ -112,7 +114,7 @@ class GroepInfoBean {
 			this.bus = bus;
 			this.email = email;
 			this.link = link;
-			this.login = login;
+			this.leiding = leiding;
 			this.idGroep = idGroep;
 			this.huisnr = huisnr;
 		}
@@ -175,13 +177,19 @@ class GroepInfoBean {
 			this.link = link;
 		}
 
-		public String getLogin() {
-			return login;
+		
+
+		public List<User> getLeiding() {
+			return leiding;
 		}
 
-		public void setLogin(String login) {
-			this.login = login;
+
+
+		public void setLeiding(List<User> leiding) {
+			this.leiding = leiding;
 		}
+
+
 
 		public int getIdGroep() {
 			return idGroep;

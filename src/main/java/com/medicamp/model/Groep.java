@@ -56,9 +56,8 @@ public class Groep implements Serializable {
 	//bi-directional many-to-one association to User
 	@JsonIgnore
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name="login")
-	private User user;
+	@ManyToMany(mappedBy="groepen")
+	private List<User> users;
 
 	//bi-directional many-to-one association to Tak
 	@JsonIgnore
@@ -140,12 +139,12 @@ public class Groep implements Serializable {
 		this.straat = straat;
 	}
 
-	public User getUser() {
-		return this.user;
+	public List<User> getUsers() {
+		return this.users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public List<Tak> getTakken() {
@@ -168,6 +167,11 @@ public class Groep implements Serializable {
 		tak.setGroep(null);
 
 		return tak;
+	}
+
+	public void addUser(User user) {
+		users.add(user);
+		
 	}
 
 }
