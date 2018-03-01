@@ -1,5 +1,7 @@
 package com.medicamp.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,39 +13,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medicamp.db.ActiviteitRepository;
-import com.medicamp.model.Activiteit;
+import com.medicamp.db.DieetRepository;
+import com.medicamp.model.Dieet;
+
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
-@RequestMapping("/api/activiteit")
-public class ActiviteitController {
+@RequestMapping("/api/dieet")
+public class DieetController {
 	
 	@Autowired
-	ActiviteitRepository activiteiten;
+	DieetRepository dieeten;
 	
-	@GetMapping("/{idactiviteit}")
-	public Activiteit getActiviteitById(@PathVariable (value="idactiviteit") int idactiviteit ) {
-		return activiteiten.findOne(idactiviteit);
+	@GetMapping()
+	public List<Dieet> getAllDieeten() {
+		return dieeten.findAll();
 	}
 	
-	@PutMapping("/{idactiviteit}")
-	public ResponseEntity<Activiteit> updateActiviteit(@PathVariable (value="idactiviteit") int idactiviteit, @RequestBody Activiteit activiteit) {
-		Activiteit act = activiteiten.findOne(idactiviteit);
-		if(act == null) {
+	@GetMapping("/{iddieet}")
+	public Dieet getDieetById(@PathVariable (value="iddieet") int iddieet ) {
+		return dieeten.findOne(iddieet);
+	}
+	
+	@PutMapping("/{iddieet}")
+	public ResponseEntity<Dieet> updateDieet(@PathVariable (value="iddieet") int iddieet, @RequestBody Dieet dieet) {
+		Dieet d = dieeten.findOne(iddieet);
+		if(d == null) {
 			return ResponseEntity.notFound().build();
 		}
-		activiteiten.save(activiteit);
+		dieeten.save(dieet);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{idactiviteit}")
-	public ResponseEntity<Activiteit> deleteActiviteit(@PathVariable (value="idactiviteit") int idactiviteit) {
-		Activiteit act = activiteiten.findOne(idactiviteit);
-		if(act == null) {
+	@DeleteMapping("/{iddieet}")
+	public ResponseEntity<Dieet> deleteDieet(@PathVariable (value="iddieet") int iddieet) {
+		Dieet d = dieeten.findOne(iddieet);
+		if(d == null) {
 			return ResponseEntity.notFound().build();
 		}
-		activiteiten.delete(act);
+		dieeten.delete(d);
 		return ResponseEntity.ok().build();
 	}
 
