@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.db.MedicatieRepository;
 import com.medicamp.db.TijdstipRepository;
+import com.medicamp.model.Medicatie;
 import com.medicamp.model.Tijdstip;
 
 @RestController
@@ -24,9 +27,20 @@ public class TijdstipController {
 	@Autowired
 	TijdstipRepository tijdstippen;
 	
+	@Autowired
+	MedicatieRepository medicaties;
+	
 	@GetMapping()
 	public List<Tijdstip> getAllTijd() {
 		return tijdstippen.findAll();
+	}
+	
+	@PostMapping("/{idmedicatie}")
+	public ResponseEntity<Tijdstip> addTijdstip(@PathVariable (value="idmedicatie") int idmedicatie, @RequestBody Tijdstip tijdstip) {
+		Medicatie med = medicaties.findOne(idmedicatie);
+		tijdstip.setMedicatie(med);
+		tijdstippen.save(tijdstip);
+		return ResponseEntity.ok().build();
 	}
 	
 	@GetMapping("/{idtijdstip}")
