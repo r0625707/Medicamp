@@ -85,7 +85,14 @@ public class KindController {
 		if(oldKind == null) {
 			return ResponseEntity.notFound().build();
 		}
-		kinderen.save(kind);
+		oldKind.setNaam(kind.getNaam());
+		oldKind.setVoornaam(kind.getVoornaam());
+		oldKind.setGebdatum(kind.getGebdatum());
+		oldKind.setDafi(kind.getDafi());
+		oldKind.setZwemmen(kind.getZwemmen());
+		oldKind.setSport(kind.getSport());
+		oldKind.setOpmerking(kind.getOpmerking());
+		kinderen.save(oldKind);
 		return ResponseEntity.ok().build();
 	}
 	
