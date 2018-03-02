@@ -147,7 +147,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{login}/")
-	public ResponseEntity<User> updateNote(@PathVariable(value = "login") String string, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String string, @RequestBody User user) {
 	
 		User oldUser = users.findOne(string);
 

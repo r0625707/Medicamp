@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({ "com.medicamp.model", "com.medicamp.api","com.medicamp.mobiel"})
-@EnableJpaRepositories("com.medicamp.db")
-@EntityScan("com.medicamp.model")
+@ComponentScan({ "com.medicamp.model", "com.medicamp.api","com.medicamp.mobiel","com.medicamp.sec"})
+@EnableJpaRepositories({"com.medicamp.db","com.medicamp.sec"})
+@EntityScan({"com.medicamp.model","com.medicamp.sec"})
 public class ApiApplication {
 
 	public static void main(String[] args) {
