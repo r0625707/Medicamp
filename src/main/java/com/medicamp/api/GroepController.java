@@ -35,14 +35,15 @@ public class GroepController {
 	@GetMapping
 	public List<GroepInfoBean> getAllGroepen() {
 
-		 List<GroepInfoBean> result = new ArrayList<GroepInfoBean>(); 
-		
-		for(Groep g :groepen.findAll()) {
-			
-			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUsers(), g.getIdgroep(), g.getHuisnr() ));
-			
-		};
-			
+		List<GroepInfoBean> result = new ArrayList<GroepInfoBean>();
+
+		for (Groep g : groepen.findAll()) {
+
+			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(),
+					g.getLink(), g.getUsers(), g.getIdgroep(), g.getHuisnr()));
+
+		}
+		;
 
 		return result;
 	}
@@ -92,19 +93,17 @@ public class GroepController {
 		return ResponseEntity.ok().body(tak);
 	}
 
-	
-class GroepInfoBean {
-		
-		String naam,voornaam,postcode,straat,bus,email,link;
-		int idGroep,huisnr;
-		List<User> leiding;
-		
-		GroepInfoBean(){}
-		
-		
+	class GroepInfoBean {
 
-		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email,
-				String link, List<User> leiding, int idGroep, int huisnr) {
+		String naam, voornaam, postcode, straat, bus, email, link;
+		int idGroep, huisnr;
+		List<User> leiding;
+
+		GroepInfoBean() {
+		}
+
+		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email, String link,
+				List<User> leiding, int idGroep, int huisnr) {
 
 			super();
 			this.naam = naam;
@@ -174,19 +173,13 @@ class GroepInfoBean {
 			this.link = link;
 		}
 
-		
-
 		public List<User> getLeiding() {
 			return leiding;
 		}
 
-
-
 		public void setLeiding(List<User> leiding) {
 			this.leiding = leiding;
 		}
-
-
 
 		public int getIdGroep() {
 			return idGroep;
