@@ -91,11 +91,52 @@ public class ApiFixer {
 		for(Kind k : kinderenjaa) {
 			kinderenids.add(Integer.toString(k.getIdkind()));
 			k.addTakId(Integer.toString(t.getIdtak()));
+			 fixVoogdenPerKind( k);
+			 fixZiektesPerKind( k);
+			 fixMedicatiesPerKind( k);
+			 fixDieetenPerKind( k);
 		}
 		t.setKinderen(kinderenjaa);/////////
 		kinderenVulLijst.addAll(kinderenjaa);
 		newTak.setKinderenids(kinderenids);
 		return newTak;
+	}
+	
+	public void fixVoogdenPerKind(Kind k){
+		String voogden ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/voogd";	
+		
+		ResponseEntity<List<Voogd>> ee = restTemplate.exchange(voogden,HttpMethod.GET,null,new ParameterizedTypeReference<List<Voogd>>() {
+	    });
+		
+		List<Voogd> voogdenjaa = ee.getBody();
+		k.setVoogden(voogdenjaa);
+	}
+	public void fixZiektesPerKind(Kind k){
+		String ziektes ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/ziekte";	
+		
+		ResponseEntity<List<Ziekte>> ee = restTemplate.exchange(ziektes,HttpMethod.GET,null,new ParameterizedTypeReference<List<Ziekte>>() {
+	    });
+		
+		List<Ziekte> ziektesjaa = ee.getBody();
+		k.setZiektes(ziektesjaa);
+	}
+	public void fixMedicatiesPerKind(Kind k){
+		String medicaties ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/medicatie";	
+		
+		ResponseEntity<List<Medicatie>> ee = restTemplate.exchange(medicaties,HttpMethod.GET,null,new ParameterizedTypeReference<List<Medicatie>>() {
+	    });
+		
+		List<Medicatie> medicatiesjaa = ee.getBody();
+		k.setMedicaties(medicatiesjaa);
+	}
+	public void fixDieetenPerKind(Kind k){
+		String dieeten ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/dieet";	
+		
+		ResponseEntity<List<Dieet>> ee = restTemplate.exchange(dieeten,HttpMethod.GET,null,new ParameterizedTypeReference<List<Dieet>>() {
+	    });
+		
+		List<Dieet> dieetenjaa = ee.getBody();
+		k.setDieeten(dieetenjaa);
 	}
 	
 	
