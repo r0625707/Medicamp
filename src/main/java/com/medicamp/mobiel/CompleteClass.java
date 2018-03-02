@@ -14,6 +14,11 @@ private List<Tijdstip> tijdstippen;
 private List<User> users;
 private List<Voogd> voogden;
 private List<Ziekte> ziektes;
+
+public CompleteClass() {
+	
+}
+
 public User getUser() {
 	return user;
 }
@@ -81,7 +86,5 @@ public void setZiektes(List<Ziekte> ziektes) {
 	this.ziektes = ziektes;
 }
 
-public CompleteClass() {
-	
-}
+
 }

@@ -3,8 +3,9 @@ package com.medicamp.mobiel;
 import java.util.List;
 
 public class CompleteClassGenest {
-	private List<Tak> takken;
 	private User user;
+	private List<Tak> takken;
+	
 	
 	public List<Tak> getTakken() {
 		return takken;

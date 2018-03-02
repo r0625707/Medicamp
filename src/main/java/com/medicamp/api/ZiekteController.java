@@ -1,5 +1,7 @@
 package com.medicamp.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,39 +13,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medicamp.db.ActiviteitRepository;
-import com.medicamp.model.Activiteit;
+import com.medicamp.db.ZiekteRepository;
+
+import com.medicamp.model.Ziekte;
 
 @RestController
 @CrossOrigin(origins="http://localhost:3000")
-@RequestMapping("/api/activiteit")
-public class ActiviteitController {
+@RequestMapping("/api/ziekte")
+public class ZiekteController {
 	
 	@Autowired
-	ActiviteitRepository activiteiten;
+	ZiekteRepository ziekten;
 	
-	@GetMapping("/{idactiviteit}")
-	public Activiteit getActiviteitById(@PathVariable (value="idactiviteit") int idactiviteit ) {
-		return activiteiten.findOne(idactiviteit);
+	@GetMapping()
+	public List<Ziekte> getAllZiekten() {
+		return ziekten.findAll();
 	}
 	
-	@PutMapping("/{idactiviteit}")
-	public ResponseEntity<Activiteit> updateActiviteit(@PathVariable (value="idactiviteit") int idactiviteit, @RequestBody Activiteit activiteit) {
-		Activiteit act = activiteiten.findOne(idactiviteit);
-		if(act == null) {
+	@GetMapping("/{idziekte}")
+	public Ziekte getZiekteById(@PathVariable (value="idziekte") int idziekte ) {
+		return ziekten.findOne(idziekte);
+	}
+	
+	@PutMapping("/{idziekte}")
+	public ResponseEntity<Ziekte> updateZiekte(@PathVariable (value="idziekte") int idziekte, @RequestBody Ziekte ziekte) {
+		Ziekte z = ziekten.findOne(idziekte);
+		if(z == null) {
 			return ResponseEntity.notFound().build();
 		}
-		activiteiten.save(activiteit);
+		ziekten.save(ziekte);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{idactiviteit}")
-	public ResponseEntity<Activiteit> deleteActiviteit(@PathVariable (value="idactiviteit") int idactiviteit) {
-		Activiteit act = activiteiten.findOne(idactiviteit);
-		if(act == null) {
+	@DeleteMapping("/{idziekte}")
+	public ResponseEntity<Ziekte> deleteZiekte(@PathVariable (value="idziekte") int idziekte) {
+		Ziekte z = ziekten.findOne(idziekte);
+		if(z == null) {
 			return ResponseEntity.notFound().build();
 		}
-		activiteiten.delete(act);
+		ziekten.delete(z);
 		return ResponseEntity.ok().build();
 	}
 

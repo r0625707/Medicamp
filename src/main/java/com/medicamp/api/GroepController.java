@@ -1,10 +1,7 @@
 package com.medicamp.api;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.medicamp.api.GroepController.GroepInfoBean;
 import com.medicamp.db.GroepRepository;
 import com.medicamp.db.TakRepository;
 import com.medicamp.model.Groep;
 import com.medicamp.model.Tak;
+import com.medicamp.model.User;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -37,15 +34,15 @@ public class GroepController {
 
 	@GetMapping
 	public List<GroepInfoBean> getAllGroepen() {
-		List<GroepInfoBean> result = new ArrayList<GroepInfoBean>();
 
-		for (Groep g : groepen.findAll()) {
-
-			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(),
-					g.getLink(), g.getUser().getLogin(), g.getIdgroep(), g.getHuisnr()));
-
-		}
-		;
+		 List<GroepInfoBean> result = new ArrayList<GroepInfoBean>(); 
+		
+		for(Groep g :groepen.findAll()) {
+			
+			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUsers(), g.getIdgroep(), g.getHuisnr() ));
+			
+		};
+			
 
 		return result;
 	}
@@ -95,16 +92,20 @@ public class GroepController {
 		return ResponseEntity.ok().body(tak);
 	}
 
-	class GroepInfoBean {
+	
+class GroepInfoBean {
+		
+		String naam,voornaam,postcode,straat,bus,email,link;
+		int idGroep,huisnr;
+		List<User> leiding;
+		
+		GroepInfoBean(){}
+		
+		
 
-		String naam, voornaam, postcode, straat, bus, email, link, login;
-		int idGroep, huisnr;
+		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email,
+				String link, List<User> leiding, int idGroep, int huisnr) {
 
-		GroepInfoBean() {
-		}
-
-		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email, String link,
-				String login, int idGroep, int huisnr) {
 			super();
 			this.naam = naam;
 			this.postcode = postcode;
@@ -112,7 +113,7 @@ public class GroepController {
 			this.bus = bus;
 			this.email = email;
 			this.link = link;
-			this.login = login;
+			this.leiding = leiding;
 			this.idGroep = idGroep;
 			this.huisnr = huisnr;
 		}
@@ -173,13 +174,19 @@ public class GroepController {
 			this.link = link;
 		}
 
-		public String getLogin() {
-			return login;
+		
+
+		public List<User> getLeiding() {
+			return leiding;
 		}
 
-		public void setLogin(String login) {
-			this.login = login;
+
+
+		public void setLeiding(List<User> leiding) {
+			this.leiding = leiding;
 		}
+
+
 
 		public int getIdGroep() {
 			return idGroep;

@@ -80,19 +80,10 @@ public class UserController {
 		return response;
 	}
 	
-	
-	
-	
-	
-	
 	@GetMapping()
 	public List<User> getAllUsers() {
 		return users.findAll();
 	}
-	
-	
-	
-	
 	
 	@GetMapping("/{login}/kind")
 	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String string) {
@@ -113,6 +104,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getVoogden());
 	}
+	
 	@GetMapping("/{login}/tak")
 	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
@@ -131,7 +123,6 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getGroepen());
 	}
-
 
 	@PostMapping()
 	public ResponseEntity<User> createUser(@RequestBody User user) {
@@ -156,7 +147,7 @@ public class UserController {
 	}
 
 	@PutMapping("/{login}/")
-	public ResponseEntity<User> updateNote(@PathVariable(value = "login") String string, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String string, @RequestBody User user) {
 	
 		User oldUser = users.findOne(string);
 
@@ -180,8 +171,6 @@ public class UserController {
 		if (note == null) {
 			return ResponseEntity.notFound().build();
 		}
-
-		
 		users.delete(note);
 		return ResponseEntity.ok().build();
 	}

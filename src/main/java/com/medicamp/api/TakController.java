@@ -66,8 +66,8 @@ public class TakController {
 		return takken.findOne(idtak).getUsers();
 	}
 	
-	@PostMapping("/{idtak}/leiding")
-	public ResponseEntity<Tak> addLeiderToTak(@PathVariable (value="idtak") int idtak, @RequestBody String login) {
+	@PostMapping("/{idtak}/leiding/{login}")
+	public ResponseEntity<Tak> addLeiderToTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="login") String login) {
 		Tak tak = takken.findOne(idtak);
 		User leiding = users.findOne(login);
 		if(tak == null) {
@@ -77,17 +77,19 @@ public class TakController {
 			return ResponseEntity.notFound().build();
 		}
 		tak.getUsers().add(leiding);
+		takken.save(tak);
 		return ResponseEntity.ok().build();
 	}
 	
-	@DeleteMapping("/{idtak}/leiding/{idleiding}")
-	public ResponseEntity<Tak> deleteLeiderFromTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="idleiding") String login) {
+	@DeleteMapping("/{idtak}/leiding/{login}")
+	public ResponseEntity<Tak> deleteLeiderFromTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="login") String login) {
 		Tak tak = takken.findOne(idtak);
 		User leiding = users.findOne(login);
 		if(tak == null || leiding == null) {
 			return ResponseEntity.notFound().build();
 		}
 		tak.getUsers().remove(leiding);
+		takken.save(tak);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -98,7 +100,9 @@ public class TakController {
 	
 	@PostMapping("/{idtak}/activiteit")
 	public ResponseEntity<Activiteit> addActiviteitToTak(@PathVariable (value="idtak") int idtak, @RequestBody Activiteit activiteit) {
-		takken.findOne(idtak).addActiviteit(activiteit);
+		Tak tak = takken.findOne(idtak);
+		tak.addActiviteit(activiteit);
+		takken.save(tak);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -115,6 +119,7 @@ public class TakController {
 			return ResponseEntity.notFound().build();
 		}
 		tak.getKinderen().add(kind);
+		takken.save(tak);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -126,6 +131,7 @@ public class TakController {
 			return ResponseEntity.notFound().build();
 		}
 		tak.getKinderen().remove(kind);
+		takken.save(tak);
 		return ResponseEntity.ok().build();
 	}
 	

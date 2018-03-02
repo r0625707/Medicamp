@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.medicamp.db.DieetRepository;
 import com.medicamp.db.KindRepository;
 import com.medicamp.db.MedicatieRepository;
@@ -86,7 +85,14 @@ public class KindController {
 		if(oldKind == null) {
 			return ResponseEntity.notFound().build();
 		}
-		kinderen.save(kind);
+		oldKind.setNaam(kind.getNaam());
+		oldKind.setVoornaam(kind.getVoornaam());
+		oldKind.setGebdatum(kind.getGebdatum());
+		oldKind.setDafi(kind.getDafi());
+		oldKind.setZwemmen(kind.getZwemmen());
+		oldKind.setSport(kind.getSport());
+		oldKind.setOpmerking(kind.getOpmerking());
+		kinderen.save(oldKind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -105,14 +111,15 @@ public class KindController {
 		return kinderen.findOne(idkind).getVoogden();
 	}
 	
-	@PostMapping("/{idkind}/voogd")
-	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @RequestBody int idvoogd) {
+	@PostMapping("/{idkind}/voogd/{idvoogd}")
+	public ResponseEntity<Kind> addVoogdToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="idvoogd") int idvoogd) {
 		Kind kind = kinderen.findOne(idkind);
 		Voogd voogd = voogden.findOne(idvoogd);
 		if(kind == null || voogd == null) {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getVoogden().add(voogd);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -124,6 +131,7 @@ public class KindController {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getVoogden().remove(voogd);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -132,14 +140,15 @@ public class KindController {
 		return kinderen.findOne(idkind).getZiektes();
 	}
 	
-	@PostMapping("/{idkind}/ziekte")
-	public ResponseEntity<Kind> addZiekteToKind(@PathVariable (value="idkind") int idkind, @RequestBody int idziekte) {
+	@PostMapping("/{idkind}/ziekte/{idziekte}")
+	public ResponseEntity<Kind> addZiekteToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="idziekte") int idziekte) {
 		Kind kind = kinderen.findOne(idkind);
 		Ziekte ziekte = ziektes.findOne(idziekte);
 		if(kind == null || ziekte == null) {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getZiektes().add(ziekte);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -151,6 +160,7 @@ public class KindController {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getZiektes().remove(ziekte);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -159,14 +169,15 @@ public class KindController {
 		return kinderen.findOne(idkind).getDieeten();
 	}
 	
-	@PostMapping("/{idkind}/dieet")
-	public ResponseEntity<Kind> addDieetToKind(@PathVariable (value="idkind") int idkind, @RequestBody int iddieet) {
+	@PostMapping("/{idkind}/dieet/{iddieet}")
+	public ResponseEntity<Kind> addDieetToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="iddieet") int iddieet) {
 		Kind kind = kinderen.findOne(idkind);
 		Dieet dieet = dieeten.findOne(iddieet);
 		if(kind == null || dieet == null) {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getDieeten().add(dieet);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -178,6 +189,7 @@ public class KindController {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getDieeten().remove(dieet);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -186,14 +198,15 @@ public class KindController {
 		return kinderen.findOne(idkind).getMedicaties();
 	}
 	
-	@PostMapping("/{idkind}/medicatie")
-	public ResponseEntity<Kind> addMedicatieToKind(@PathVariable (value="idkind") int idkind, @RequestBody int idmedicatie) {
+	@PostMapping("/{idkind}/medicatie/{idmedicatie}")
+	public ResponseEntity<Kind> addMedicatieToKind(@PathVariable (value="idkind") int idkind, @PathVariable (value="idmedicatie") int idmedicatie) {
 		Kind kind = kinderen.findOne(idkind);
 		Medicatie medicatie = medicaties.findOne(idmedicatie);
 		if(kind == null || medicatie == null) {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getMedicaties().add(medicatie);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -205,6 +218,7 @@ public class KindController {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getMedicaties().remove(medicatie);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 
