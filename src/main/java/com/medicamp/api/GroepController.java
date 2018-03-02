@@ -25,86 +25,86 @@ import com.medicamp.model.Groep;
 import com.medicamp.model.Tak;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/groep")
 public class GroepController {
-	
+
 	@Autowired
 	GroepRepository groepen;
-	
+
 	@Autowired
 	TakRepository takken;
-	
-	
+
 	@GetMapping
 	public List<GroepInfoBean> getAllGroepen() {
-		 List<GroepInfoBean> result = new ArrayList<GroepInfoBean>(); 
-		
-		for(Groep g :groepen.findAll()) {
-			
-			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(), g.getLink(), g.getUser().getLogin(), g.getIdgroep(), g.getHuisnr() ));
-			
-		};
-			
+		List<GroepInfoBean> result = new ArrayList<GroepInfoBean>();
+
+		for (Groep g : groepen.findAll()) {
+
+			result.add(new GroepInfoBean(g.getNaam(), g.getPostcode(), g.getStraat(), g.getBus(), g.getEmail(),
+					g.getLink(), g.getUser().getLogin(), g.getIdgroep(), g.getHuisnr()));
+
+		}
+		;
+
 		return result;
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<Groep> addGroep(@RequestBody Groep groep) {
 		groepen.save(groep);
 		return ResponseEntity.ok().body(groep);
 	}
-	
+
 	@GetMapping("/{idgroep}")
-	public Groep getGroepById(@PathVariable (value = "idgroep") int idgroep) {
+	public Groep getGroepById(@PathVariable(value = "idgroep") int idgroep) {
 		return groepen.findOne(idgroep);
 	}
-	
+
 	@PutMapping("/{idgroep}")
-	public ResponseEntity<Groep> updateGroep(@PathVariable (value = "idgroep") int idgroep, @RequestBody Groep groep) {
+	public ResponseEntity<Groep> updateGroep(@PathVariable(value = "idgroep") int idgroep, @RequestBody Groep groep) {
 		Groep oldGroep = groepen.findOne(idgroep);
-		if(oldGroep == null) {
+		if (oldGroep == null) {
 			return ResponseEntity.notFound().build();
 		}
 		groep.setIdgroep(idgroep);
 		groepen.save(groep);
 		return ResponseEntity.ok().body(groep);
 	}
-	
+
 	@DeleteMapping("/{idgroep}")
-	public ResponseEntity<Groep> deleteGroep(@PathVariable (value = "idgroep") int idgroep) {
+	public ResponseEntity<Groep> deleteGroep(@PathVariable(value = "idgroep") int idgroep) {
 		Groep found = groepen.findOne(idgroep);
-		if(found == null) {
+		if (found == null) {
 			return ResponseEntity.notFound().build();
 		}
 		groepen.delete(idgroep);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@GetMapping("/{idgroep}/tak")
-	public List<Tak> getAllTakkenFromGroep(@PathVariable (value = "idgroep") int idgroep) {
+	public List<Tak> getAllTakkenFromGroep(@PathVariable(value = "idgroep") int idgroep) {
 		Groep groep = groepen.findOne(idgroep);
 		return groep.getTakken();
 	}
-	
+
 	@PostMapping("/{idgroep}/tak")
-	public ResponseEntity<Tak> addTak(@PathVariable (value = "idgroep") int idgroep, @RequestBody Tak tak) {
+	public ResponseEntity<Tak> addTak(@PathVariable(value = "idgroep") int idgroep, @RequestBody Tak tak) {
 		tak.setGroep(groepen.findOne(idgroep));
 		takken.save(tak);
 		return ResponseEntity.ok().body(tak);
 	}
-	
-class GroepInfoBean {
-		
-		String naam,voornaam,postcode,straat,bus,email,link,login;
-		int idGroep,huisnr;
-		
-		GroepInfoBean(){}
-		
-		
 
-		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email,
-				String link, String login, int idGroep, int huisnr) {
+	class GroepInfoBean {
+
+		String naam, voornaam, postcode, straat, bus, email, link, login;
+		int idGroep, huisnr;
+
+		GroepInfoBean() {
+		}
+
+		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email, String link,
+				String login, int idGroep, int huisnr) {
 			super();
 			this.naam = naam;
 			this.postcode = postcode;
@@ -116,8 +116,6 @@ class GroepInfoBean {
 			this.idGroep = idGroep;
 			this.huisnr = huisnr;
 		}
-
-
 
 		public String getNaam() {
 			return naam;
@@ -198,11 +196,7 @@ class GroepInfoBean {
 		public void setHuisnr(int huisnr) {
 			this.huisnr = huisnr;
 		}
-		
-		
-		
-		
+
 	}
-	
 
 }
