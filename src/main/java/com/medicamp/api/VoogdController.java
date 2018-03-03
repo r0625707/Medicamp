@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.db.KindRepository;
 import com.medicamp.db.UserRepository;
 import com.medicamp.db.VoogdRepository;
 
 import com.medicamp.model.Voogd;
+import com.medicamp.model.Kind;
 import com.medicamp.model.Tak;
 import com.medicamp.model.User;
 
@@ -31,6 +33,9 @@ public class VoogdController {
 	
 	@Autowired
 	UserRepository users;
+	
+	@Autowired
+	KindRepository kinderen;
 	
 		
 	@GetMapping
@@ -54,6 +59,21 @@ public class VoogdController {
 		voogd.setUser(user);
 		user.addVoogd(voogd);
 		voogden.save(voogd);
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("/{login}/kind/{idkind}")
+	public ResponseEntity<Voogd> addVoogdtoKind(@PathVariable (value="login") String login, @PathVariable (value="idkind") int idkind, @RequestBody Voogd voogd) {
+		User user = users.findOne(login);
+		Kind kind = kinderen.findOne(idkind);
+		if(user == null || kind == null) {
+			return ResponseEntity.notFound().build();
+		}
+		voogd.setUser(user);
+		user.addVoogd(voogd);
+		kind.getVoogden().add(voogd);
+		voogden.save(voogd);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
