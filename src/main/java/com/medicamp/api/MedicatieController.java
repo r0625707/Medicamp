@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.medicamp.db.KindRepository;
 import com.medicamp.db.MedicatieRepository;
+import com.medicamp.model.Dieet;
+import com.medicamp.model.Kind;
 import com.medicamp.model.Medicatie;
 
 
@@ -23,35 +27,50 @@ import com.medicamp.model.Medicatie;
 public class MedicatieController {
 	
 	@Autowired
-	MedicatieRepository medicatieen;
+	MedicatieRepository medicaties;
+	
+	@Autowired
+	KindRepository kinderen;
 	
 	@GetMapping()
 	public List<Medicatie> getAllMed() {
-		return medicatieen.findAll();
+		return medicaties.findAll();
 	}
 	
 	@GetMapping("/{idmedicatie}")
 	public Medicatie getMedicatieById(@PathVariable (value="idmedicatie") int idmedicatie ) {
-		return medicatieen.findOne(idmedicatie);
+		return medicaties.findOne(idmedicatie);
+	}
+	
+	@PostMapping("/kind/{idkind}")
+	public ResponseEntity<Dieet> addMedicatie(@PathVariable (value="idkind") int idkind, @RequestBody Medicatie med) {
+		Kind k = kinderen.findOne(idkind);
+		if(k == null) {
+			return ResponseEntity.notFound().build();
+		}
+		k.getMedicaties().add(med);
+		medicaties.save(med);
+		kinderen.save(k);
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{idmedicatie}")
 	public ResponseEntity<Medicatie> updateMedicatie(@PathVariable (value="idmedicatie") int idmedicatie, @RequestBody Medicatie medicatie) {
-		Medicatie m = medicatieen.findOne(idmedicatie);
+		Medicatie m = medicaties.findOne(idmedicatie);
 		if(m == null) {
 			return ResponseEntity.notFound().build();
 		}
-		medicatieen.save(medicatie);
+		medicaties.save(medicatie);
 		return ResponseEntity.ok().build();
 	}
 	
 	@DeleteMapping("/{idmedicatie}")
 	public ResponseEntity<Medicatie> deleteMedicatie(@PathVariable (value="idmedicatie") int idmedicatie) {
-		Medicatie m = medicatieen.findOne(idmedicatie);
+		Medicatie m = medicaties.findOne(idmedicatie);
 		if(m == null) {
 			return ResponseEntity.notFound().build();
 		}
-		medicatieen.delete(m);
+		medicaties.delete(m);
 		return ResponseEntity.ok().build();
 	}
 

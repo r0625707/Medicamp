@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.medicamp.db.DieetRepository;
+import com.medicamp.db.KindRepository;
+import com.medicamp.model.Kind;
 import com.medicamp.model.Dieet;
 
 
@@ -25,6 +28,9 @@ public class DieetController {
 	@Autowired
 	DieetRepository dieeten;
 	
+	@Autowired
+	KindRepository kinderen;
+	
 	@GetMapping()
 	public List<Dieet> getAllDieeten() {
 		return dieeten.findAll();
@@ -33,6 +39,18 @@ public class DieetController {
 	@GetMapping("/{iddieet}")
 	public Dieet getDieetById(@PathVariable (value="iddieet") int iddieet ) {
 		return dieeten.findOne(iddieet);
+	}
+	
+	@PostMapping("/kind/{idkind}")
+	public ResponseEntity<Dieet> addDieet(@PathVariable (value="idkind") int idkind, @RequestBody Dieet dieet) {
+		Kind k = kinderen.findOne(idkind);
+		if(k == null) {
+			return ResponseEntity.notFound().build();
+		}
+		k.getDieeten().add(dieet);
+		dieeten.save(dieet);
+		kinderen.save(k);
+		return ResponseEntity.ok().build();
 	}
 	
 	@PutMapping("/{iddieet}")
