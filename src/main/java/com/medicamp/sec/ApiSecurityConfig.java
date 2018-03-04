@@ -41,6 +41,8 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, WELCOME_URL).permitAll()
 				.antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
 		        .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+		        .antMatchers(HttpMethod.OPTIONS, SIGN_UP_URL).permitAll()
+		        .antMatchers(HttpMethod.OPTIONS, LOGIN_URL).permitAll()
 		        .anyRequest().authenticated()
 		        .and()
 		        .addFilter(filter)	
