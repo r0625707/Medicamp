@@ -120,6 +120,7 @@ public class KindController {
 			return ResponseEntity.notFound().build();
 		}
 		kind.getVoogden().add(voogd);
+		
 		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
