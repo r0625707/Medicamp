@@ -22,52 +22,50 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import static com.medicamp.sec.SecConstants.*;
 
 public class JWTAuthorisationFilter extends BasicAuthenticationFilter {
-	
-	 public JWTAuthorisationFilter(AuthenticationManager authManager) {
-	        super(authManager);
-	    }
-	 
-	 @Override
-	    protected void doFilterInternal(HttpServletRequest req,
-	                                    HttpServletResponse res,
-	                                    FilterChain chain) throws IOException, ServletException {
-	        String header = req.getHeader(HEADER_STRING);
-	        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
-	            chain.doFilter(req, res);
-	            return;
-	        }
-	        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-	        SecurityContextHolder.getContext().setAuthentication(authentication);
-	        res.setHeader("Access-Control-Allow-Headers", "Authorization");
-	        chain.doFilter(req, res);
-	    }
-	 
-	 private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-	        String token = request.getHeader(HEADER_STRING);
-	        String user = null;
-	        if (token != null) {
-	            // parse the token.
-	        	JWTVerifier verifier;
-				try {
-					verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
-					DecodedJWT jwt = verifier.verify(token.replace(TOKEN_PREFIX, ""));
-		            user = jwt.getSubject();
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-	        	
-	                  
-	            if (user != null) {
-	                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
-	            }
-	            return null;
-	        }
-	        return null;
-	    }
 
+	public JWTAuthorisationFilter(AuthenticationManager authManager) {
+		super(authManager);
+	}
+
+	@Override
+	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
+		String header = req.getHeader(HEADER_STRING);
+		if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+			chain.doFilter(req, res);
+			return;
+		}
+		UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		res.setHeader("Access-Control-Allow-Headers",
+				"Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+		chain.doFilter(req, res);
+	}
+
+	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+		String token = request.getHeader(HEADER_STRING);
+		String user = null;
+		if (token != null) {
+			// parse the token.
+			JWTVerifier verifier;
+			try {
+				verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
+				DecodedJWT jwt = verifier.verify(token.replace(TOKEN_PREFIX, ""));
+				user = jwt.getSubject();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if (user != null) {
+				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+			}
+			return null;
+		}
+		return null;
+	}
 
 }
