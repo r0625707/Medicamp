@@ -17,6 +17,8 @@ import static com.medicamp.sec.SecConstants.SIGN_UP_URL;
 import static com.medicamp.sec.SecConstants.LOGIN_URL;
 import static com.medicamp.sec.SecConstants.WELCOME_URL;
 
+import java.util.Arrays;
+
 @EnableWebSecurity
 public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -58,6 +60,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
