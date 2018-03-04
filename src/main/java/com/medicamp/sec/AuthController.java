@@ -1,56 +1,49 @@
 package com.medicamp.sec;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.medicamp.db.UserRepository;
+import com.medicamp.model.User;
 
 @RestController
 @RequestMapping("/api/auth/")
 public class AuthController {
 	
 	
-
-	@GetMapping("login")
-	public String login(@RequestBody Credentials credentials) {
-
-		return "Welcome " + credentials.getLogin();
-	}
-
-	@GetMapping()
-	public String welcome() {
-
-		return "Welcome to the medicamp API!";
-	}
+	@Autowired
+	UserRepository users;
 	
-	class Credentials{
-		
-		String login , password;
-		
-		
+	@Autowired
+	PasswordEncoderImpl passwordEncoder;
+	
 
-		public Credentials() {
-			super();
+	@PostMapping("register")
+	public ResponseEntity<User> register(@RequestBody User user) {
+		User find = users.findOne(user.getLogin());
+		if(find != null) {
+			return ResponseEntity.status(500).build();
 		}
-
-		public String getLogin() {
-			return login;
-		}
-
-		public void setLogin(String login) {
-			this.login = login;
-		}
-
-		public String getPassword() {
-			return password;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
-		}
-		
-		
-		
+		String password = user.getPassword();
+		user.setPassword(passwordEncoder.encode(password));
+		users.save(user);
+		return ResponseEntity.ok().body(user);
 	}
 
+	
+	    
+	
+	
+	
 }
