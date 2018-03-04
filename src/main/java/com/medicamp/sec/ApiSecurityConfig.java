@@ -62,9 +62,9 @@ public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS"));
-		configuration.addAllowedHeader("Authorization");
-		configuration.addExposedHeader("Authorization");
+		configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization"));
+		configuration.setExposedHeaders(Arrays.asList("Authorization"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
