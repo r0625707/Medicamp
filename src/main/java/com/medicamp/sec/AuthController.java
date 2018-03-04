@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.medicamp.db.UserRepository;
 import com.medicamp.model.User;
 
-@CrossOrigin(origins="http://localhost:3000")
 @RestController
+@CrossOrigin(origins="http://localhost:3000")
 @RequestMapping("/api/auth/")
 public class AuthController {
 	
