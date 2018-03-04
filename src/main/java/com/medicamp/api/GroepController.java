@@ -96,14 +96,14 @@ public class GroepController {
 	class GroepInfoBean {
 
 		String naam, voornaam, postcode, straat, bus, email, link;
-		int idGroep, huisnr;
+		int idgroep, huisnr;
 		List<User> leiding;
 
 		GroepInfoBean() {
 		}
 
 		public GroepInfoBean(String naam, String postcode, String straat, String bus, String email, String link,
-				List<User> leiding, int idGroep, int huisnr) {
+				List<User> leiding, int idgroep, int huisnr) {
 
 			super();
 			this.naam = naam;
@@ -113,7 +113,7 @@ public class GroepController {
 			this.email = email;
 			this.link = link;
 			this.leiding = leiding;
-			this.idGroep = idGroep;
+			this.idgroep = idgroep;
 			this.huisnr = huisnr;
 		}
 
@@ -182,11 +182,11 @@ public class GroepController {
 		}
 
 		public int getIdGroep() {
-			return idGroep;
+			return idgroep;
 		}
 
 		public void setIdGroep(int idGroep) {
-			this.idGroep = idGroep;
+			this.idgroep = idGroep;
 		}
 
 		public int getHuisnr() {

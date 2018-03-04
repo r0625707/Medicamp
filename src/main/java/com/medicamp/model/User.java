@@ -41,6 +41,7 @@ public class User implements Serializable {
 	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
 
+	@JsonIgnore
 	@NotNull(message = "Gelieve een wachtwoord in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;

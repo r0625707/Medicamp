@@ -22,6 +22,7 @@ import com.medicamp.db.ZiekteRepository;
 import com.medicamp.model.Dieet;
 import com.medicamp.model.Kind;
 import com.medicamp.model.Medicatie;
+import com.medicamp.model.Tak;
 import com.medicamp.model.User;
 import com.medicamp.model.Voogd;
 import com.medicamp.model.Ziekte;
@@ -220,6 +221,15 @@ public class KindController {
 		kind.getMedicaties().remove(medicatie);
 		kinderen.save(kind);
 		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{idkind}/tak")
+	public ResponseEntity<List<Tak>> getTakkenFromKind(@PathVariable (value="idkind") int idkind) {
+		Kind kind = kinderen.findOne(idkind);
+		if(kind==null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(kind.getTakken());
 	}
 
 }
