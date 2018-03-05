@@ -19,7 +19,7 @@ import com.medicamp.db.UserRepository;
 import com.medicamp.model.User;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins="*")
 @RequestMapping("/api/auth/")
 public class AuthController {
 	
