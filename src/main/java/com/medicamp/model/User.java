@@ -41,7 +41,6 @@ public class User implements Serializable {
 	@Size(min = 1, max = 255, message = "Gelieve een naam van geldige lengte in te vullen")
 	private String naam;
 
-	
 	@NotNull(message = "Gelieve een wachtwoord in te vullen")
 	@Size(min = 1, max = 255, message = "Gelieve een wachtwoord van geldige lengte in te vullen")
 	private String password;
@@ -57,7 +56,9 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Groep
 	@JsonIgnore
-	@ManyToMany@JoinTable(name = "user_groep", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {	@JoinColumn(name = "idgroep") })
+	@ManyToMany
+	@JoinTable(name = "user_groep", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {
+			@JoinColumn(name = "idgroep") })
 	private List<Groep> groepen;
 
 	// bi-directional many-to-one association to Kind
@@ -68,7 +69,8 @@ public class User implements Serializable {
 	// bi-directional many-to-many association to Tak
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "user_tak", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {	@JoinColumn(name = "idtak") })
+	@JoinTable(name = "user_tak", joinColumns = { @JoinColumn(name = "login") }, inverseJoinColumns = {
+			@JoinColumn(name = "idtak") })
 	private List<Tak> takken;
 
 	// bi-directional many-to-one association to Voogd
@@ -113,17 +115,6 @@ public class User implements Serializable {
 
 	public void setRole(int role) {
 		this.role = role;
-	}
-
-	public String getSalt() {
-		if (this.salt == null) {
-			setSalt(generateSalt());
-		}
-		return this.salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 
 	public String getTel() {
@@ -217,7 +208,7 @@ public class User implements Serializable {
 	}
 
 	private String hashPassword(String password) {
-		String sha256hex = Hashing.sha256().hashString(password.concat(getSalt()), StandardCharsets.UTF_8).toString();
+		String sha256hex = Hashing.sha256().hashString(password.concat("NOSALT"), StandardCharsets.UTF_8).toString();
 		return sha256hex;
 	}
 
