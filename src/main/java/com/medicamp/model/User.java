@@ -48,9 +48,6 @@ public class User implements Serializable {
 
 	private int role;
 
-	@JsonIgnore
-	private String salt;
-
 	@Pattern(regexp = "^[0-9+/ ]*", message = "Gelieve een telefoonnummer van geldige lengte in te vullen")
 	private String tel;
 
