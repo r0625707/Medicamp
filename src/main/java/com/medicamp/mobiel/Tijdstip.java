@@ -24,7 +24,7 @@ public class Tijdstip implements Serializable {
 
 	private String dosis;
 
-	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date tijdstip;
 
 	

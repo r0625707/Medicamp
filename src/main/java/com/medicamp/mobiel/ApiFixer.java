@@ -84,7 +84,9 @@ public class ApiFixer {
 		List<Kind> kinderenVulLijst=new ArrayList<Kind>();
 		List<Tak> takkenGenest=new ArrayList<Tak>();
 		for(Tak t:takkenjaa) {
+			fixActiviteitenPerTak( t, entity);
 			takkenKopie.add(fixKinderenPerTak(Integer.toString(t.getIdtak()),kinderenVulLijst, t,entity));
+			
 			takkenGenest.add(t);
 			
 		}
@@ -163,6 +165,15 @@ public class ApiFixer {
 		k.setDieeten(dieetenjaa);
 	}
 	
+	public void fixActiviteitenPerTak(Tak t,HttpEntity entity){
+		String activiteiten ="https://medicamp-so.appspot.com/api/tak/"+t.getIdtak()+"/activiteit";	
+		
+		ResponseEntity<List<Activiteit>> ee = restTemplate.exchange(activiteiten,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Activiteit>>() {
+	    });
+		
+		List<Activiteit> takkenjaa = ee.getBody();
+		t.setActiviteiten(takkenjaa);
+	}
 	
 	
 	
