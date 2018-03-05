@@ -25,7 +25,7 @@ public class MobielController {
 	
 	
 	@GetMapping("/{login}/mobiel")
-	public /*ResponseEntity<List<Tak>>*/List<Object> mobiele(@RequestHeader(value="Authorization") String authorization, @PathVariable(value = "login") String string,@RequestBody String password) {
+	public /*ResponseEntity<List<Tak>>*/List<Object> mobiele(@RequestHeader(value="Authorization") String authorization, @PathVariable(value = "login") String string) {
 
 		return f.fix(string,authorization);
 		
