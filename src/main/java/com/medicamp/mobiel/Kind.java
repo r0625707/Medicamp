@@ -32,7 +32,7 @@ public class Kind implements Serializable {
 	
 	private byte dafi;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
 
 
