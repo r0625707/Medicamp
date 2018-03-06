@@ -34,7 +34,6 @@ public class Kind implements Serializable {
 	private byte dafi;
 
 	@Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Date gebdatum;
 
 
