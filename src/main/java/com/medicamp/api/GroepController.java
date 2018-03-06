@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.medicamp.db.GroepRepository;
 import com.medicamp.db.TakRepository;
+import com.medicamp.db.UserRepository;
 import com.medicamp.model.Groep;
 import com.medicamp.model.Tak;
 import com.medicamp.model.User;
@@ -31,6 +32,9 @@ public class GroepController {
 
 	@Autowired
 	TakRepository takken;
+	
+	@Autowired
+	UserRepository users;
 
 	@GetMapping
 	public List<GroepInfoBean> getAllGroepen() {
@@ -48,10 +52,25 @@ public class GroepController {
 		return result;
 	}
 
-	@PostMapping
-	public ResponseEntity<Groep> addGroep(@RequestBody Groep groep) {
+	@PostMapping("/{login}")
+	public ResponseEntity<Groep> addGroep(@PathVariable (value="login") String login, @RequestBody Groep groep) {
+		User user = users.findOne(login);
+		if(user == null) {
+			return ResponseEntity.notFound().build();
+		}
+		user.addGroep(groep);
+		users.save(user);
 		groepen.save(groep);
 		return ResponseEntity.ok().body(groep);
+	}
+	
+	@GetMapping("/{idgroep}/user")
+	public ResponseEntity<List<User>> getHoofdleiding(@PathVariable (value="idgroep") int idgroep) {
+		Groep groep = groepen.findOne(idgroep);
+		if(groep == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(groep.getUsers());
 	}
 
 	@GetMapping("/{idgroep}")
