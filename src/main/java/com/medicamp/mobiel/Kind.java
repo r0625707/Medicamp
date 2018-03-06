@@ -7,6 +7,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,7 +33,7 @@ public class Kind implements Serializable {
 	
 	private byte dafi;
 
-	
+	@Temporal(TemporalType.DATE)
 	private Date gebdatum;
 
 

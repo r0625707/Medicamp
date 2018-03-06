@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
@@ -25,11 +26,13 @@ public class Activiteit implements Serializable {
 	private int idactiviteit;
 	
 	@NotNull(message = "Vul een begindatum in")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date begindatum;
 
 	@NotNull(message = "Vul een einddatum in")
 	@Future(message = "Einddatum kan niet in het verleden liggen")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date einddatum;
 

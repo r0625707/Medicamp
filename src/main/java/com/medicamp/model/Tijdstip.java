@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
@@ -29,6 +30,7 @@ public class Tijdstip implements Serializable {
 	@NotNull(message = "Vul een tijdstip in")
 	@Future(message = "Tijdstip mag niet in de toekomst zijn")
 	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date tijdstip;
 
 	//bi-directional many-to-one association to Medicatie

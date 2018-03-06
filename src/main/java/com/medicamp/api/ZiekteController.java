@@ -59,7 +59,10 @@ public class ZiekteController {
 		if(z == null) {
 			return ResponseEntity.notFound().build();
 		}
-		ziektes.save(ziekte);
+		z.setNaam(ziekte.getNaam());
+		z.setBehandeling(ziekte.getBehandeling());
+		z.setSymptomen(ziekte.getSymptomen());
+		ziektes.save(z);
 		return ResponseEntity.ok().build();
 	}
 	

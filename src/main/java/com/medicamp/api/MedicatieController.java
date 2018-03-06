@@ -60,7 +60,9 @@ public class MedicatieController {
 		if(m == null) {
 			return ResponseEntity.notFound().build();
 		}
-		medicaties.save(medicatie);
+		m.setNaam(medicatie.getNaam());
+		m.setOpmerking(medicatie.getOpmerking());
+		medicaties.save(m);
 		return ResponseEntity.ok().build();
 	}
 	

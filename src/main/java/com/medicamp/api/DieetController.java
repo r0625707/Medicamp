@@ -59,7 +59,9 @@ public class DieetController {
 		if(d == null) {
 			return ResponseEntity.notFound().build();
 		}
-		dieeten.save(dieet);
+		d.setNaam(dieet.getNaam());
+		d.setOpmerking(dieet.getOpmerking());
+		dieeten.save(d);
 		return ResponseEntity.ok().build();
 	}
 	
