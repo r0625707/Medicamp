@@ -60,11 +60,10 @@ public class GroepController {
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		user.addGroep(groep);
-		groep.addUser(user);
+		Groep nieuw = user.addGroep(groep);
 		users.save(user);
-		groepen.save(groep);
-		return ResponseEntity.ok().body(groep);
+		groepen.save(nieuw);
+		return ResponseEntity.ok().body(nieuw);
 	}
 	
 	@GetMapping("/{idgroep}/user")
