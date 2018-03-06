@@ -24,7 +24,7 @@ public class Tijdstip implements Serializable {
 	private int idtijdstip;
 
 	private String dosis;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date tijdstip;
