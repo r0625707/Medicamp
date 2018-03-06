@@ -2,9 +2,12 @@ package com.medicamp.api;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,64 +40,72 @@ import com.medicamp.db.VoogdRepository;
 import com.medicamp.mobiel.ApiFixer;
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
 	UserRepository users;
-	
+
 	@Autowired
 	KindRepository kinderen;
-	
+
 	@Autowired
 	VoogdRepository voogden;
-	
+
 	@Autowired
 	ActiviteitRepository activiteiten;
-	
+
 	@Autowired
 	DieetRepository dieten;
-	
+
 	@Autowired
 	GroepRepository groepen;
-		
+
 	@Autowired
 	MedicatieRepository medicaties;
-	
+
 	@Autowired
 	TakRepository takken;
-	
-		
-			
+
 	@GetMapping("/{login}/overview")
 	public ResponseBean getUserInfo(@PathVariable(value = "login") String login) {
-		
-		User user = users.findOne(login);		
-		ResponseBean response =  new ResponseBean();
+
+		User user = users.findOne(login);
+		ResponseBean response = new ResponseBean();
 		response.user = user;
 		response.kinderen = user.getKinderen();
 		response.takken = user.getTakken();
 		response.groepen = user.getGroepen();
-		response.voogden = user.getVoogden();		
+		response.voogden = user.getVoogden();
 		return response;
 	}
-	
+
+	@PreAuthorize("isAuthorisedMethod('getAllUsers')")
 	@GetMapping()
 	public List<User> getAllUsers() {
+		Authentication var = SecurityContextHolder.getContext().getAuthentication();
 		return users.findAll();
 	}
-	
+
+	// @PreAuthorize("hasRole('0')")
+	@GetMapping("/current")
+	public String getCurrentUser() {
+		Authentication var = SecurityContextHolder.getContext().getAuthentication();
+		return (String) SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
+	}
+
+	@PreAuthorize("isAuthorisedMethodAndUser('getAllKinderen',#login)")
 	@GetMapping("/{login}/kind")
-	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String string) {
-		User user = users.findOne(string);
+	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String login) {
+		User user = users.findOne(login);
 
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(user.getKinderen());
 	}
-	
+
 	@GetMapping("/{login}/voogd")
 	public ResponseEntity<List<Voogd>> getAllVoogden(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
@@ -104,21 +115,21 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getVoogden());
 	}
-	
+
 	@GetMapping("/{login}/tak")
 	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
-		
+
 		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(user.getTakken());
 	}
-	
+
 	@GetMapping("/{login}/groep")
-	public ResponseEntity<List<Groep>> getAllGroepen(@PathVariable (value="login") String login) {
+	public ResponseEntity<List<Groep>> getAllGroepen(@PathVariable(value = "login") String login) {
 		User user = users.findOne(login);
-		if(user == null) {
+		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().body(user.getGroepen());
@@ -127,7 +138,7 @@ public class UserController {
 	@PostMapping()
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		User find = users.findOne(user.getLogin());
-		if(find != null) {
+		if (find != null) {
 			return ResponseEntity.status(500).build();
 		}
 		String password = user.getPassword();
@@ -148,19 +159,19 @@ public class UserController {
 
 	@PutMapping("/{login}/")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String string, @RequestBody User user) {
-	
+
 		User oldUser = users.findOne(string);
 
 		if (oldUser == null) {
 			return ResponseEntity.notFound().build();
 		}
-				
-//		oldUser.setLogin(user.getLogin());
+
+		// oldUser.setLogin(user.getLogin());
 		oldUser.setNaam(user.getNaam());
 		oldUser.setRole(user.getRole());
 		oldUser.setTel(user.getTel());
 		oldUser.setVoornaam(user.getVoornaam());
-				
+
 		User updatedUser = users.save(oldUser);
 		return ResponseEntity.ok(updatedUser);
 	}
@@ -174,19 +185,18 @@ public class UserController {
 		users.delete(note);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@PostMapping("/login")
 	public boolean login(@RequestBody String login, @RequestBody String password) {
 		User user = users.findOne(login);
-		if(user == null) {
+		if (user == null) {
 			return false;
 		}
 		return user.isCorrectPassword(password);
 	}
-	
-	
-class ResponseBean {
-		
+
+	class ResponseBean {
+
 		private User user;
 		private List<Activiteit> activiteiten;
 		private List<Dieet> dieeten;
@@ -198,10 +208,9 @@ class ResponseBean {
 		private List<User> users;
 		private List<Voogd> voogden;
 		private List<Ziekte> ziektes;
-		
-				
+
 		public ResponseBean() {
-			
+
 		}
 
 		public ResponseBean(User user, List<Activiteit> activiteiten, List<Dieet> dieeten, List<Groep> groepen,
@@ -308,12 +317,7 @@ class ResponseBean {
 		public void setZiektes(List<Ziekte> ziektes) {
 			this.ziektes = ziektes;
 		}
-		
-		
-		
-		
-		
+
 	}
-	
 
 }

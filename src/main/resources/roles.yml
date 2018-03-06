@@ -1,0 +1,8 @@
+roles:
+ ROLE_0:
+  - welcome
+  - getAllUsers
+ ROLE_2:
+  - getAllKinderen
+ ROLE_3:
+  - welcome
