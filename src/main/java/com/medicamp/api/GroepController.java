@@ -58,7 +58,7 @@ public class GroepController {
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		user.addGroep(groep);
+		user.getGroepen().add(groep);
 		groep.getUsers().add(user);
 		users.save(user);
 		groepen.save(groep);
