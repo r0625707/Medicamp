@@ -18,10 +18,10 @@ public class Activiteit implements Serializable {
 	
 	private int idactiviteit;
 	
-	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date begindatum;
 
-	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date einddatum;
 
 	//bi-directional many-to-one association to Tak
