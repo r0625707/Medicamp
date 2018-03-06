@@ -30,7 +30,7 @@ public class Tijdstip implements Serializable {
 	@NotNull(message = "Vul een tijdstip in")
 	@Future(message = "Tijdstip mag niet in de toekomst zijn")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy hh:mm", locale = JsonFormat.DEFAULT_LOCALE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm")
 	private Date tijdstip;
 
 	//bi-directional many-to-one association to Medicatie
