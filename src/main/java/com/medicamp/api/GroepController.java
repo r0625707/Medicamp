@@ -54,7 +54,7 @@ public class GroepController {
 		return result;
 	}
 
-	@PostMapping("/{login}")
+	@PostMapping("/{login}/")
 	public ResponseEntity<Groep> addGroep(@PathVariable (value="login") String login, @RequestBody Groep groep) {
 		User user = users.findOne(login);
 		if(user == null) {
