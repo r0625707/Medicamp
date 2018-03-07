@@ -1,8 +1,26 @@
 roles:
- ROLE_0:
-  - welcome
-  - getAllUsers
- ROLE_2:
+ ROLE_0:# ADMIN: can do everything
+ Role_1:# HOOFDLEIDING 
+  # ------- UserController --------
   - getAllKinderen
- ROLE_3:
-  - welcome
+  - getAllVoogden 
+  - getAllTaken  
+  - getAllGroepen
+  - getUser
+  - deleteUser
+  - updateActivieit
+  # ------- ActiviteitController -------
+  - getActiviteitById
+ ROLE_2:# OUDERS
+  # ------- UserController --------
+  - getAllKinderen
+  - getAllVoogden
+  - getUser
+  - deleteUser
+ ROLE_3:# LEIDING
+  # ------- UserController --------
+  - getAllTaken
+  - getUser
+  - deleteUser
+    # ------- ActiviteitController -------
+  - getActiviteitById
