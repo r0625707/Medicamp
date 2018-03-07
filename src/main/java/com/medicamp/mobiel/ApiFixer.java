@@ -43,7 +43,7 @@ public class ApiFixer {
 		}
 	
 	public List<Object> startAfhaal(String user,CompleteClass c,CompleteClassGenest cg,String auth){
-		String mijnUser ="https://medicamp-so.appspot.com/api/user/"+user+"/";	
+		String mijnUser ="https://test-dot-medicamp-so.appspot.com/api/user/"+user+"/";	
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -75,7 +75,7 @@ public class ApiFixer {
 			
 			
 		}else {
-		 takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	
+		 takken ="https://test-dot-medicamp-so.appspot.com/api/user/"+user+"/tak/";	
 		}
 		ResponseEntity<List<Tak>> ee = restTemplate.exchange(takken,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Tak>>() {
 	    });
@@ -126,7 +126,7 @@ public class ApiFixer {
 	}
 	
 	public Tak fixKinderenPerTak(String idtak,List<Kind> kinderenVulLijst,Tak t,HttpEntity entity){
-		String kinderen ="https://medicamp-so.appspot.com/api/tak/"+idtak+"/kind";	
+		String kinderen ="https://test-dot-medicamp-so.appspot.com/api/tak/"+idtak+"/kind";	
 		
 		ResponseEntity<List<Kind>> ee = restTemplate.exchange(kinderen,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Kind>>() {
 	    });
@@ -154,7 +154,7 @@ public class ApiFixer {
 	}
 	
 	public void fixVoogdenPerKind(Kind k,HttpEntity entity){
-		String voogden ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/voogd";	
+		String voogden ="https://test-dot-medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/voogd";	
 		
 		ResponseEntity<List<Voogd>> ee = restTemplate.exchange(voogden,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Voogd>>() {
 	    });
@@ -163,7 +163,7 @@ public class ApiFixer {
 		k.setVoogden(voogdenjaa);
 	}
 	public void fixZiektesPerKind(Kind k,HttpEntity entity){
-		String ziektes ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/ziekte";	
+		String ziektes ="https://test-dot-medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/ziekte";	
 		
 		ResponseEntity<List<Ziekte>> ee = restTemplate.exchange(ziektes,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Ziekte>>() {
 	    });
@@ -172,7 +172,7 @@ public class ApiFixer {
 		k.setZiektes(ziektesjaa);
 	}
 	public void fixMedicatiesPerKind(Kind k,HttpEntity entity){
-		String medicaties ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/medicatie";	
+		String medicaties ="https://test-dot-medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/medicatie";	
 		
 		ResponseEntity<List<Medicatie>> ee = restTemplate.exchange(medicaties,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Medicatie>>() {
 	    });
@@ -181,7 +181,7 @@ public class ApiFixer {
 		k.setMedicaties(medicatiesjaa);
 	}
 	public void fixDieetenPerKind(Kind k,HttpEntity entity){
-		String dieeten ="https://medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/dieet";	
+		String dieeten ="https://test-dot-medicamp-so.appspot.com/api/kind/"+k.getIdkind()+"/dieet";	
 		
 		ResponseEntity<List<Dieet>> ee = restTemplate.exchange(dieeten,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Dieet>>() {
 	    });
@@ -191,7 +191,7 @@ public class ApiFixer {
 	}
 	
 	public void fixActiviteitenPerTak(Tak t,HttpEntity entity){
-		String activiteiten ="https://medicamp-so.appspot.com/api/tak/"+t.getIdtak()+"/activiteit";	
+		String activiteiten ="https://test-dot-medicamp-so.appspot.com/api/tak/"+t.getIdtak()+"/activiteit";	
 		
 		ResponseEntity<List<Activiteit>> ee = restTemplate.exchange(activiteiten,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Activiteit>>() {
 	    });
