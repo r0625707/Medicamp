@@ -112,8 +112,8 @@ public class TakController {
 		return takken.findOne(idtak).getKinderen();
 	}
 	
-	@PostMapping("/{idtak}/kind")
-	public ResponseEntity<Tak> addKindToTak(@PathVariable (value="idtak") int idtak, @RequestBody int idkind) {
+	@PostMapping("/{idtak}/kind/{idkind}")
+	public ResponseEntity<Tak> addKindToTak(@PathVariable (value="idtak") int idtak, @PathVariable (value="idkind") int idkind) {
 		Tak tak = takken.findOne(idtak);
 		Kind kind = kinderen.findOne(idkind);
 		if(tak == null || kind == null) {
