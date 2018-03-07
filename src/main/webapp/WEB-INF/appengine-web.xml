@@ -5,6 +5,8 @@
 	<threadsafe>true</threadsafe>
 	<runtime>java8</runtime>
 	<use-google-connector-j>true</use-google-connector-j>
+	
+	<service>test</service>
 
 	<system-properties>
 		<property name="cloudsql"
