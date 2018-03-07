@@ -54,18 +54,19 @@ public class GroepController {
 		return result;
 	}
 
-	@PostMapping("/{login}/")
+	@PostMapping("/{login}")
 	public ResponseEntity<Groep> addGroep(@PathVariable (value="login") String login, @RequestBody Groep groep) {
 		
 		User user = users.findOne(login);
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		
+		if (groep.getUsers()==null){
+		groep.setUsers(new ArrayList<User>());}
 		groep.getUsers().add(user);
 		groepen.save(groep);
-		//user.addGroep(groep);
-		//users.save(user);
+		user.getGroepen().add(groep);
+		users.save(user);
 		
 		
 		return ResponseEntity.ok().body(groep);

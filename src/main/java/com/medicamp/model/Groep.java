@@ -28,7 +28,7 @@ public class Groep implements Serializable {
 	@GeneratedValue
 	@Id
 	private int idgroep;
-
+	@Lob
 	private String bus;
 
 	@NotNull(message = "Vul een email-adres in")
@@ -37,7 +37,7 @@ public class Groep implements Serializable {
 
 	@NotNull(message = "Vul een huisnr in")
 	private int huisnr;
-
+	@Lob
 	private String link;
 
 	@NotNull(message = "Vul een naam in")
@@ -173,6 +173,7 @@ public class Groep implements Serializable {
 
 	public void addUser(User user) {
 		users.add(user);
+		user.addGroep(this);
 		
 	}
 
