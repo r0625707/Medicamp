@@ -55,7 +55,7 @@ public class GroepController {
 	}
 
 	@PostMapping("/{login}")
-	public ResponseEntity<Groep> addGroep(@PathVariable (value="login") String login, @RequestBody Groep groep) {
+	public ResponseEntity<String> addGroep(@PathVariable (value="login") String login, @RequestBody Groep groep) {
 		
 		User user = users.findOne(login);
 		if(user == null) {
@@ -69,7 +69,7 @@ public class GroepController {
 		users.save(user);
 		
 		
-		return ResponseEntity.ok().body(groep);
+		return ResponseEntity.ok().build();
 		
 	}
 	
