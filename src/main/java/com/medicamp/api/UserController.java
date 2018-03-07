@@ -104,8 +104,8 @@ public class UserController {
     
     @PreAuthorize("isAuthorisedMethodAndUser('getAllVoogden',#login)")
 	@GetMapping("/{login}/voogd")
-	public ResponseEntity<List<Voogd>> getAllVoogden(@PathVariable(value = "login") String string) {
-		User user = users.findOne(string);
+	public ResponseEntity<List<Voogd>> getAllVoogden(@PathVariable(value = "login") String login) {
+		User user = users.findOne(login);
 
 		if (user == null) {
 			return ResponseEntity.notFound().build();
@@ -115,8 +115,8 @@ public class UserController {
     
     @PreAuthorize("isAuthorisedMethodAndUser('getAlltakken',#login)")
 	@GetMapping("/{login}/tak")
-	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String string) {
-		User user = users.findOne(string);
+	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String login) {
+		User user = users.findOne(login);
 
 		if (user == null) {
 			return ResponseEntity.notFound().build();
@@ -135,8 +135,8 @@ public class UserController {
     
     @PreAuthorize("isAuthorisedMethodAndUser('getUser',#login)")
 	@GetMapping("/{login}/")
-	public ResponseEntity<User> getUser(@PathVariable(value = "login") String string) {
-		User user = users.findOne(string);
+	public ResponseEntity<User> getUser(@PathVariable(value = "login") String login) {
+		User user = users.findOne(login);
 
 		if (user == null) {
 			return ResponseEntity.notFound().build();
@@ -145,9 +145,9 @@ public class UserController {
 	}
     @PreAuthorize("isAuthorisedMethodAndUser('updateUser',#login)")
 	@PutMapping("/{login}/")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String string, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String login, @RequestBody User user) {
 
-		User oldUser = users.findOne(string);
+		User oldUser = users.findOne(login);
 
 		if (oldUser == null) {
 			return ResponseEntity.notFound().build();
@@ -164,8 +164,8 @@ public class UserController {
 	}
     @PreAuthorize("isAuthorisedMethodAndUser('deleteUser',#login)")
 	@DeleteMapping("/{login}/")
-	public ResponseEntity<User> deleteUser(@PathVariable(value = "login") String string) {
-		User note = users.findOne(string);
+	public ResponseEntity<User> deleteUser(@PathVariable(value = "login") String login) {
+		User note = users.findOne(login);
 		if (note == null) {
 			return ResponseEntity.notFound().build();
 		}
