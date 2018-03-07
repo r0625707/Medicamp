@@ -113,9 +113,9 @@ public class UserController {
 		return ResponseEntity.ok().body(user.getVoogden());
 	}
     
-    @PreAuthorize("isAuthorisedMethodAndUser('getAlltakken',#login)")
+    @PreAuthorize("isAuthorisedMethodAndUser('getAllTakken',#login)")
 	@GetMapping("/{login}/tak")
-	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String login) {
+	public ResponseEntity<List<Tak>> getAllTakken(@PathVariable(value = "login") String login) {
 		User user = users.findOne(login);
 
 		if (user == null) {
