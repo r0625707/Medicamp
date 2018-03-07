@@ -108,8 +108,17 @@ public class ApiFixer {
 			
 		}
 		cg.setTakken(takkenGenest);////////////
-		c.setKinderen(kinderenVulLijst);
-		c.setTakken(takkenKopie);
+		if(c.getKinderen()==null || c.getKinderen().size()==0 ) {
+			c.setKinderen(kinderenVulLijst);
+		}else {
+		c.getKinderen().addAll(kinderenVulLijst);
+		}
+		if(c.getTakken()==null || c.getTakken().size()==0 ) {
+			c.setTakken(takkenKopie);
+		}else {
+		c.getTakken().addAll(takkenKopie);
+		}
+		//c.setTakken(takkenKopie);
 		if(takkenids.size()>=1) {
 			List<Groep>groepen=c.getGroepen();
 			for (Groep g : groepen) {
