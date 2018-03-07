@@ -68,6 +68,7 @@ public class UserController {
 	@Autowired
 	TakRepository takken;
 
+	@PreAuthorize("isAuthorisedMethod('getUserInfo')")
 	@GetMapping("/{login}/overview")
 	public ResponseBean getUserInfo(@PathVariable(value = "login") String login) {
 
@@ -81,21 +82,16 @@ public class UserController {
 		return response;
 	}
 
-    //@PreAuthorize("isAuthorisedMethod('getAllUsers')")
+    @PreAuthorize("isAuthorisedMethod('getAllUsers')")
 	@GetMapping()
 	public List<User> getAllUsers() {
 		Authentication var = SecurityContextHolder.getContext().getAuthentication();
 		return users.findAll();
 	}
 
-	// @PreAuthorize("hasRole('0')")
-	@GetMapping("/current")
-	public String getCurrentUser() {
-		Authentication var = SecurityContextHolder.getContext().getAuthentication();
-		return (String) SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
-	}
 
-    //@PreAuthorize("isAuthorisedMethodAndUser('getAllKinderen',#login)")
+
+    @PreAuthorize("isAuthorisedMethodAndUser('getAllKinderen',#login)")
 	@GetMapping("/{login}/kind")
 	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String login) {
 		User user = users.findOne(login);
@@ -105,7 +101,8 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getKinderen());
 	}
-
+    
+    @PreAuthorize("isAuthorisedMethodAndUser('getAllVoogden',#login)")
 	@GetMapping("/{login}/voogd")
 	public ResponseEntity<List<Voogd>> getAllVoogden(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
@@ -115,7 +112,8 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getVoogden());
 	}
-
+    
+    @PreAuthorize("isAuthorisedMethodAndUser('getAlltakken',#login)")
 	@GetMapping("/{login}/tak")
 	public ResponseEntity<List<Tak>> getAlltakken(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
@@ -125,7 +123,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getTakken());
 	}
-
+    @PreAuthorize("isAuthorisedMethodAndUser('getAllGroepen',#login)")
 	@GetMapping("/{login}/groep")
 	public ResponseEntity<List<Groep>> getAllGroepen(@PathVariable(value = "login") String login) {
 		User user = users.findOne(login);
@@ -134,19 +132,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user.getGroepen());
 	}
-
-	@PostMapping()
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		User find = users.findOne(user.getLogin());
-		if (find != null) {
-			return ResponseEntity.status(500).build();
-		}
-		String password = user.getPassword();
-		user.setPasswordHashed(password);
-		users.save(user);
-		return ResponseEntity.ok().body(user);
-	}
-
+    
 	@GetMapping("/{login}/")
 	public ResponseEntity<User> getUser(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);

@@ -4,6 +4,7 @@ import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
@@ -19,6 +20,8 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
 	}
 
 	public boolean isAuthorisedMethod(String methodName) {
+		
+		if (this.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_0"))) {return true;}
 
 		for (GrantedAuthority a : this.getAuthentication().getAuthorities()) {
 
@@ -35,9 +38,19 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot
 	}
 
 	public boolean isAuthorisedMethodAndUser(String methodName, String login) {
-
+		if (this.getAuthentication().getAuthorities().contains(new SimpleGrantedAuthority("ROLE_0"))) {return true;}
+		
 		if (getPrincipal().equals(login)) {
-			return isAuthorisedMethod(methodName);
+			for (GrantedAuthority a : this.getAuthentication().getAuthorities()) {
+
+				for (String m : roles.getMethodsForRole(a.toString())) {
+
+					if (m.equals(methodName)) {
+						return true;
+					}
+				}
+
+			}
 		}
 
 		return false;
