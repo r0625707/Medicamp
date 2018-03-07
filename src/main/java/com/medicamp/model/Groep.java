@@ -7,7 +7,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @Entity
 @Table(name="groep")
 @NamedQuery(name="Groep.findAll", query="SELECT g FROM Groep g")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idgroep")
 public class Groep implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
