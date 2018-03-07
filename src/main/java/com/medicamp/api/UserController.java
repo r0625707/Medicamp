@@ -81,7 +81,7 @@ public class UserController {
 		return response;
 	}
 
-	@PreAuthorize("isAuthorisedMethod('getAllUsers')")
+    //@PreAuthorize("isAuthorisedMethod('getAllUsers')")
 	@GetMapping()
 	public List<User> getAllUsers() {
 		Authentication var = SecurityContextHolder.getContext().getAuthentication();
@@ -95,7 +95,7 @@ public class UserController {
 		return (String) SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
 	}
 
-	@PreAuthorize("isAuthorisedMethodAndUser('getAllKinderen',#login)")
+    //@PreAuthorize("isAuthorisedMethodAndUser('getAllKinderen',#login)")
 	@GetMapping("/{login}/kind")
 	public ResponseEntity<List<Kind>> getAllKinderen(@PathVariable(value = "login") String login) {
 		User user = users.findOne(login);
