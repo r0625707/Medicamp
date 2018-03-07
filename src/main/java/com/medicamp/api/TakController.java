@@ -120,7 +120,9 @@ public class TakController {
 			return ResponseEntity.notFound().build();
 		}
 		tak.getKinderen().add(kind);
+		kind.getTakken().add(tak);
 		takken.save(tak);
+		kinderen.save(kind);
 		return ResponseEntity.ok().build();
 	}
 	
