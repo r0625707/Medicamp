@@ -111,7 +111,13 @@ public class ApiFixer {
 		c.setKinderen(kinderenVulLijst);
 		c.setTakken(takkenKopie);
 		if(takkenids.size()>=1) {
-			c.getGroepen().get(soortLeiding).setTakkenids(takkenids); //soortleiding == groepid
+			List<Groep>groepen=c.getGroepen();
+			for (Groep g : groepen) {
+				if (g.getIdgroep()==soortLeiding) {
+					g.setTakkenids(takkenids);//soortleiding == groepid
+				}
+			}
+			//c.getGroepen().get(soortLeiding).setTakkenids(takkenids); 
 		}
 		
 		
