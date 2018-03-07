@@ -58,12 +58,25 @@ public class ApiFixer {
 		
 		c.setUser(gevondenUser);
 		cg.setUser(gevondenUser);
-		return fixTakken( user, c,cg,entity);
+		
+		if(gevondenUser.getRole()==1) {
+			return fixGroepen(user,c,cg,entity);
+		}else {
+		
+		return fixTakken( user, c,cg,entity,-1);
+		}
 	}
 	
-	public List<Object> fixTakken(String user,CompleteClass c,CompleteClassGenest cg,HttpEntity entity){
-		String takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	
-		
+	public List<Object> fixTakken(String user,CompleteClass c,CompleteClassGenest cg,HttpEntity entity,int soortLeiding){
+		String takken="";
+		if(soortLeiding!=-1) {
+			String x = Integer.toString(soortLeiding);
+ takken ="https://test-dot-medicamp-so.appspot.com/api/groep/"+x+"/tak";	
+			
+			
+		}else {
+		 takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	
+		}
 		ResponseEntity<List<Tak>> ee = restTemplate.exchange(takken,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Tak>>() {
 	    });
 		
@@ -83,7 +96,11 @@ public class ApiFixer {
 		List<Tak> takkenKopie=new ArrayList<Tak>();
 		List<Kind> kinderenVulLijst=new ArrayList<Kind>();
 		List<Tak> takkenGenest=new ArrayList<Tak>();
+		List<String> takkenids=new ArrayList<String>();
 		for(Tak t:takkenjaa) {
+			if(soortLeiding!=-1) {
+				takkenids.add(Integer.toString(t.getIdtak()));
+			}
 			fixActiviteitenPerTak( t, entity);
 			takkenKopie.add(fixKinderenPerTak(Integer.toString(t.getIdtak()),kinderenVulLijst, t,entity));
 			
@@ -93,10 +110,18 @@ public class ApiFixer {
 		cg.setTakken(takkenGenest);////////////
 		c.setKinderen(kinderenVulLijst);
 		c.setTakken(takkenKopie);
+		if(takkenids.size()>=1) {
+			c.getGroepen().get(soortLeiding).setTakkenids(takkenids); //soortleiding == groepid
+		}
+		
+		
+		
+		
 		
 		List<Object> eee=new ArrayList<Object>();
 		eee.add(c);
 		eee.add(cg);
+		
 		return eee;
 	}
 	
@@ -185,14 +210,24 @@ public class ApiFixer {
 	
 	
 	
-	public void fixGroepen(String user,CompleteClass c){
-		String takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	
+	public List<Object> fixGroepen(String user,CompleteClass c,CompleteClassGenest cg,HttpEntity entity){
+		String groepen ="https://test-dot-medicamp-so.appspot.com/api/user/"+user+"/groep";	
 		
-		ResponseEntity<List<Tak>> ee = restTemplate.exchange(takken,HttpMethod.GET,null,new ParameterizedTypeReference<List<Tak>>() {
+		ResponseEntity<List<Groep>> ee = restTemplate.exchange(groepen,HttpMethod.GET,entity,new ParameterizedTypeReference<List<Groep>>() {
 	    });
 		
-		List<Tak> takkenjaa = ee.getBody();
-		c.setTakken(takkenjaa);
+		List<Groep> groepenjaa = ee.getBody();
+		c.setGroepen(groepenjaa);
+		for (Groep g : groepenjaa) {
+			int x=g.getIdgroep();
+			
+			fixTakken(user,c,cg,entity,x);
+		}
+		List<Object> eee=new ArrayList<Object>();
+		eee.add(c);
+		eee.add(cg);
+		
+		return eee;
 	}
 	public void fixVoogden(String user,CompleteClass c){
 		String takken ="https://medicamp-so.appspot.com/api/user/"+user+"/tak/";	

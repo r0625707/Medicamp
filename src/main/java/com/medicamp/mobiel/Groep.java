@@ -48,7 +48,15 @@ public class Groep implements Serializable {
 	
 	private User user;
 
-	
+	private List<String> takkenids;
+	public List<String> getTakkenids() {
+		return takkenids;
+	}
+
+	public void setTakkenids(List<String> takkenids) {
+		this.takkenids = takkenids;
+	}
+
 	private List<Tak> takken;
 
 	public Groep() {
