@@ -47,6 +47,7 @@ public class TakController {
 		if(oldTak == null) {
 			return ResponseEntity.notFound().build();
 		}
+		tak.setIdtak(oldTak.getIdtak());
 		takken.save(tak);
 		return ResponseEntity.ok().body(tak);
 	}
