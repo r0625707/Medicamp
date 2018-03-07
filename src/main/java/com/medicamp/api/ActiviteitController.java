@@ -2,6 +2,7 @@ package com.medicamp.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,13 @@ public class ActiviteitController {
 	@Autowired
 	ActiviteitRepository activiteiten;
 	
+	@PreAuthorize("isAuthorisedMethodAndUser('getActiviteitById')")
 	@GetMapping("/{idactiviteit}")
 	public Activiteit getActiviteitById(@PathVariable (value="idactiviteit") int idactiviteit ) {
 		return activiteiten.findOne(idactiviteit);
 	}
 	
+	@PreAuthorize("isAuthorisedMethodAndUser('updateActivieit')")
 	@PutMapping("/{idactiviteit}")
 	public ResponseEntity<Activiteit> updateActiviteit(@PathVariable (value="idactiviteit") int idactiviteit, @RequestBody Activiteit activiteit) {
 		Activiteit act = activiteiten.findOne(idactiviteit);

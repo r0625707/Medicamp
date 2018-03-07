@@ -133,6 +133,7 @@ public class UserController {
 		return ResponseEntity.ok().body(user.getGroepen());
 	}
     
+    @PreAuthorize("isAuthorisedMethodAndUser('getUser',#login)")
 	@GetMapping("/{login}/")
 	public ResponseEntity<User> getUser(@PathVariable(value = "login") String string) {
 		User user = users.findOne(string);
@@ -142,7 +143,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok().body(user);
 	}
-
+    @PreAuthorize("isAuthorisedMethodAndUser('updateUser',#login)")
 	@PutMapping("/{login}/")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "login") String string, @RequestBody User user) {
 
@@ -161,7 +162,7 @@ public class UserController {
 		User updatedUser = users.save(oldUser);
 		return ResponseEntity.ok(updatedUser);
 	}
-
+    @PreAuthorize("isAuthorisedMethodAndUser('deleteUser',#login)")
 	@DeleteMapping("/{login}/")
 	public ResponseEntity<User> deleteUser(@PathVariable(value = "login") String string) {
 		User note = users.findOne(string);
@@ -171,15 +172,7 @@ public class UserController {
 		users.delete(note);
 		return ResponseEntity.ok().build();
 	}
-
-	@PostMapping("/login")
-	public boolean login(@RequestBody String login, @RequestBody String password) {
-		User user = users.findOne(login);
-		if (user == null) {
-			return false;
-		}
-		return user.isCorrectPassword(password);
-	}
+   
 
 	class ResponseBean {
 
