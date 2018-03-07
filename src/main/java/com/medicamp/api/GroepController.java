@@ -60,9 +60,9 @@ public class GroepController {
 		if(user == null) {
 			return ResponseEntity.notFound().build();
 		}
-		Groep nieuw = user.addGroep(groep);
+		groep = user.addGroep(groep);
 		users.save(user);
-		groepen.save(nieuw);
+		groepen.save(groep);
 		return ResponseEntity.ok().build();
 	}
 	
