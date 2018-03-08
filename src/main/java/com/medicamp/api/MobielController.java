@@ -126,10 +126,10 @@ public class MobielController {
 			innerGroepen.add(innerGroep);
 		}
 		response.setGroepen(innerGroepen);
-        //initialising list of visible kinderen
-		
-		Set<Kind> kinderenSet =  new HashSet<>();
-		
+		// initialising list of visible kinderen
+
+		Set<Kind> kinderenSet = new HashSet<>();
+
 		// setting takken
 		List<InnerTak> innerTakkenList = new ArrayList<>();
 		List<Tak> takkenlistleiding = takken.findAllForUser(login);
@@ -141,13 +141,13 @@ public class MobielController {
 				newList.add(String.valueOf(myInt));
 			}
 			List<String> takkenIds = newList;
-			innerTakkenList.add(new InnerTak(t.getIdtak(), t.getNaam(), t.getOmschrijving(), newList));
-			
-			//adding all kinderen from all takken 
-			for(Kind k : t.getKinderen()) {
-				
+			innerTakkenList.add(new InnerTak(t.getIdtak(), t.getNaam(), t.getOmschrijving(), newList, t.getGroep().getNaam()));
+
+			// adding all kinderen from all takken
+			for (Kind k : t.getKinderen()) {
+
 				kinderenSet.add(k);
-				
+
 			}
 
 		}
@@ -155,46 +155,34 @@ public class MobielController {
 
 		// setting kinderen
 		
-		/*List<Kind> kinderenList = kinderen.findAllKinderenForUser(login);*/
 		List<Kind> kinderenList = new ArrayList<>(kinderenSet);
 		List<InnerKind> innerkinderen = new ArrayList<>();
 		for (Kind k : kinderenList) {
-			
+
 			List<String> takkenIDlistkind = new ArrayList<>();
-			for(Tak t : k.getTakken()) {
+			for (Tak t : k.getTakken()) {
 				takkenIDlistkind.add(Integer.toString(t.getIdtak()));
 			}
-			
-			
-			
-			//setting medicatie
-			
+
+			// setting medicatie
+
 			List<Medicatie> medicatielist = k.getMedicaties();
 			List<InnerInnerMedicatie> innnerInnerMedicatielist = new ArrayList<>();
-			for(Medicatie m : medicatielist) {
-				innnerInnerMedicatielist.add(new InnerInnerMedicatie(m.getIdmedicatie(), m.getNaam(), m.getOpmerking(), m.getTijdstippen()));			
-				
+			for (Medicatie m : medicatielist) {
+				innnerInnerMedicatielist.add(
+						new InnerInnerMedicatie(m.getIdmedicatie(), m.getNaam(), m.getOpmerking(), m.getTijdstippen()));
+
 			}
-			
-			
+
 			InnerKind innerKind = new InnerKind(k.getIdkind(), k.getDafi(), k.getSport(), k.getZwemmen(),
 					k.getGebdatum(), k.getNaam(), k.getOpmerking(), k.getVoornaam(), k.getDieeten(),
-					innnerInnerMedicatielist, k.getVoogden(),
-					k.getZiektes(), takkenIDlistkind);
-			
-			
-			
-			
+					innnerInnerMedicatielist, k.getVoogden(), k.getZiektes(), takkenIDlistkind);
+
 			innerkinderen.add(innerKind);
-			
-			
+
 		}
 		response.setKinderen(innerkinderen);
-		
-		
-		
-		
-		
+
 		return response;
 
 	}
@@ -543,8 +531,6 @@ public class MobielController {
 				this.medicaties = medicaties;
 			}
 
-			
-
 			public List<Voogd> getVoogden() {
 				return voogden;
 			}
@@ -625,15 +611,15 @@ public class MobielController {
 		public static class InnerTak {
 
 			private int idtak;
-			private String naam, omschrijving;
+			private String naam, omschrijving, naamGroep;
 			private List<String> kinderenids;
 
 			public InnerTak() {
 
 			}
 
-			public InnerTak(int idtak, String naam, String omschrijving, List<String> kinderenids) {
-
+			public InnerTak(int idtak, String naam, String omschrijving, List<String> kinderenids, String naamGroep) {
+                this.naamGroep = naamGroep;
 				this.idtak = idtak;
 				this.naam = naam;
 				this.omschrijving = omschrijving;
@@ -670,6 +656,14 @@ public class MobielController {
 
 			public void setKinderenids(List<String> kinderenids) {
 				this.kinderenids = kinderenids;
+			}
+
+			public String getNaamGroep() {
+				return naamGroep;
+			}
+
+			public void setNaamGroep(String naamGroep) {
+				this.naamGroep = naamGroep;
 			}
 
 		}
