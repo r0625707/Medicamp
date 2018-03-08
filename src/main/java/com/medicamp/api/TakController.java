@@ -79,6 +79,7 @@ public class TakController {
 		}
 		tak.getUsers().add(leiding);
 		takken.save(tak);
+		users.save(leiding);
 		return ResponseEntity.ok().build();
 	}
 	
